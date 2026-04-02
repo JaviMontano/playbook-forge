@@ -1,0 +1,21 @@
+{
+  "name": "playbook-forge",
+  "version": "1.0.0",
+  "description": "Genera playbooks HTML branded con metodologia vivida: 13 flujos AI-native, 4 katas, adopcion progresiva, VR-AID, semaforo de valor. Sofka DS v5.1.",
+  "author": {
+    "name": "Javier Montano",
+    "url": "https://metodologia.info"
+  },
+  "license": "All Rights Reserved",
+  "keywords": [
+    "playbook",
+    "html",
+    "sofka",
+    "katas",
+    "adoption",
+    "ai-native",
+    "workflows",
+    "brand",
+    "design-system"
+  ]
+}

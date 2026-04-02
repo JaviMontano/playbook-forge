@@ -1,0 +1,961 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sofka.com/playbook-forge/content-manifest.schema.json",
+  "title": "Playbook Content Manifest",
+  "description": "Schema for the content manifest that drives playbook-forge HTML generation. Each manifest describes one complete playbook document with hero, sections, katas, flows, architecture layers, and footer.",
+  "type": "object",
+  "required": ["meta", "hero", "sections", "katas", "flows", "architectureLayers", "footer"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "description": "Document-level metadata used in <head>, nav, and footer.",
+      "required": ["title", "company", "badges", "language"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Full page title rendered in <title> tag. Format: 'Playbook Corporativo -- {topic} | {company}'."
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name shown in hero-logo, footer-logo, and copyright line."
+        },
+        "badges": {
+          "type": "array",
+          "description": "Hero badge labels and footer badge labels. Typically 3 items.",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "language": {
+          "type": "string",
+          "description": "ISO 639-1 language code for the HTML lang attribute.",
+          "enum": ["es", "en"]
+        },
+        "version": {
+          "type": "string",
+          "description": "Playbook version string shown in footer badges (e.g., 'v1.0')."
+        },
+        "designSystem": {
+          "type": "string",
+          "description": "Design system identifier (e.g., 'Sofka DS v5.1'). Informational only."
+        },
+        "copyright": {
+          "type": "string",
+          "description": "Full copyright line for footer-bottom. Supports HTML entities."
+        }
+      }
+    },
+    "hero": {
+      "type": "object",
+      "description": "Hero section: black background, orange border, company branding, title, subtitle, and KPI row.",
+      "required": ["h1Plain", "h1Highlight", "subtitle", "kpis"],
+      "additionalProperties": false,
+      "properties": {
+        "logoText": {
+          "type": "string",
+          "description": "Text rendered in .hero-logo. Defaults to meta.company if omitted."
+        },
+        "h1Plain": {
+          "type": "string",
+          "description": "Non-highlighted portion of the <h1> tag."
+        },
+        "h1Highlight": {
+          "type": "string",
+          "description": "Orange-highlighted <span> portion inside <h1>."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Paragraph below h1 in .hero-sub. Supports HTML entities."
+        },
+        "kpis": {
+          "type": "array",
+          "description": "Array of KPI cards displayed in the hero grid. Typically 5 items.",
+          "items": {
+            "$ref": "#/definitions/kpi"
+          },
+          "minItems": 3,
+          "maxItems": 6
+        }
+      }
+    },
+    "nav": {
+      "type": "object",
+      "description": "Optional navigation configuration. If omitted, nav is auto-generated from section IDs.",
+      "properties": {
+        "logoText": {
+          "type": "string",
+          "description": "Short brand text in nav .toc-logo (e.g., 'Sofka')."
+        },
+        "links": {
+          "type": "array",
+          "description": "Ordered nav links. Each maps to a section anchor.",
+          "items": {
+            "type": "object",
+            "required": ["href", "label"],
+            "properties": {
+              "href": {
+                "type": "string",
+                "description": "Anchor ID including # prefix (e.g., '#oportunidad')."
+              },
+              "label": {
+                "type": "string",
+                "description": "Display text for the nav link."
+              }
+            }
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "description": "Ordered array of content sections rendered inside <main>. Each section has a header and one or more components.",
+      "items": {
+        "$ref": "#/definitions/section"
+      },
+      "minItems": 1
+    },
+    "katas": {
+      "type": "array",
+      "description": "Array of exactly 4 kata objects representing the adoption exercises (Preparar, Capitalizar, Reportar, Visibilizar).",
+      "items": {
+        "$ref": "#/definitions/kata"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "flows": {
+      "type": "array",
+      "description": "Array of workflow flow objects. The reference playbook defines 13 flows (flows 1-13), but subsets are allowed.",
+      "items": {
+        "$ref": "#/definitions/flow"
+      },
+      "minItems": 1,
+      "maxItems": 20
+    },
+    "architectureLayers": {
+      "type": "array",
+      "description": "Array of 3 architecture layer objects: Habits, Ceremonies, and Artifacts.",
+      "items": {
+        "$ref": "#/definitions/architectureLayer"
+      },
+      "minItems": 1,
+      "maxItems": 5
+    },
+    "footer": {
+      "type": "object",
+      "description": "Footer configuration rendered in <footer class='site-footer'>.",
+      "required": ["logoText", "copyright"],
+      "additionalProperties": false,
+      "properties": {
+        "logoText": {
+          "type": "string",
+          "description": "Brand text in .footer-logo."
+        },
+        "badges": {
+          "type": "array",
+          "description": "Footer badge pill labels.",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "copyright": {
+          "type": "string",
+          "description": "Copyright line in .footer-bottom. Supports HTML entities like &copy;."
+        }
+      }
+    }
+  },
+  "definitions": {
+    "kpi": {
+      "type": "object",
+      "description": "A single KPI card in the hero section.",
+      "required": ["icon", "value", "label"],
+      "additionalProperties": false,
+      "properties": {
+        "icon": {
+          "type": "string",
+          "description": "Emoji or HTML entity for .hero-kpi-icon (e.g., '&#128295;' for wrench)."
+        },
+        "value": {
+          "type": "string",
+          "description": "Large display value in .hero-kpi-value (e.g., '5', '-50%', 'LaForja')."
+        },
+        "label": {
+          "type": "string",
+          "description": "Small label text below value in .hero-kpi-label."
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "description": "A content section within <main>. Contains a header and an array of components.",
+      "required": ["id", "headerTitle", "components"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "HTML anchor ID for the section (e.g., 'oportunidad', 'ciclo'). Used in nav hrefs.",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "headerTitle": {
+          "type": "string",
+          "description": "Section h2 text. Use {{HIGHLIGHT}} markers for the orange <span> portion."
+        },
+        "headerHighlight": {
+          "type": "string",
+          "description": "The orange-highlighted text within the h2 <span>."
+        },
+        "headerDescription": {
+          "type": "string",
+          "description": "Paragraph below h2 in .section-header p."
+        },
+        "showDivider": {
+          "type": "boolean",
+          "description": "Whether to render an <hr class='section-divider'> before this section. Default true.",
+          "default": true
+        },
+        "components": {
+          "type": "array",
+          "description": "Ordered list of components to render inside this section.",
+          "items": {
+            "$ref": "#/definitions/component"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "component": {
+      "type": "object",
+      "description": "A renderable component within a section. The 'type' field determines which snippet template is used.",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Component type identifier. Maps to a snippet template.",
+          "enum": [
+            "problem-grid",
+            "antipatron",
+            "cycle-visual",
+            "map-table",
+            "jarvis-cards",
+            "timeline",
+            "compare-grid",
+            "metrics-row",
+            "semaforo-grid",
+            "vraid-box",
+            "gem-bar",
+            "callout",
+            "decision-table",
+            "guardrail-grid",
+            "gate-box",
+            "acceptance-list",
+            "testimonial-grid",
+            "case-highlight",
+            "recommendations",
+            "inline-heading",
+            "inline-table",
+            "inline-paragraph"
+          ]
+        },
+        "data": {
+          "description": "Component-specific data payload. Structure depends on component type.",
+          "oneOf": [
+            { "$ref": "#/definitions/problemGridData" },
+            { "$ref": "#/definitions/antipatronData" },
+            { "$ref": "#/definitions/cycleVisualData" },
+            { "$ref": "#/definitions/mapTableData" },
+            { "$ref": "#/definitions/jarvisCardsData" },
+            { "$ref": "#/definitions/timelineData" },
+            { "$ref": "#/definitions/compareGridData" },
+            { "$ref": "#/definitions/metricsRowData" },
+            { "$ref": "#/definitions/semaforoGridData" },
+            { "$ref": "#/definitions/vraidBoxData" },
+            { "$ref": "#/definitions/gemBarData" },
+            { "$ref": "#/definitions/calloutData" },
+            { "$ref": "#/definitions/decisionTableData" },
+            { "$ref": "#/definitions/guardrailGridData" },
+            { "$ref": "#/definitions/gateBoxData" },
+            { "$ref": "#/definitions/acceptanceListData" },
+            { "$ref": "#/definitions/testimonialGridData" },
+            { "$ref": "#/definitions/caseHighlightData" },
+            { "$ref": "#/definitions/recommendationsData" },
+            { "$ref": "#/definitions/inlineHeadingData" },
+            { "$ref": "#/definitions/inlineTableData" },
+            { "$ref": "#/definitions/inlineParagraphData" }
+          ]
+        }
+      }
+    },
+    "problemGridData": {
+      "type": "object",
+      "description": "Data for problem-grid component: auto-fit grid of problem cards with colored left border.",
+      "required": ["cards"],
+      "properties": {
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "body"],
+            "properties": {
+              "title": { "type": "string", "description": "Card heading in .problem-card h4." },
+              "body": { "type": "string", "description": "Card paragraph. Supports <strong> for emphasis." },
+              "borderColor": { "type": "string", "description": "CSS color for left border (e.g., 'var(--sofka-orange)')." },
+              "titleColor": { "type": "string", "description": "CSS color for h4 text." }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "antipatronData": {
+      "type": "object",
+      "description": "Data for antipatron component: bad vs good 3-column layout with arrow.",
+      "required": ["bad", "good"],
+      "properties": {
+        "bad": {
+          "type": "object",
+          "required": ["title", "items"],
+          "properties": {
+            "title": { "type": "string" },
+            "items": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+          }
+        },
+        "good": {
+          "type": "object",
+          "required": ["title", "items"],
+          "properties": {
+            "title": { "type": "string" },
+            "items": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+          }
+        }
+      }
+    },
+    "cycleVisualData": {
+      "type": "object",
+      "description": "Data for cycle-visual component: horizontal step flow with arrows.",
+      "required": ["steps"],
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["num", "label", "jarvis", "artifact"],
+            "properties": {
+              "num": { "type": "integer", "description": "Step number displayed in orange circle." },
+              "label": { "type": "string", "description": "Step name in .step-label." },
+              "jarvis": { "type": "string", "description": "Jarvis agent name in .step-jarvis." },
+              "artifact": { "type": "string", "description": "Output artifact name in .step-artifact." }
+            }
+          },
+          "minItems": 2
+        }
+      }
+    },
+    "mapTableData": {
+      "type": "object",
+      "description": "Data for map-table component: dark-header table with .jarvis-name highlighting.",
+      "required": ["headers", "rows"],
+      "properties": {
+        "headers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 2,
+          "description": "Column header texts."
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["cells"],
+            "properties": {
+              "cells": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["text"],
+                  "properties": {
+                    "text": { "type": "string" },
+                    "bold": { "type": "boolean", "description": "Render cell with font-weight:700." },
+                    "jarvisName": { "type": "boolean", "description": "Apply .jarvis-name class (orange, bold)." }
+                  }
+                }
+              }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "jarvisCardsData": {
+      "type": "object",
+      "description": "Data for jarvis-cards component: grid of agent profile cards.",
+      "required": ["cards"],
+      "properties": {
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/jarvisCard"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "jarvisCard": {
+      "type": "object",
+      "description": "A single Jarvis agent card with icon, header, body fields, anti-use, and gem link.",
+      "required": ["iconClass", "iconLabel", "name", "subtitle", "description", "fields"],
+      "properties": {
+        "iconClass": {
+          "type": "string",
+          "description": "CSS modifier class for .jarvis-icon (e.g., 'laforja', 'lareu', 'lavuelta', 'elrepo', 'lainfo').",
+          "enum": ["laforja", "lareu", "lavuelta", "elrepo", "lainfo"]
+        },
+        "iconLabel": {
+          "type": "string",
+          "description": "Short 2-char label inside icon box (e.g., 'LF', 'LR', 'LV', 'ER', 'LI')."
+        },
+        "name": {
+          "type": "string",
+          "description": "Jarvis name in card header h3 (e.g., 'Jarvis LaForja')."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Subtitle in <small> inside h3 (e.g., 'Generador de Prompts -- El Habilitador')."
+        },
+        "description": {
+          "type": "string",
+          "description": "Card body paragraph."
+        },
+        "fields": {
+          "type": "array",
+          "description": "Array of label-value field pairs in .jf blocks.",
+          "items": {
+            "type": "object",
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "type": "string", "description": "Field label in .jf-label." },
+              "value": { "type": "string", "description": "Field value in .jf-value." },
+              "isPrompt": { "type": "boolean", "description": "If true, render value in .jf-prompt (code block style)." }
+            }
+          },
+          "minItems": 1
+        },
+        "antiUse": {
+          "type": "string",
+          "description": "Anti-use warning text rendered in .jf-antiuse."
+        },
+        "gemLink": {
+          "type": "object",
+          "description": "CTA button linking to the Gem.",
+          "required": ["url", "label"],
+          "properties": {
+            "url": { "type": "string", "format": "uri" },
+            "label": { "type": "string" }
+          }
+        }
+      }
+    },
+    "timelineData": {
+      "type": "object",
+      "description": "Data for timeline component: vertical gradient-line timeline with 4 colored dots.",
+      "required": ["items"],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["dotNum", "title", "objective"],
+            "properties": {
+              "dotNum": { "type": "integer", "description": "Number inside the timeline dot circle." },
+              "title": { "type": "string", "description": "Timeline item h3 text. Use {{WK}} marker for .wk span." },
+              "weekLabel": { "type": "string", "description": "Text inside .wk span (e.g., 'Semana 1')." },
+              "titleSuffix": { "type": "string", "description": "Text after the .wk span in h3." },
+              "objective": { "type": "string", "description": "Week objective paragraph in .week-obj." },
+              "tags": {
+                "type": "array",
+                "description": "Jarvis tags displayed in .jtags.",
+                "items": {
+                  "type": "object",
+                  "required": ["label", "variant"],
+                  "properties": {
+                    "label": { "type": "string" },
+                    "variant": {
+                      "type": "string",
+                      "description": "Tag color variant class suffix.",
+                      "enum": ["t-laforja", "t-lareu", "t-lavuelta", "t-elrepo", "t-lainfo"]
+                    }
+                  }
+                }
+              },
+              "deliverable": {
+                "type": "object",
+                "description": "Deliverable block in .tl-deliverable.",
+                "required": ["label", "text"],
+                "properties": {
+                  "label": { "type": "string", "description": "Bold label (e.g., 'Salida del viernes:')." },
+                  "text": { "type": "string", "description": "Deliverable description text." }
+                }
+              },
+              "gate": {
+                "type": "string",
+                "description": "Gate/checkpoint text rendered in .gate-box."
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 6
+        }
+      }
+    },
+    "compareGridData": {
+      "type": "object",
+      "description": "Data for compare-grid component: before/after two-column comparison.",
+      "required": ["before", "after"],
+      "properties": {
+        "before": {
+          "type": "object",
+          "required": ["title", "items"],
+          "properties": {
+            "title": { "type": "string" },
+            "items": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+          }
+        },
+        "after": {
+          "type": "object",
+          "required": ["title", "items"],
+          "properties": {
+            "title": { "type": "string" },
+            "items": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+          }
+        }
+      }
+    },
+    "metricsRowData": {
+      "type": "object",
+      "description": "Data for metrics-row component: 4-column grid of metric cards.",
+      "required": ["metrics"],
+      "properties": {
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["value", "label"],
+            "properties": {
+              "value": { "type": "string", "description": "Large metric value in .mv (e.g., '-50%', '100%')." },
+              "label": { "type": "string", "description": "Metric label in .ml." }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 6
+        }
+      }
+    },
+    "semaforoGridData": {
+      "type": "object",
+      "description": "Data for semaforo-grid component: 4 color-coded status cards.",
+      "required": ["cards"],
+      "properties": {
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["variant", "title", "description"],
+            "properties": {
+              "variant": {
+                "type": "string",
+                "description": "Color variant class.",
+                "enum": ["verde", "blanco", "amarillo", "rojo"]
+              },
+              "title": { "type": "string", "description": "Card heading." },
+              "description": { "type": "string", "description": "Card body text." }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 4
+        }
+      }
+    },
+    "vraidBoxData": {
+      "type": "object",
+      "description": "Data for vraid-box component: orange-bordered box with VR-AID letter cards.",
+      "required": ["title", "letters"],
+      "properties": {
+        "title": { "type": "string", "description": "Box heading in .vraid-box h3." },
+        "letters": {
+          "type": "array",
+          "description": "VR-AID letter definitions.",
+          "items": {
+            "type": "object",
+            "required": ["letter", "meaning"],
+            "properties": {
+              "letter": { "type": "string", "description": "Single letter (V, R, A, I, or D).", "maxLength": 2 },
+              "meaning": { "type": "string", "description": "Letter meaning text." },
+              "feeds": { "type": "string", "description": "Which Jarvis agents feed this dimension." }
+            }
+          },
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "note": {
+          "type": "string",
+          "description": "Note paragraph in .vraid-note. Supports <strong> tags."
+        }
+      }
+    },
+    "gemBarData": {
+      "type": "object",
+      "description": "Data for gem-bar component: black bar with CTA gem links.",
+      "required": ["title", "gems"],
+      "properties": {
+        "title": { "type": "string", "description": "Bar title text in .gem-bar-title." },
+        "gems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "url"],
+            "properties": {
+              "label": { "type": "string", "description": "Link text." },
+              "url": { "type": "string", "format": "uri", "description": "Gem URL." }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "calloutData": {
+      "type": "object",
+      "description": "Data for callout component: colored callout box with title and content.",
+      "required": ["variant", "title"],
+      "properties": {
+        "variant": {
+          "type": "string",
+          "description": "Callout color variant.",
+          "enum": ["callout-warning", "callout-info", "callout-orange"]
+        },
+        "title": { "type": "string", "description": "Bold title in <strong>." },
+        "body": { "type": "string", "description": "Paragraph text. Mutually exclusive with items." },
+        "items": {
+          "type": "array",
+          "description": "Bullet list items. Mutually exclusive with body.",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "decisionTableData": {
+      "type": "object",
+      "description": "Data for decision-table component: full-width data table with dark header.",
+      "required": ["headers", "rows"],
+      "properties": {
+        "headers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 2
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["cells"],
+            "properties": {
+              "cells": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["text"],
+                  "properties": {
+                    "text": { "type": "string" },
+                    "bold": { "type": "boolean" },
+                    "color": { "type": "string", "description": "CSS color override for cell text." },
+                    "isLink": { "type": "boolean", "description": "Render as <a> tag." },
+                    "href": { "type": "string", "format": "uri" }
+                  }
+                }
+              }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "guardrailGridData": {
+      "type": "object",
+      "description": "Data for guardrail-grid component: two-column do/don't layout.",
+      "required": ["doColumn", "dontColumn"],
+      "properties": {
+        "doColumn": {
+          "type": "object",
+          "required": ["title", "items"],
+          "properties": {
+            "title": { "type": "string" },
+            "items": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+          }
+        },
+        "dontColumn": {
+          "type": "object",
+          "required": ["title", "items"],
+          "properties": {
+            "title": { "type": "string" },
+            "items": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+          }
+        }
+      }
+    },
+    "gateBoxData": {
+      "type": "object",
+      "description": "Data for gate-box component: black/gold checkpoint box.",
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string", "description": "Gate criteria text. Monospace font, gold color on black." }
+      }
+    },
+    "acceptanceListData": {
+      "type": "object",
+      "description": "Data for acceptance-list component: numbered criteria with CA-N prefix.",
+      "required": ["items"],
+      "properties": {
+        "preamble": { "type": "string", "description": "Optional paragraph above the list." },
+        "items": {
+          "type": "array",
+          "items": { "type": "string", "description": "Single acceptance criterion text." },
+          "minItems": 1
+        }
+      }
+    },
+    "testimonialGridData": {
+      "type": "object",
+      "description": "Data for testimonial-grid component: grid of testimonial cards.",
+      "required": ["testimonials"],
+      "properties": {
+        "testimonials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["quote", "author"],
+            "properties": {
+              "quote": { "type": "string", "description": "Testimonial quote text." },
+              "author": { "type": "string", "description": "Author name/title." },
+              "role": { "type": "string", "description": "Author role or additional context." }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "caseHighlightData": {
+      "type": "object",
+      "description": "Data for case-highlight component: orange-bordered highlight box with big metric.",
+      "required": ["metricValue", "metricUnit", "title", "description"],
+      "properties": {
+        "metricValue": { "type": "string", "description": "Large display value in .case-metric .big." },
+        "metricUnit": { "type": "string", "description": "Unit text below the big metric." },
+        "title": { "type": "string", "description": "Detail heading in .case-detail h4." },
+        "description": { "type": "string", "description": "Detail paragraph in .case-detail p." }
+      }
+    },
+    "recommendationsData": {
+      "type": "object",
+      "description": "Data for recommendations component: list of blue-bordered recommendation cards.",
+      "required": ["cards"],
+      "properties": {
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "body"],
+            "properties": {
+              "title": { "type": "string", "description": "Recommendation heading in .rec-card h4." },
+              "body": { "type": "string", "description": "Recommendation body in .rec-card p." }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "inlineHeadingData": {
+      "type": "object",
+      "description": "Data for an inline h3 heading within a section.",
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string" },
+        "level": { "type": "integer", "enum": [3, 4, 5], "default": 3 }
+      }
+    },
+    "inlineTableData": {
+      "type": "object",
+      "description": "Data for an inline table with scrollable wrapper. Uses decision-table styling.",
+      "required": ["headers", "rows"],
+      "properties": {
+        "headers": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "inlineParagraphData": {
+      "type": "object",
+      "description": "Data for an inline paragraph or code block.",
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string" },
+        "isCode": { "type": "boolean", "description": "Render in <code> tags." }
+      }
+    },
+    "kata": {
+      "type": "object",
+      "description": "A single kata (adoption exercise). Each kata has a name, objective, exercise steps, criteria, and checkpoints.",
+      "required": ["id", "number", "name", "objective", "jarvisAgent", "steps", "successCriteria"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "HTML anchor ID (e.g., 'kata1', 'kata2').",
+          "pattern": "^kata[1-4]$"
+        },
+        "number": {
+          "type": "integer",
+          "description": "Kata number (1-4).",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "name": {
+          "type": "string",
+          "description": "Kata name (e.g., 'Preparar', 'Capitalizar', 'Reportar', 'Visibilizar')."
+        },
+        "objective": {
+          "type": "string",
+          "description": "One-sentence objective of this kata."
+        },
+        "jarvisAgent": {
+          "type": "string",
+          "description": "Primary Jarvis agent used in this kata (e.g., 'LaReu', 'LaVuelta')."
+        },
+        "duration": {
+          "type": "string",
+          "description": "Estimated duration (e.g., '30 min')."
+        },
+        "steps": {
+          "type": "array",
+          "description": "Ordered exercise steps within the kata.",
+          "items": {
+            "type": "object",
+            "required": ["stepNumber", "instruction"],
+            "properties": {
+              "stepNumber": { "type": "integer", "description": "Step number within kata." },
+              "instruction": { "type": "string", "description": "Step instruction text." },
+              "tool": { "type": "string", "description": "Tool or platform used (e.g., 'Gemini', 'Confluence')." },
+              "output": { "type": "string", "description": "Expected output or artifact from this step." },
+              "tip": { "type": "string", "description": "Optional tip text shown in tip-card or callout." }
+            }
+          },
+          "minItems": 1
+        },
+        "successCriteria": {
+          "type": "array",
+          "description": "Success criteria checked at kata completion.",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "checkpoint": {
+          "type": "string",
+          "description": "Gate/checkpoint text for the kata rendered in .gate-box."
+        },
+        "antiPatterns": {
+          "type": "array",
+          "description": "Common anti-patterns to avoid during this kata.",
+          "items": { "type": "string" }
+        },
+        "platforms": {
+          "type": "array",
+          "description": "Platforms required for this kata (e.g., ['Gemini', 'NotebookLM']).",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "flow": {
+      "type": "object",
+      "description": "A numbered workflow flow (e.g., Flow 5: Preparar Planning). Each flow maps a situation to a Jarvis sequence.",
+      "required": ["number", "name", "trigger", "jarvisSequence", "output"],
+      "additionalProperties": false,
+      "properties": {
+        "number": {
+          "type": "integer",
+          "description": "Flow number (1-13).",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "name": {
+          "type": "string",
+          "description": "Flow name (e.g., 'Preparar Planning')."
+        },
+        "trigger": {
+          "type": "string",
+          "description": "Situation or trigger that activates this flow."
+        },
+        "jarvisSequence": {
+          "type": "array",
+          "description": "Ordered sequence of Jarvis agents to invoke.",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "input": {
+          "type": "string",
+          "description": "Minimum input required to start the flow."
+        },
+        "output": {
+          "type": "string",
+          "description": "Expected output artifacts."
+        },
+        "estimatedTime": {
+          "type": "string",
+          "description": "Estimated time to complete the flow (e.g., '10-15 min')."
+        },
+        "frequency": {
+          "type": "string",
+          "description": "How often this flow is typically executed (e.g., 'Weekly', 'Per ceremony')."
+        }
+      }
+    },
+    "architectureLayer": {
+      "type": "object",
+      "description": "An architecture layer (Habits, Ceremonies, or Artifacts) describing the organizational structure.",
+      "required": ["name", "description", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Layer name (e.g., 'Habitos', 'Ceremonias', 'Artefactos')."
+        },
+        "description": {
+          "type": "string",
+          "description": "Layer description."
+        },
+        "icon": {
+          "type": "string",
+          "description": "Emoji or icon for the layer."
+        },
+        "items": {
+          "type": "array",
+          "description": "Items within this layer.",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "jarvis": { "type": "string", "description": "Related Jarvis agent." },
+              "frequency": { "type": "string" }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}
