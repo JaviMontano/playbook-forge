@@ -461,24 +461,120 @@ function renderCtaBlock(ctas) {
   return html;
 }
 
+function renderEmpezarGrid(cards) {
+  var html = '<div class="problem-grid">';
+  (cards || []).forEach(function(c) {
+    if (c.isStatic) {
+      html += '<div class="problem-card tip-card" style="border-left-color:' + (c.color || 'var(--sofka-warning)') + ';">';
+    } else {
+      html += '<div class="problem-card tip-card clickable-card" style="border-left-color:' + (c.color || 'var(--sofka-info)') + ';cursor:pointer;" onclick="openModal(\'' + c.flowNum + '\')" role="button" tabindex="0">';
+    }
+    html += '<h4 class="es" style="color:' + (c.color || 'var(--sofka-info)') + ';">' + (c.emoji || '') + ' ' + escapeHtml(c.titleEs || '') + '</h4>';
+    html += '<h4 class="en" style="color:' + (c.color || 'var(--sofka-info)') + ';">' + (c.emoji || '') + ' ' + escapeHtml(c.titleEn || '') + '</h4>';
+    html += '<p class="es">' + (c.descEs || '') + '</p>';
+    html += '<p class="en">' + (c.descEn || '') + '</p>';
+    html += '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderMetadataTable(metadata) {
+  var html = '<div style="overflow-x:auto;"><table class="decision-table"><tbody>';
+  (metadata.rows || []).forEach(function(r) {
+    html += '<tr><td style="font-weight:700;width:160px;">' + renderBilingual(r.labelEs || '', r.labelEn || '') + '</td>';
+    html += '<td>' + renderBilingualRaw(r.valueEs || '', r.valueEn || '') + '</td></tr>';
+  });
+  html += '</tbody></table></div>';
+  return html;
+}
+
+function renderRoleVariantModals(variants) {
+  var html = '';
+  (variants || []).forEach(function(v) {
+    var body = '<div class="callout callout-info">';
+    body += '<strong class="es">&#10067; Concepto</strong><strong class="en">&#10067; Concept</strong>';
+    body += '<p class="es">' + (v.conceptEs || '') + '</p><p class="en">' + (v.conceptEn || '') + '</p></div>';
+    body += '<h4 class="es">Flujos recomendados</h4><h4 class="en">Recommended flows</h4>';
+    body += '<p class="es">' + (v.flowsEs || '') + '</p><p class="en">' + (v.flowsEn || '') + '</p>';
+    if (v.calloutEs) {
+      body += '<div class="callout" style="border-color:var(--sofka-orange);background:var(--sofka-orange-dim);">';
+      body += '<p class="es">' + v.calloutEs + '</p><p class="en">' + (v.calloutEn || '') + '</p></div>';
+    }
+    html += renderModalOverlay('frv-' + v.id, v.nameEs || '', v.nameEn || '', v.subtitleEs || '', v.subtitleEn || '', body);
+  });
+  return html;
+}
+
+function renderMetricModals(metrics) {
+  var html = '';
+  (metrics || []).forEach(function(m) {
+    var body = '<div class="callout callout-info">';
+    body += '<p class="es">' + (m.detailEs || '') + '</p><p class="en">' + (m.detailEn || '') + '</p></div>';
+    if (m.evidenceEs) {
+      body += '<div class="callout" style="border-color:var(--sofka-orange);background:var(--sofka-orange-dim);">';
+      body += '<strong class="es">Evidencia del piloto</strong><strong class="en">Pilot evidence</strong>';
+      body += '<p class="es">' + m.evidenceEs + '</p><p class="en">' + (m.evidenceEn || '') + '</p></div>';
+    }
+    html += renderModalOverlay('fm-' + m.id, m.titleEs || '', m.titleEn || '', m.subtitleEs || '', m.subtitleEn || '', body);
+  });
+  return html;
+}
+
+function renderImpactModal(impact) {
+  if (!impact) return '';
+  var body = '<div class="timeline">';
+  (impact.weeks || []).forEach(function(w, i) {
+    body += '<div class="timeline-item"><div class="timeline-dot">' + (i + 1) + '</div>';
+    body += '<div class="timeline-content"><h3><span class="wk">' + renderBilingual(w.labelEs || '', w.labelEn || '') + '</span></h3>';
+    body += '<p class="es">' + (w.descEs || '') + '</p><p class="en">' + (w.descEn || '') + '</p></div></div>';
+  });
+  body += '</div>';
+  return renderModalOverlay('fimpacto', impact.titleEs || '', impact.titleEn || '', impact.subtitleEs || '', impact.subtitleEn || '', body);
+}
+
 function renderAllModals(manifest) {
   var html = '\n<!-- MODALS -->\n';
-  // Flow modals
+  // Flow modals (id="modal-f{num}")
   (manifest.flows || []).forEach(function(f) {
     html += renderModalOverlay('f' + f.num, f.nameEs || f.name, f.nameEn || '', f.subtitleEs || '', f.subtitleEn || '', renderFlowModalBody(f));
   });
-  // Anti-pattern modals
+  // Anti-pattern modals (id="modal-fap{num}")
   (manifest.antiPatterns || []).forEach(function(ap) {
     html += renderModalOverlay('fap' + ap.num, ap.nameEs || '', ap.nameEn || '', ap.subtitleEs || '', ap.subtitleEn || '', renderAntiPatternModalBody(ap));
   });
-  // Glossary modals
+  // Glossary modals (id="modal-fg-{id}")
   (manifest.glossary || []).forEach(function(t) {
     html += renderModalOverlay('fg-' + t.id, t.name || '', '', t.subtitleEs || '', t.subtitleEn || '', renderGlossaryModalBody(t));
   });
-  // Kata modals
+  // Kata modals (id="modal-fka{num}")
   (manifest.katas || []).forEach(function(k) {
     html += renderModalOverlay('fka' + k.number, k.nameEs || k.name, k.nameEn || '', k.subtitleEs || '', k.subtitleEn || '', renderKataModalBody(k));
   });
+  // Decision-matrix modals (id="modal-fdm{num}") — rendered via modals.decisionMatrix if present
+  if (manifest.modals && Array.isArray(manifest.modals.decisionMatrix)) {
+    manifest.modals.decisionMatrix.forEach(function(dm) {
+      html += renderModalOverlay('fdm' + dm.num, dm.titleEs || '', dm.titleEn || '', dm.subtitleEs || '', dm.subtitleEn || '', dm.bodyHtml || '');
+    });
+  }
+  // Learning-layer modals (id="modal-fl-{id}") — rendered via modals.learningLayers if present
+  if (manifest.modals && Array.isArray(manifest.modals.learningLayers)) {
+    manifest.modals.learningLayers.forEach(function(ll) {
+      html += renderModalOverlay('fl-' + ll.id, ll.titleEs || '', ll.titleEn || '', ll.subtitleEs || '', ll.subtitleEn || '', ll.bodyHtml || '');
+    });
+  }
+  // Manager modals (id="modal-fm-{level}") — rendered via modals.managerProfiles if present
+  if (manifest.modals && Array.isArray(manifest.modals.managerProfiles)) {
+    manifest.modals.managerProfiles.forEach(function(mp) {
+      html += renderModalOverlay('fm-' + mp.level, mp.nameEs || '', mp.nameEn || '', mp.subtitleEs || '', mp.subtitleEn || '', mp.bodyHtml || '');
+    });
+  }
+  // Role variant modals (id="modal-frv-{variant}")
+  html += renderRoleVariantModals(manifest.roleVariants || []);
+  // Metric detail modals (id="modal-fm-{metric}")
+  html += renderMetricModals(manifest.metricModals || []);
+  // Impact modal (id="modal-fimpacto")
+  html += renderImpactModal(manifest.impactModal);
   return html;
 }
 
@@ -832,6 +928,13 @@ function renderComponent(comp) {
       <div class="gem-bar-title">${escapeHtml(data.title)}</div>
       ${links}
     </div>`;
+    }
+    // ── v3 component types ────────────────────────────────────────────────
+    case 'empezar-grid': {
+      return renderEmpezarGrid(data.cards || data);
+    }
+    case 'metadata-table': {
+      return renderMetadataTable(data);
     }
     default:
       process.stderr.write(`WARN: Unknown component type "${comp.type}", skipping.\n`);

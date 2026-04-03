@@ -145,6 +145,60 @@ In every flow and kata, ensure the 3-layer architecture is explicit:
 - Exploration and output happen in the front layer (Gemini/ChatGPT/Claude).
 - Never skip the middleware — this is the anti-hallucination guarantee.
 
+### Glossary (17 terms)
+
+Generate 17 bilingual glossary terms covering all key concepts used in the playbook. Each term requires: id, name, subtitleEs, subtitleEn, conceptEs, conceptEn, whyEs, whyEn, exampleEs, exampleEn. Terms should cover the methodology vocabulary, tool names, framework concepts, and process terms.
+
+### Empezar Cards (6 empathy cards)
+
+Generate 6 empathy-driven onboarding cards for the `empezarCards` array:
+- 5 clickable cards that link to specific flow modals via `flowNum` (e.g., "f1", "f5")
+- 1 static tip card with `isStatic: true` (general tool guidance, no modal link)
+
+Each card has:
+- `emoji`: Relevant emoji icon
+- `titleEs`/`titleEn`: Empathic pain-point title (e.g., "Las reuniones se pierden en el olvido" / "Meetings vanish into thin air")
+- `descEs`/`descEn`: Description pointing to the specific flow that solves this pain point
+- `color`: CSS color variable (e.g., `var(--sofka-info)`, `var(--sofka-orange)`)
+- `flowNum`: Flow number string for clickable cards (e.g., "f1")
+
+### H2 Title Pattern
+
+All section h2 titles must use the `<span>` highlight pattern for the orange-highlighted word:
+- `plain_text <span>highlight</span>` or `<span>highlight</span> plain_text`
+- Example: `Flujos de <span>Trabajo</span>` or `<span>Empezar</span> por aqui`
+
+### Role Variants (3 objects)
+
+Generate the `roleVariants` array with exactly 3 role variant objects:
+1. **Process Lead** (`id: "process"`): The person managing day-to-day process execution
+2. **Future Leader** (`id: "futuro"`): The emerging leader preparing for greater responsibility
+3. **Self-Pilot** (`id: "autonomo"`): The autonomous practitioner who self-manages their workflow
+
+Each variant requires: id, nameEs, nameEn, subtitleEs, subtitleEn, conceptEs, conceptEn, flowsEs, flowsEn. Optional: calloutEs, calloutEn.
+
+### Metric Modals (4 objects)
+
+Generate the `metricModals` array with 4 metric detail objects:
+1. **Time** (`id: "tiempo"`): -50% time reduction metric details
+2. **Precision** (`id: "precision"`): 100% verifiable outputs metric details
+3. **Deliverables** (`id: "entregables"`): 3/3 deliverables completion metric details
+4. **OKR** (`id: "okr"`): -50% OKR cycle time metric details
+
+Each requires: id, titleEs, titleEn, subtitleEs, subtitleEn, detailEs, detailEn. Optional: evidenceEs, evidenceEn (pilot evidence).
+
+### Impact Modal (1 object)
+
+Generate the `impactModal` object with a weekly progression timeline:
+- `titleEs`/`titleEn`: Impact modal title
+- `subtitleEs`/`subtitleEn`: Impact modal subtitle
+- `weeks`: Array of 3 milestone objects:
+  1. Week 1-2: Initial adoption milestone
+  2. Week 4: Intermediate proficiency milestone
+  3. Week 8: Full autonomy milestone
+
+Each week requires: labelEs, labelEn, descEs, descEn.
+
 ## Constraints
 
 - **No invented metrics**: Do not fabricate specific percentages or numbers. Use ranges or qualitative indicators.

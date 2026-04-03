@@ -1,12 +1,12 @@
-# Section Templates -- V2 Playbook (11 Sections)
+# Section Templates -- V3 Playbook (12 Sections)
 
-> Knowledge base for playbook-forge agents (v2.0.0).
-> Documents the composition of each section in the v2 Sofka playbook reference.
-> V2 adds: bilingual content, 65 modals, 5 katas (Shu-Ha-Ri), 13 anti-patterns, glossary, manager profiles.
+> Knowledge base for playbook-forge agents (v3.0.0).
+> Documents the composition of each section in the v3 Sofka playbook reference.
+> V3 adds: bilingual content, 69 modals, 5 katas (Shu-Ha-Ri), 13 anti-patterns, glossary, manager profiles, empezar onboarding, role variants, metric modals, impact modal.
 
 ---
 
-## V2 Sections (11 total, 4 groups)
+## V3 Sections (12 total, 5 groups)
 
 ### Group 1: Foundation
 - S1: Glosario (id="glosario") -- glossary-grid + glossary modals (15 terms)
@@ -25,7 +25,10 @@
 ### Group 4: Governance
 - S9: Anti-patrones (id="antipatrones") -- antipattern-table (13 rows, clickable) + callouts
 - S10: Tu Ritmo (id="ritmo") -- timeline (adoption) + vraid-box + metrics-row + acceptance-list
-- S11: Cierre (id="cierre") -- case-highlight + testimonial-grid + callout (acknowledgments) + decision-table (metadata)
+
+### Group 5: Onboarding
+- S11: Empezar (id="empezar") -- empezar-grid (6 empathy cards: 5 clickable + 1 static tip)
+- S12: Cierre (id="cierre") -- case-highlight + testimonial-grid + callout (acknowledgments) + decision-table (metadata)
 
 ---
 
@@ -167,7 +170,25 @@
 
 ---
 
-### S11: Cierre (id="cierre")
+### S11: Empezar (id="empezar") -- Group: Onboarding
+
+**Purpose**: Empathy-driven onboarding section with cards that link users directly to relevant flow modals based on their pain points.
+
+**Component composition**:
+
+1. **section-header**: Bilingual h2 with span highlight
+2. **empezar-grid** (problem-grid): 6 empathy cards (5 clickable -> flow modals, 1 static tip)
+
+**Card pattern:** Each card has:
+- Emoji icon in h4
+- Pain point title (bilingual)
+- Description pointing to specific flow (bilingual)
+- onclick -> openModal(flowNum) for the 5 clickable cards
+- 1 static card with tool guidance (no onclick)
+
+---
+
+### S12: Cierre (id="cierre")
 
 **Purpose**: Case study, testimonials, acknowledgments, and metadata.
 
@@ -181,16 +202,18 @@
 
 ---
 
-## Modal Inventory (65 total)
+## Modal Inventory (69 total)
 
 | Category | Count | Trigger |
 |----------|-------|---------|
 | Flow deep-dives | 13 | Flow card/row click |
 | Anti-pattern details | 13 | Anti-pattern row click |
-| Glossary terms | 15 | Glossary card click |
+| Glossary terms | 17 | Glossary card click |
 | Kata details | 5 | Kata card click |
 | Decision matrix | 7 | Decision cell click |
 | Learning layers | 3 | Layer card click |
 | Manager profiles | 3 | Profile card click |
+| Role variants | 3 | Role variant card click |
+| Metric details | 4 | Metric card click |
 | Impact | 1 | Impact card click |
-| **Total** | **65** | |
+| **Total** | **69** | |

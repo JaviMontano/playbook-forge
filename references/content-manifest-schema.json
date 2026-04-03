@@ -4,7 +4,7 @@
   "title": "Playbook Content Manifest",
   "description": "Schema for the content manifest that drives playbook-forge HTML generation. Each manifest describes one complete playbook document with hero, sections, katas, flows, architecture layers, and footer.",
   "type": "object",
-  "required": ["meta", "hero", "sections", "katas", "flows", "architectureLayers", "footer", "glossary", "antiPatterns", "managerProfiles"],
+  "required": ["meta", "hero", "sections", "katas", "flows", "architectureLayers", "footer", "glossary", "antiPatterns", "managerProfiles", "empezarCards"],
   "additionalProperties": false,
   "properties": {
     "meta": {
@@ -173,7 +173,7 @@
           "exampleEn": { "type": "string", "description": "English usage example." }
         }
       },
-      "minItems": 10
+      "minItems": 15
     },
     "antiPatterns": {
       "type": "array",
@@ -283,6 +283,98 @@
           "description": "Copyright line in .footer-bottom. Supports HTML entities like &copy;."
         }
       }
+    },
+    "empezarCards": {
+      "type": "array",
+      "description": "Array of 4-8 empathy cards for the Empezar onboarding section. Each card represents a pain point linking to a flow modal.",
+      "items": {
+        "type": "object",
+        "required": ["emoji", "titleEs", "titleEn", "descEs", "descEn", "color"],
+        "additionalProperties": false,
+        "properties": {
+          "emoji": { "type": "string", "description": "Emoji icon shown in the card h4." },
+          "titleEs": { "type": "string", "description": "Spanish empathy pain-point title." },
+          "titleEn": { "type": "string", "description": "English empathy pain-point title." },
+          "descEs": { "type": "string", "description": "Spanish description pointing to a specific flow." },
+          "descEn": { "type": "string", "description": "English description pointing to a specific flow." },
+          "color": { "type": "string", "description": "CSS color for card border and title (e.g., 'var(--sofka-info)')." },
+          "flowNum": { "type": "string", "description": "Flow number to open via openModal(flowNum). Omit for static cards." },
+          "isStatic": { "type": "boolean", "description": "If true, card has no onclick handler (static tip card)." }
+        }
+      },
+      "minItems": 4,
+      "maxItems": 8
+    },
+    "roleVariants": {
+      "type": "array",
+      "description": "Array of exactly 3 role variant objects: process lead, future leader, self-pilot.",
+      "items": {
+        "type": "object",
+        "required": ["id", "nameEs", "nameEn", "subtitleEs", "subtitleEn", "conceptEs", "conceptEn", "flowsEs", "flowsEn"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "description": "Variant identifier (e.g., 'process', 'futuro', 'autonomo')." },
+          "nameEs": { "type": "string", "description": "Spanish variant name." },
+          "nameEn": { "type": "string", "description": "English variant name." },
+          "subtitleEs": { "type": "string", "description": "Spanish subtitle." },
+          "subtitleEn": { "type": "string", "description": "English subtitle." },
+          "conceptEs": { "type": "string", "description": "Spanish concept explanation." },
+          "conceptEn": { "type": "string", "description": "English concept explanation." },
+          "flowsEs": { "type": "string", "description": "Spanish recommended flows description." },
+          "flowsEn": { "type": "string", "description": "English recommended flows description." },
+          "calloutEs": { "type": "string", "description": "Optional Spanish callout text." },
+          "calloutEn": { "type": "string", "description": "Optional English callout text." }
+        }
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "metricModals": {
+      "type": "array",
+      "description": "Array of metric detail modal objects for KPI deep-dives.",
+      "items": {
+        "type": "object",
+        "required": ["id", "titleEs", "titleEn", "subtitleEs", "subtitleEn", "detailEs", "detailEn"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "description": "Metric identifier (e.g., 'tiempo', 'precision', 'entregables', 'okr')." },
+          "titleEs": { "type": "string", "description": "Spanish metric modal title." },
+          "titleEn": { "type": "string", "description": "English metric modal title." },
+          "subtitleEs": { "type": "string", "description": "Spanish subtitle." },
+          "subtitleEn": { "type": "string", "description": "English subtitle." },
+          "detailEs": { "type": "string", "description": "Spanish metric detail explanation." },
+          "detailEn": { "type": "string", "description": "English metric detail explanation." },
+          "evidenceEs": { "type": "string", "description": "Optional Spanish pilot evidence text." },
+          "evidenceEn": { "type": "string", "description": "Optional English pilot evidence text." }
+        }
+      }
+    },
+    "impactModal": {
+      "type": "object",
+      "description": "Impact timeline modal showing weekly progression milestones.",
+      "required": ["titleEs", "titleEn", "subtitleEs", "subtitleEn", "weeks"],
+      "additionalProperties": false,
+      "properties": {
+        "titleEs": { "type": "string", "description": "Spanish impact modal title." },
+        "titleEn": { "type": "string", "description": "English impact modal title." },
+        "subtitleEs": { "type": "string", "description": "Spanish subtitle." },
+        "subtitleEn": { "type": "string", "description": "English subtitle." },
+        "weeks": {
+          "type": "array",
+          "description": "Ordered progression milestones.",
+          "items": {
+            "type": "object",
+            "required": ["labelEs", "labelEn", "descEs", "descEn"],
+            "properties": {
+              "labelEs": { "type": "string", "description": "Spanish week/phase label." },
+              "labelEn": { "type": "string", "description": "English week/phase label." },
+              "descEs": { "type": "string", "description": "Spanish milestone description." },
+              "descEn": { "type": "string", "description": "English milestone description." }
+            }
+          },
+          "minItems": 1
+        }
+      }
     }
   },
   "definitions": {
@@ -374,7 +466,9 @@
             "recommendations",
             "inline-heading",
             "inline-table",
-            "inline-paragraph"
+            "inline-paragraph",
+            "empezar-grid",
+            "metadata-table"
           ]
         },
         "data": {
