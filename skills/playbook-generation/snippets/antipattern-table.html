@@ -1,0 +1,17 @@
+<div style="overflow-x:auto;">
+<table class="decision-table">
+  <thead><tr>
+    <th><span class="es">Síntoma</span><span class="en">Symptom</span></th>
+    <th><span class="es">Anti-patrón</span><span class="en">Anti-pattern</span></th>
+    <th><span class="es">Remediación</span><span class="en">Remediation</span></th>
+  </tr></thead>
+  <tbody>{{AP_TABLE_ROWS}}</tbody>
+</table>
+</div>
+<!-- Each row uses this structure:
+<tr onclick="openModal('ap{{AP_NUM}}')" style="cursor:pointer;">
+  <td><span class="es">{{AP_SYMPTOM_ES}}</span><span class="en">{{AP_SYMPTOM_EN}}</span></td>
+  <td style="font-weight:700;color:var(--sofka-critical);"><span class="es">{{AP_NAME_ES}}</span><span class="en">{{AP_NAME_EN}}</span></td>
+  <td><span class="es">{{AP_REMEDY_ES}}</span><span class="en">{{AP_REMEDY_EN}}</span></td>
+</tr>
+-->

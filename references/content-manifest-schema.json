@@ -4,7 +4,7 @@
   "title": "Playbook Content Manifest",
   "description": "Schema for the content manifest that drives playbook-forge HTML generation. Each manifest describes one complete playbook document with hero, sections, katas, flows, architecture layers, and footer.",
   "type": "object",
-  "required": ["meta", "hero", "sections", "katas", "flows", "architectureLayers", "footer"],
+  "required": ["meta", "hero", "sections", "katas", "flows", "architectureLayers", "footer", "glossary", "antiPatterns", "managerProfiles"],
   "additionalProperties": false,
   "properties": {
     "meta": {
@@ -44,6 +44,16 @@
         "copyright": {
           "type": "string",
           "description": "Full copyright line for footer-bottom. Supports HTML entities."
+        },
+        "bilingual": {
+          "type": "boolean",
+          "description": "Whether the playbook supports bilingual (ES/EN) toggle. Default true.",
+          "default": true
+        },
+        "schemaVersion": {
+          "type": "string",
+          "description": "Schema version identifier.",
+          "const": "2.0"
         }
       }
     },
@@ -118,12 +128,12 @@
     },
     "katas": {
       "type": "array",
-      "description": "Array of exactly 4 kata objects representing the adoption exercises (Preparar, Capitalizar, Reportar, Visibilizar).",
+      "description": "Array of exactly 5 kata objects representing the adoption exercises.",
       "items": {
         "$ref": "#/definitions/kata"
       },
-      "minItems": 4,
-      "maxItems": 4
+      "minItems": 5,
+      "maxItems": 5
     },
     "flows": {
       "type": "array",
@@ -142,6 +152,114 @@
       },
       "minItems": 1,
       "maxItems": 5
+    },
+    "glossary": {
+      "type": "array",
+      "description": "Array of glossary term objects for the bilingual glossary modal system.",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "subtitleEs", "subtitleEn", "conceptEs", "conceptEn", "whyEs", "whyEn", "exampleEs", "exampleEn"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "description": "Unique glossary term identifier." },
+          "name": { "type": "string", "description": "Term name (language-neutral or canonical)." },
+          "subtitleEs": { "type": "string", "description": "Spanish subtitle for the term." },
+          "subtitleEn": { "type": "string", "description": "English subtitle for the term." },
+          "conceptEs": { "type": "string", "description": "Spanish concept definition." },
+          "conceptEn": { "type": "string", "description": "English concept definition." },
+          "whyEs": { "type": "string", "description": "Spanish explanation of why this term matters." },
+          "whyEn": { "type": "string", "description": "English explanation of why this term matters." },
+          "exampleEs": { "type": "string", "description": "Spanish usage example." },
+          "exampleEn": { "type": "string", "description": "English usage example." }
+        }
+      },
+      "minItems": 10
+    },
+    "antiPatterns": {
+      "type": "array",
+      "description": "Array of anti-pattern objects with bilingual content and remediation steps.",
+      "items": {
+        "type": "object",
+        "required": ["num", "nameEs", "nameEn", "subtitleEs", "subtitleEn", "symptomEs", "symptomEn", "whyEs", "whyEn", "detectEs", "detectEn", "steps", "accountabilityEs", "accountabilityEn"],
+        "additionalProperties": false,
+        "properties": {
+          "num": { "type": "integer", "description": "Anti-pattern number (1-13).", "minimum": 1, "maximum": 13 },
+          "nameEs": { "type": "string", "description": "Spanish anti-pattern name." },
+          "nameEn": { "type": "string", "description": "English anti-pattern name." },
+          "subtitleEs": { "type": "string", "description": "Spanish subtitle." },
+          "subtitleEn": { "type": "string", "description": "English subtitle." },
+          "symptomEs": { "type": "string", "description": "Spanish symptom description." },
+          "symptomEn": { "type": "string", "description": "English symptom description." },
+          "whyEs": { "type": "string", "description": "Spanish root cause explanation." },
+          "whyEn": { "type": "string", "description": "English root cause explanation." },
+          "detectEs": { "type": "string", "description": "Spanish detection method." },
+          "detectEn": { "type": "string", "description": "English detection method." },
+          "steps": {
+            "type": "array",
+            "description": "Ordered remediation steps with bilingual text.",
+            "items": {
+              "type": "object",
+              "required": ["stepEs", "stepEn"],
+              "properties": {
+                "stepEs": { "type": "string", "description": "Spanish step text." },
+                "stepEn": { "type": "string", "description": "English step text." }
+              }
+            },
+            "minItems": 1
+          },
+          "accountabilityEs": { "type": "string", "description": "Spanish accountability statement." },
+          "accountabilityEn": { "type": "string", "description": "English accountability statement." }
+        }
+      },
+      "minItems": 10
+    },
+    "managerProfiles": {
+      "type": "array",
+      "description": "Array of exactly 3 manager profile objects representing Shu-Ha-Ri maturity levels.",
+      "items": {
+        "type": "object",
+        "required": ["level", "shuHaRi", "nameEs", "nameEn", "characteristics"],
+        "additionalProperties": false,
+        "properties": {
+          "level": {
+            "type": "string",
+            "description": "Manager maturity level.",
+            "enum": ["novato", "practicante", "autonomo"]
+          },
+          "shuHaRi": {
+            "type": "string",
+            "description": "Shu-Ha-Ri mapping.",
+            "enum": ["shu", "ha", "ri"]
+          },
+          "nameEs": { "type": "string", "description": "Spanish profile name." },
+          "nameEn": { "type": "string", "description": "English profile name." },
+          "characteristics": {
+            "type": "array",
+            "description": "List of characteristics for this profile.",
+            "items": { "type": "string" },
+            "minItems": 1
+          }
+        }
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "modals": {
+      "type": "object",
+      "description": "Modal definitions organized by category. Each key is a modal category and its value is an array of modal definition objects.",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "description": "A single modal definition with id, content, and optional CTA links."
+        }
+      }
+    },
+    "schemaVersion": {
+      "type": "string",
+      "description": "Schema version for backward compatibility.",
+      "enum": ["1.0", "2.0"],
+      "default": "2.0"
     },
     "footer": {
       "type": "object",
@@ -816,13 +934,13 @@
         "id": {
           "type": "string",
           "description": "HTML anchor ID (e.g., 'kata1', 'kata2').",
-          "pattern": "^kata[1-4]$"
+          "pattern": "^kata[1-5]$"
         },
         "number": {
           "type": "integer",
-          "description": "Kata number (1-4).",
+          "description": "Kata number (1-5).",
           "minimum": 1,
-          "maximum": 4
+          "maximum": 5
         },
         "name": {
           "type": "string",
@@ -875,6 +993,11 @@
           "type": "array",
           "description": "Platforms required for this kata (e.g., ['Gemini', 'NotebookLM']).",
           "items": { "type": "string" }
+        },
+        "shuHaRiLevel": {
+          "type": "string",
+          "description": "ShuHaRi mastery level for this kata.",
+          "enum": ["shu", "ha", "ri"]
         }
       }
     },

@@ -289,9 +289,12 @@ function renderVraidLetters(letters) {
   if (!Array.isArray(letters)) return '';
   return letters.map(l => {
     const feeds = l.feeds ? `<div class="feeds">${escapeHtml(l.feeds)}</div>` : '';
+    const meaningHtml = (l.meaningEs || l.meaningEn)
+      ? `<div class="meaning"><span class="es">${escapeHtml(l.meaningEs || l.meaning || '')}</span><span class="en">${escapeHtml(l.meaningEn || '')}</span></div>`
+      : `<div class="meaning">${escapeHtml(l.meaning || '')}</div>`;
     return `<div class="vraid-letter">
         <div class="letter">${escapeHtml(l.letter)}</div>
-        <div class="meaning">${escapeHtml(l.meaning)}</div>
+        ${meaningHtml}
         ${feeds}
       </div>`;
   }).join('\n    ');
@@ -340,6 +343,217 @@ function renderAcceptanceItems(items) {
   return items.map(i => `<li>${escapeHtml(i)}</li>`).join('\n  ');
 }
 
+// ═══ V2 RENDER FUNCTIONS ═══
+
+function renderBilingual(es, en) {
+  if (!en) return escapeHtml(es || '');
+  return '<span class="es">' + escapeHtml(es) + '</span><span class="en">' + escapeHtml(en) + '</span>';
+}
+
+function renderBilingualRaw(es, en) {
+  if (!en) return es || '';
+  return '<span class="es">' + es + '</span><span class="en">' + en + '</span>';
+}
+
+function renderModalOverlay(id, titleEs, titleEn, subtitleEs, subtitleEn, bodyHtml) {
+  return '<div class="modal-overlay" id="modal-' + id + '"><div class="modal-box">' +
+    '<button class="modal-close" onclick="closeModal()">&times;</button>' +
+    '<div class="modal-header"><h3>' + renderBilingual(titleEs, titleEn) + '</h3>' +
+    '<small>' + renderBilingual(subtitleEs, subtitleEn) + '</small></div>' +
+    '<div class="modal-body">' + bodyHtml + '</div></div></div>\n';
+}
+
+function renderFlowModalBody(flow) {
+  var body = '';
+  body += '<div class="callout callout-warning">';
+  body += '<strong class="es">&#10067; ¿Para qué lo usas?</strong><strong class="en">&#10067; What is it for?</strong>';
+  body += '<p class="es">' + (flow.purposeEs || '') + '</p><p class="en">' + (flow.purposeEn || '') + '</p></div>';
+  body += '<h4 class="es">Cómo funciona</h4><h4 class="en">How it works</h4>';
+  body += '<div class="timeline">';
+  (flow.steps || []).forEach(function(s, i) {
+    body += '<div class="timeline-item"><div class="timeline-dot">' + (i + 1) + '</div>';
+    body += '<div class="timeline-content"><h3><span class="wk">' + (s.time || '') + '</span></h3>';
+    body += '<p class="es">' + (s.descEs || '') + '</p><p class="en">' + (s.descEn || '') + '</p></div></div>';
+  });
+  body += '</div>';
+  body += '<h4 class="es">Qué obtienes al final</h4><h4 class="en">What you get at the end</h4>';
+  body += '<p class="es">' + (flow.outputEs || '') + '</p><p class="en">' + (flow.outputEn || '') + '</p>';
+  body += '<div class="callout" style="border-color:var(--sofka-orange);background:var(--sofka-orange-dim);">';
+  body += '<strong class="es">Cómo sabes que lo hiciste bien</strong><strong class="en">How you know you did it right</strong>';
+  body += '<p class="es">' + (flow.dodEs || '') + '</p><p class="en">' + (flow.dodEn || '') + '</p></div>';
+  if (flow.progressionEs) {
+    body += '<h4 class="es">Cuándo vas a notar la diferencia</h4><h4 class="en">When you\'ll notice the difference</h4>';
+    body += '<p class="es">' + flow.progressionEs + '</p><p class="en">' + (flow.progressionEn || '') + '</p>';
+  }
+  body += renderCtaBlock(flow.cta || []);
+  return body;
+}
+
+function renderAntiPatternModalBody(ap) {
+  var body = '';
+  body += '<div class="callout callout-warning">';
+  body += '<strong class="es">&#10067; Qué es</strong><strong class="en">&#10067; What it is</strong>';
+  body += '<p class="es">' + (ap.conceptEs || '') + '</p><p class="en">' + (ap.conceptEn || '') + '</p></div>';
+  body += '<h4 class="es">Por qué pasa</h4><h4 class="en">Why it happens</h4>';
+  body += '<p class="es">' + (ap.whyEs || '') + '</p><p class="en">' + (ap.whyEn || '') + '</p>';
+  body += '<h4 class="es">Cómo detectarlo</h4><h4 class="en">How to detect it</h4>';
+  body += '<p class="es">' + (ap.detectEs || '') + '</p><p class="en">' + (ap.detectEn || '') + '</p>';
+  body += '<h4 class="es">Cómo resolverlo</h4><h4 class="en">How to fix it</h4>';
+  body += '<div class="timeline">';
+  (ap.steps || []).forEach(function(s, i) {
+    body += '<div class="timeline-item"><div class="timeline-dot">' + (i + 1) + '</div>';
+    body += '<div class="timeline-content"><h3>' + renderBilingual(s.titleEs || '', s.titleEn || '') + '</h3>';
+    body += '<p class="es">' + (s.descEs || '') + '</p><p class="en">' + (s.descEn || '') + '</p></div></div>';
+  });
+  body += '</div>';
+  body += '<div class="callout" style="border-color:var(--sofka-critical);background:var(--sofka-critical-dim);">';
+  body += '<strong>Accountability</strong>';
+  body += '<p class="es">' + (ap.accountabilityEs || '') + '</p><p class="en">' + (ap.accountabilityEn || '') + '</p></div>';
+  return body;
+}
+
+function renderGlossaryModalBody(term) {
+  var body = '';
+  body += '<div class="callout callout-info">';
+  body += '<strong class="es">&#10067; Concepto</strong><strong class="en">&#10067; Concept</strong>';
+  body += '<p class="es">' + (term.conceptEs || '') + '</p><p class="en">' + (term.conceptEn || '') + '</p></div>';
+  body += '<h4 class="es">Para qué te sirve</h4><h4 class="en">Why it matters to you</h4>';
+  body += '<div class="callout" style="border-color:var(--sofka-orange);background:var(--sofka-orange-dim);">';
+  body += '<p class="es">' + (term.whyEs || '') + '</p><p class="en">' + (term.whyEn || '') + '</p></div>';
+  if (term.exampleEs) {
+    body += '<h4 class="es">Ejemplo práctico</h4><h4 class="en">Practical example</h4>';
+    body += '<p class="es">' + term.exampleEs + '</p><p class="en">' + (term.exampleEn || '') + '</p>';
+  }
+  return body;
+}
+
+function renderKataModalBody(kata) {
+  var body = '';
+  body += '<div class="callout callout-warning">';
+  body += '<strong class="es">&#10067; Qué significa</strong><strong class="en">&#10067; What it means</strong>';
+  body += '<p class="es">' + (kata.conceptEs || '') + '</p><p class="en">' + (kata.conceptEn || '') + '</p></div>';
+  body += '<h4 class="es">Práctica</h4><h4 class="en">Practice</h4>';
+  body += '<div class="timeline">';
+  (kata.practiceSteps || []).forEach(function(s, i) {
+    body += '<div class="timeline-item"><div class="timeline-dot">' + (i + 1) + '</div>';
+    body += '<div class="timeline-content"><h3>' + renderBilingual(s.titleEs || '', s.titleEn || '') + '</h3>';
+    body += '<p class="es">' + (s.descEs || '') + '</p><p class="en">' + (s.descEn || '') + '</p></div></div>';
+  });
+  body += '</div>';
+  body += '<div class="callout" style="border-color:var(--sofka-orange);background:var(--sofka-orange-dim);">';
+  body += '<strong class="es">Criterio de superación</strong><strong class="en">Advancement criterion</strong>';
+  body += '<p class="es">' + (kata.criterionEs || '') + '</p><p class="en">' + (kata.criterionEn || '') + '</p></div>';
+  return body;
+}
+
+function renderCtaBlock(ctas) {
+  if (!ctas || !ctas.length) return '';
+  var html = '<div class="modal-cta">';
+  ctas.forEach(function(c) {
+    if (c.type === 'cross-modal') {
+      html += '<a class="gem-link pulse" onclick="closeModal();openModal(\'' + c.modalId + '\');" style="cursor:pointer;">';
+      html += renderBilingual(c.labelEs || '', c.labelEn || '') + '</a>';
+    } else {
+      html += '<a class="gem-link' + (c.pulse ? ' pulse' : '') + '" href="' + (c.url || '#') + '" target="_blank">' + (c.label || '') + '</a>';
+    }
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderAllModals(manifest) {
+  var html = '\n<!-- MODALS -->\n';
+  // Flow modals
+  (manifest.flows || []).forEach(function(f) {
+    html += renderModalOverlay('f' + f.num, f.nameEs || f.name, f.nameEn || '', f.subtitleEs || '', f.subtitleEn || '', renderFlowModalBody(f));
+  });
+  // Anti-pattern modals
+  (manifest.antiPatterns || []).forEach(function(ap) {
+    html += renderModalOverlay('fap' + ap.num, ap.nameEs || '', ap.nameEn || '', ap.subtitleEs || '', ap.subtitleEn || '', renderAntiPatternModalBody(ap));
+  });
+  // Glossary modals
+  (manifest.glossary || []).forEach(function(t) {
+    html += renderModalOverlay('fg-' + t.id, t.name || '', '', t.subtitleEs || '', t.subtitleEn || '', renderGlossaryModalBody(t));
+  });
+  // Kata modals
+  (manifest.katas || []).forEach(function(k) {
+    html += renderModalOverlay('fka' + k.number, k.nameEs || k.name, k.nameEn || '', k.subtitleEs || '', k.subtitleEn || '', renderKataModalBody(k));
+  });
+  return html;
+}
+
+function renderGlossaryGrid(terms) {
+  var colors = ['var(--sofka-orange)', 'var(--sofka-info)', 'var(--sofka-violet)', '#16A34A', 'var(--sofka-critical)', 'var(--sofka-teal)'];
+  var html = '<div class="problem-grid" style="margin-top:1.5rem;">';
+  (terms || []).forEach(function(t, i) {
+    var c = colors[i % colors.length];
+    html += '<div class="problem-card tip-card clickable-card" style="border-left-color:' + c + ';cursor:pointer;" onclick="openModal(\'fg-' + t.id + '\')">';
+    html += '<h4 style="color:' + c + ';">' + escapeHtml(t.name || '') + '</h4>';
+    html += '<p>' + renderBilingual(t.subtitleEs || '', t.subtitleEn || '') + '</p></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderAntiPatternTable(patterns) {
+  var html = '<div style="overflow-x:auto;"><table class="decision-table"><thead><tr>';
+  html += '<th>' + renderBilingual('Síntoma', 'Symptom') + '</th>';
+  html += '<th>' + renderBilingual('Anti-patrón', 'Anti-pattern') + '</th>';
+  html += '<th>' + renderBilingual('Remediación', 'Remediation') + '</th></tr></thead><tbody>';
+  (patterns || []).forEach(function(ap) {
+    html += '<tr onclick="openModal(\'fap' + ap.num + '\')" style="cursor:pointer;">';
+    html += '<td>' + renderBilingual(ap.symptomEs || '', ap.symptomEn || '') + '</td>';
+    html += '<td style="font-weight:700;color:var(--sofka-critical);">' + renderBilingual(ap.nameEs || '', ap.nameEn || '') + '</td>';
+    html += '<td>' + renderBilingual(ap.remedyEs || '', ap.remedyEn || '') + '</td></tr>';
+  });
+  html += '</tbody></table></div>';
+  return html;
+}
+
+function renderProfileSection(profiles) {
+  var colorMap = { novato: { color: 'var(--sofka-orange)', dim: 'var(--sofka-orange-dim)', border: 'rgba(255,126,8,.25)', icon: 'N' }, practicante: { color: 'var(--sofka-info)', dim: 'var(--sofka-info-dim)', border: 'var(--sofka-info-border)', icon: 'P' }, autonomo: { color: '#16A34A', dim: 'rgba(66,211,111,.1)', border: 'rgba(66,211,111,.25)', icon: 'A' } };
+  var html = '<div class="jarvis-cards" style="grid-template-columns:repeat(3,1fr);">';
+  (profiles || []).forEach(function(p) {
+    var cm = colorMap[p.level] || colorMap.novato;
+    html += '<div class="jarvis-card clickable-card" onclick="openModal(\'fm-' + p.level + '\')">';
+    html += '<div class="jarvis-card-header"><div class="jarvis-icon" style="background:' + cm.dim + ';color:' + cm.color + ';border:1px solid ' + cm.border + ';">' + cm.icon + '</div>';
+    html += '<h3>' + renderBilingual(p.nameEs || '', p.nameEn || '') + '<small>' + (p.shuHaRi || '') + '</small></h3></div>';
+    html += '<div class="jarvis-card-body"><p>' + renderBilingual(p.descEs || '', p.descEn || '') + '</p></div></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderApmEquation(eq) {
+  if (!eq) return '';
+  var html = '<div class="apm-equation">';
+  html += '<div class="apm-col"><div class="apm-col-title">' + renderBilingual(eq.term1TitleEs || '', eq.term1TitleEn || '') + '</div>';
+  html += '<p style="font-size:.85rem;color:var(--sofka-gray-500);line-height:1.6;">' + renderBilingual(eq.term1DescEs || '', eq.term1DescEn || '') + '</p></div>';
+  html += '<div class="apm-op">' + (eq.op1 || '+') + '</div>';
+  html += '<div class="apm-col"><div class="apm-col-title">' + renderBilingual(eq.term2TitleEs || '', eq.term2TitleEn || '') + '</div>';
+  html += '<p style="font-size:.85rem;color:var(--sofka-gray-500);line-height:1.6;">' + renderBilingual(eq.term2DescEs || '', eq.term2DescEn || '') + '</p></div>';
+  html += '<div class="apm-op">' + (eq.op2 || '=') + '</div>';
+  html += '<div class="apm-col" style="border-top:4px solid var(--sofka-orange);"><div class="apm-col-title">' + renderBilingual(eq.resultTitleEs || '', eq.resultTitleEn || '') + '</div>';
+  html += '<p style="font-size:.85rem;color:var(--sofka-gray-500);line-height:1.6;">' + renderBilingual(eq.resultDescEs || '', eq.resultDescEn || '') + '</p></div>';
+  html += '</div>';
+  return html;
+}
+
+function renderGemBar(gems) {
+  if (!gems || !gems.length) return '';
+  var html = '<div class="gem-bar"><div class="gem-bar-title">' + renderBilingual('Acceso directo a las Gemas', 'Direct access to Gems') + '</div>';
+  gems.forEach(function(g) {
+    html += '<a href="' + (g.url || '#') + '" target="_blank" class="gem-link' + (g.pulse ? ' pulse' : '') + '">' + escapeHtml(g.name || '') + '</a>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderCta(ctas) {
+  // Backward-compat alias for renderCtaBlock
+  return renderCtaBlock(ctas);
+}
+
 function renderGuardrails(doCol, dontCol) {
   const siItems = renderCompareItems(doCol.items);
   const noItems = renderCompareItems(dontCol.items);
@@ -353,16 +567,25 @@ function renderGuardrails(doCol, dontCol) {
 
 function renderCallout(variant, title, data) {
   const snippet = readSnippet('callout.html');
-  let content = '';
+  let contentEs = '';
+  let contentEn = '';
   if (data.items && Array.isArray(data.items)) {
-    content = `<ul>${data.items.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul>`;
+    contentEs = `<ul>${data.items.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul>`;
+    contentEn = contentEs; // items are shared unless bilingual
   } else {
-    content = escapeHtml(data.body || '');
+    contentEs = escapeHtml(data.bodyEs || data.body || '');
+    contentEn = escapeHtml(data.bodyEn || '');
   }
+  const titleEs = escapeHtml(data.titleEs || title || '');
+  const titleEn = escapeHtml(data.titleEn || '');
+  const attrs = data.attrs || '';
   return snippet
-    .replace('{{CALLOUT_VARIANT}}', variant.replace('callout-', ''))
-    .replace('{{CALLOUT_TITLE}}', escapeHtml(title))
-    .replace('{{CALLOUT_CONTENT}}', content);
+    .replace('{{CALLOUT_VARIANT}}', (variant || '').replace('callout-', ''))
+    .replace('{{CALLOUT_ATTRS}}', attrs)
+    .replace('{{CALLOUT_TITLE_ES}}', titleEs)
+    .replace('{{CALLOUT_TITLE_EN}}', titleEn)
+    .replace('{{CALLOUT_CONTENT_ES}}', contentEs)
+    .replace('{{CALLOUT_CONTENT_EN}}', contentEn);
 }
 
 function renderKataCard(kata) {
@@ -377,10 +600,20 @@ function renderKataCard(kata) {
   const agent = kata.jarvisAgent || '';
   const icon = iconMap[agent] || { cls: 'laforja', lbl: 'K' + kata.number };
 
-  const steps = (kata.steps || []).map(s => {
+  // Shu-Ha-Ri phase colors
+  const phaseColors = {
+    shu: { color: 'var(--sofka-orange)', dim: 'var(--sofka-orange-dim)', border: 'rgba(255,126,8,.25)' },
+    ha: { color: 'var(--sofka-info)', dim: 'var(--sofka-info-dim)', border: 'var(--sofka-info-border)' },
+    ri: { color: '#16A34A', dim: 'rgba(66,211,111,.1)', border: 'rgba(66,211,111,.25)' }
+  };
+  const phase = kata.shuHaRiLevel || 'shu';
+  const pc = phaseColors[phase] || phaseColors.shu;
+
+  // Build timeline exercise steps
+  const steps = (kata.steps || []).map((s, i) => {
     const toolBadge = s.tool ? ` <span style="color:var(--sofka-info);font-size:.75rem;">[${escapeHtml(s.tool)}]</span>` : '';
     const tip = s.tip ? ` <em style="font-size:.78rem;color:var(--sofka-gray-500);">Tip: ${escapeHtml(s.tip)}</em>` : '';
-    return `<li>${escapeHtml(s.instruction)}${toolBadge}${tip}</li>`;
+    return `<div class="timeline-item"><div class="timeline-dot">${i + 1}</div><div class="timeline-content"><p>${escapeHtml(s.instruction)}${toolBadge}${tip}</p></div></div>`;
   }).join('\n          ');
 
   const criteria = (kata.successCriteria || []).map(c => `&#10003; ${escapeHtml(c)}`).join('<br>');
@@ -389,17 +622,21 @@ function renderKataCard(kata) {
   const bestPractice = antiPatterns || 'Sigue las instrucciones paso a paso.';
 
   return snippet
+    .replace('{{KATA_NUM}}', String(kata.number || ''))
     .replace('{{KATA_ICON_CLASS}}', icon.cls)
     .replace('{{KATA_ICON_TEXT}}', icon.lbl)
-    .replace('{{KATA_GEM_NAME}}', `Kata ${kata.number}: ${escapeHtml(kata.name)}`)
-    .replace('{{KATA_GEM_SUBTITLE}}', escapeHtml(kata.objective || ''))
-    .replace('{{KATA_WHY_LABEL}}', 'Objetivo')
-    .replace('{{KATA_WHY_VALUE}}', escapeHtml(kata.objective || ''))
-    .replace('{{KATA_EXERCISE_LABEL}}', 'Ejercicio')
+    .replace('{{KATA_GEM_NAME_ES}}', `Kata ${kata.number}: ${escapeHtml(kata.nameEs || kata.name || '')}`)
+    .replace('{{KATA_GEM_NAME_EN}}', `Kata ${kata.number}: ${escapeHtml(kata.nameEn || '')}`)
+    .replace('{{KATA_GEM_SUBTITLE_ES}}', escapeHtml(kata.objectiveEs || kata.objective || ''))
+    .replace('{{KATA_GEM_SUBTITLE_EN}}', escapeHtml(kata.objectiveEn || ''))
+    .replace('{{KATA_PHASE_COLOR_DIM}}', pc.dim)
+    .replace('{{KATA_PHASE_COLOR_BORDER}}', pc.border)
+    .replace('{{KATA_PHASE_COLOR}}', pc.color)
+    .replace('{{KATA_PHASE}}', phase.charAt(0).toUpperCase() + phase.slice(1))
+    .replace('{{KATA_WHY_VALUE_ES}}', escapeHtml(kata.objectiveEs || kata.objective || ''))
+    .replace('{{KATA_WHY_VALUE_EN}}', escapeHtml(kata.objectiveEn || ''))
     .replace('{{KATA_EXERCISE_STEPS}}', steps)
-    .replace('{{KATA_SUCCESS_LABEL}}', 'Criterios de Exito')
     .replace('{{KATA_SUCCESS_VALUE}}', criteria)
-    .replace('{{KATA_BEST_PRACTICE_LABEL}}', 'Buenas Practicas')
     .replace('{{KATA_BEST_PRACTICE_VALUE}}', bestPractice)
     .replace('{{KATA_CHECKPOINT}}', escapeHtml(kata.checkpoint || `Gate Kata ${kata.number}: Todos los criterios cumplidos.`));
 }
@@ -413,18 +650,30 @@ function renderFlowCard(flow) {
 
   const iconNum = flow.number < 10 ? `0${flow.number}` : `${flow.number}`;
 
+  // Build CTA links
+  const ctaLinks = (flow.cta || []).map(c => {
+    if (c.type === 'cross-modal') {
+      return `<a class="gem-link pulse" onclick="closeModal();openModal('${escapeHtml(c.modalId || '')}');" style="cursor:pointer;">${renderBilingual(c.labelEs || '', c.labelEn || '')}</a>`;
+    }
+    const pulseClass = c.pulse ? ' pulse' : '';
+    return `<a class="gem-link${pulseClass}" href="${escapeHtml(c.url || '#')}" target="_blank">${escapeHtml(c.label || '')}</a>`;
+  }).join('\n      ');
+
   return snippet
+    .replace('{{FLOW_NUM}}', String(flow.number || ''))
     .replace('{{FLOW_ICON_CLASS}}', '')
     .replace('{{FLOW_ICON_STYLE}}', 'background:var(--sofka-orange-dim);color:var(--sofka-orange);border:1px solid rgba(255,126,8,.25);')
     .replace('{{FLOW_ICON_TEXT}}', iconNum)
-    .replace('{{FLOW_NAME}}', `Flow ${flow.number}: ${escapeHtml(flow.name)}`)
-    .replace('{{FLOW_SUBTITLE}}', escapeHtml(flow.trigger || ''))
-    .replace('{{FLOW_WHY_LABEL}}', 'Cuando')
-    .replace('{{FLOW_WHY_VALUE}}', escapeHtml(flow.trigger || ''))
-    .replace('{{FLOW_EXERCISE_LABEL}}', 'Secuencia Jarvis')
+    .replace('{{FLOW_NAME_ES}}', `Flow ${flow.number}: ${escapeHtml(flow.nameEs || flow.name || '')}`)
+    .replace('{{FLOW_NAME_EN}}', `Flow ${flow.number}: ${escapeHtml(flow.nameEn || '')}`)
+    .replace('{{FLOW_SUBTITLE_ES}}', escapeHtml(flow.triggerEs || flow.trigger || ''))
+    .replace('{{FLOW_SUBTITLE_EN}}', escapeHtml(flow.triggerEn || ''))
+    .replace('{{FLOW_WHY_VALUE_ES}}', escapeHtml(flow.triggerEs || flow.trigger || ''))
+    .replace('{{FLOW_WHY_VALUE_EN}}', escapeHtml(flow.triggerEn || ''))
     .replace('{{FLOW_EXERCISE_STEPS}}', steps)
-    .replace('{{FLOW_SUCCESS_LABEL}}', 'Salida')
-    .replace('{{FLOW_SUCCESS_VALUE}}', escapeHtml(flow.output || ''));
+    .replace('{{FLOW_SUCCESS_VALUE_ES}}', escapeHtml(flow.outputEs || flow.output || ''))
+    .replace('{{FLOW_SUCCESS_VALUE_EN}}', escapeHtml(flow.outputEn || ''))
+    .replace('{{FLOW_CTA_LINKS}}', ctaLinks);
 }
 
 // ── Component dispatcher ─────────────────────────────────────────────────────
@@ -489,16 +738,11 @@ function renderComponent(comp) {
       return snippet
         .replace('{{VRAID_TITLE}}', escapeHtml(data.title))
         .replace('{{VRAID_LETTERS}}', renderVraidLetters(data.letters))
-        .replace('{{VRAID_NOTE}}', data.note || '');
-    }
-    case 'gem-bar': {
-      const links = (data.gems || []).map(g =>
-        `<a class="gem-link" href="${escapeHtml(g.url)}" target="_blank">${escapeHtml(g.label)}</a>`
-      ).join('\n      ');
-      return `<div class="gem-bar">
-      <div class="gem-bar-title">${escapeHtml(data.title)}</div>
-      ${links}
-    </div>`;
+        .replace('{{VRAID_NOTE}}', data.note || '')
+        .replace('{{VRAID_3X3_RULE_ES}}', escapeHtml(data.verificationRuleEs || ''))
+        .replace('{{VRAID_3X3_RULE_EN}}', escapeHtml(data.verificationRuleEn || ''))
+        .replace('{{VRAID_SIGNATURE_TEST_ES}}', escapeHtml(data.signatureTestEs || ''))
+        .replace('{{VRAID_SIGNATURE_TEST_EN}}', escapeHtml(data.signatureTestEn || ''));
     }
     case 'callout': {
       return renderCallout(data.variant, data.title, data);
@@ -561,6 +805,33 @@ function renderComponent(comp) {
         return `<pre style="margin:1rem 0;"><code>${escapeHtml(data.text)}</code></pre>`;
       }
       return `<p>${escapeHtml(data.text)}</p>`;
+    }
+    // ── v2 component types ────────────────────────────────────────────────
+    case 'glossary-grid': {
+      return renderGlossaryGrid(data.terms || data.cards || []);
+    }
+    case 'antipattern-table': {
+      return renderAntiPatternTable(data.patterns || data.rows || []);
+    }
+    case 'profile-section': {
+      return renderProfileSection(data.profiles || data.cards || []);
+    }
+    case 'apm-equation': {
+      return renderApmEquation(data);
+    }
+    case 'gem-bar': {
+      // v2 gem-bar: supports isPrimary/pulse via renderGemBar
+      if (Array.isArray(data.gems) && data.gems.length > 0 && data.gems[0].isPrimary !== undefined) {
+        return renderGemBar(data.gems);
+      }
+      // v1 fallback
+      const links = (data.gems || []).map(g =>
+        `<a class="gem-link" href="${escapeHtml(g.url)}" target="_blank">${escapeHtml(g.label)}</a>`
+      ).join('\n      ');
+      return `<div class="gem-bar">
+      <div class="gem-bar-title">${escapeHtml(data.title)}</div>
+      ${links}
+    </div>`;
     }
     default:
       process.stderr.write(`WARN: Unknown component type "${comp.type}", skipping.\n`);
@@ -647,15 +918,23 @@ function assemble() {
   process.stderr.write(`[assemble] Building ${sections.length} sections...\n`);
 
   for (const section of sections) {
-    // Section header
+    // Section header — bilingual support for v2
     let sectionHeader = readSnippet('section-header.html');
-    const h2Plain = section.headerTitle || '';
-    const h2Highlight = section.headerHighlight || '';
+    const hasBilingualH2 = section.headerTitleEs || section.headerTitleEn;
+    const h2Plain = hasBilingualH2
+      ? renderBilingual(section.headerTitleEs || section.headerTitle || '', section.headerTitleEn || '')
+      : escapeHtml(section.headerTitle || '');
+    const h2Highlight = section.headerHighlightEs
+      ? renderBilingual(section.headerHighlightEs || '', section.headerHighlightEn || '')
+      : escapeHtml(section.headerHighlight || '');
+    const descHtml = section.headerDescriptionEs
+      ? renderBilingual(section.headerDescriptionEs || '', section.headerDescriptionEn || '')
+      : escapeHtml(section.headerDescription || '');
     sectionHeader = sectionHeader
       .replace('{{SECTION_ID}}', escapeHtml(section.id || ''))
-      .replace('{{SECTION_H2_PLAIN}}', escapeHtml(h2Plain))
-      .replace('{{SECTION_H2_HIGHLIGHT}}', escapeHtml(h2Highlight))
-      .replace('{{SECTION_DESC}}', escapeHtml(section.headerDescription || ''));
+      .replace('{{SECTION_H2_PLAIN}}', h2Plain)
+      .replace('{{SECTION_H2_HIGHLIGHT}}', h2Highlight)
+      .replace('{{SECTION_DESC}}', descHtml);
     parts.push(sectionHeader);
 
     // Components
@@ -755,8 +1034,18 @@ function assemble() {
     .replace('{{FOOTER_COPYRIGHT}}', manifest.footer.copyright || '');
   parts.push(footer);
 
+  // ── 8. Modals (v2) ──────────────────────────────────────────────────────
+  const allModalsHtml = renderAllModals(manifest);
+  if (allModalsHtml) {
+    process.stderr.write(`[assemble] Injecting modal overlays...\n`);
+    // Insert modals before footer (last part)
+    parts.splice(parts.length - 1, 0, allModalsHtml);
+  }
+
   // ── Write output ─────────────────────────────────────────────────────────
-  const html = parts.join('\n');
+  let html = parts.join('\n');
+  // Replace {{MODALS}} placeholder if present in any snippet
+  html = html.replace(/\{\{MODALS\}\}/g, allModalsHtml);
 
   try {
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });

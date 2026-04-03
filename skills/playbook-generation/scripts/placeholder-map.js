@@ -175,18 +175,30 @@ const PLACEHOLDERS = [
   { name: 'VRAID_MEANING', source: 'component.data.letters[n].meaning', type: 'string', required: true, default: null },
   { name: 'VRAID_FEEDS', source: 'component.data.letters[n].feeds', type: 'string', required: false, default: null },
   { name: 'VRAID_NOTE', source: 'component.data.note', type: 'string', required: false, default: '' },
+  { name: 'VRAID_MEANING_ES', source: 'component.data.letters[n].meaningEs', type: 'string', required: false, default: '' },
+  { name: 'VRAID_MEANING_EN', source: 'component.data.letters[n].meaningEn', type: 'string', required: false, default: '' },
+  { name: 'VRAID_3X3_RULE_ES', source: 'component.data.verificationRuleEs', type: 'string', required: false, default: '' },
+  { name: 'VRAID_3X3_RULE_EN', source: 'component.data.verificationRuleEn', type: 'string', required: false, default: '' },
+  { name: 'VRAID_SIGNATURE_TEST_ES', source: 'component.data.signatureTestEs', type: 'string', required: false, default: '' },
+  { name: 'VRAID_SIGNATURE_TEST_EN', source: 'component.data.signatureTestEn', type: 'string', required: false, default: '' },
 
   // 6.11 gem-bar
   { name: 'GEM_BAR_TITLE', source: 'component.data.title', type: 'string', required: true, default: null },
   { name: 'GEM_LINKS', source: 'component.data.gems[]', type: 'array', required: true, default: null },
   { name: 'GEM_LINK_LABEL', source: 'component.data.gems[n].label', type: 'string', required: true, default: null },
   { name: 'GEM_LINK_URL', source: 'component.data.gems[n].url', type: 'url', required: true, default: null },
+  { name: 'GEM_BAR', source: 'renderGemBar(manifest.gems)', type: 'html-block', required: false, default: '' },
 
   // 6.12 callout
   { name: 'CALLOUT_VARIANT', source: 'component.data.variant', type: 'string', required: true, default: null },
   { name: 'CALLOUT_TITLE', source: 'component.data.title', type: 'string', required: true, default: null },
   { name: 'CALLOUT_CONTENT', source: 'component.data.body', type: 'string', required: false, default: null },
   { name: 'CALLOUT_ITEMS', source: 'component.data.items[]', type: 'array', required: false, default: null },
+  { name: 'CALLOUT_ATTRS', source: 'component.data.attrs', type: 'string', required: false, default: '' },
+  { name: 'CALLOUT_TITLE_ES', source: 'component.data.titleEs', type: 'string', required: false, default: '' },
+  { name: 'CALLOUT_TITLE_EN', source: 'component.data.titleEn', type: 'string', required: false, default: '' },
+  { name: 'CALLOUT_CONTENT_ES', source: 'component.data.bodyEs', type: 'string', required: false, default: '' },
+  { name: 'CALLOUT_CONTENT_EN', source: 'component.data.bodyEn', type: 'string', required: false, default: '' },
 
   // 6.13 decision-table
   { name: 'DECISION_TABLE_HEADERS', source: 'component.data.headers[]', type: 'array', required: true, default: null },
@@ -239,6 +251,104 @@ const PLACEHOLDERS = [
   { name: 'INLINE_PARA_TEXT', source: 'component.data.text', type: 'string', required: true, default: null },
   { name: 'INLINE_PARA_IS_CODE', source: 'component.data.isCode', type: 'boolean', required: false, default: false },
 
+  // ── 6.v2 Modal Placeholders ─────────────────────────────────────────────
+  { name: 'MODAL_ID', source: 'modal.id', type: 'string', required: true, default: null },
+  { name: 'MODAL_TITLE_ES', source: 'modal.titleEs', type: 'string', required: true, default: null },
+  { name: 'MODAL_TITLE_EN', source: 'modal.titleEn', type: 'string', required: true, default: null },
+  { name: 'MODAL_SUBTITLE_ES', source: 'modal.subtitleEs', type: 'string', required: false, default: '' },
+  { name: 'MODAL_SUBTITLE_EN', source: 'modal.subtitleEn', type: 'string', required: false, default: '' },
+  { name: 'MODAL_BODY', source: 'modal.bodyHtml', type: 'html', required: true, default: null },
+  { name: 'MODALS', source: 'renderAllModals(manifest)', type: 'html-block', required: false, default: '' },
+
+  // ── 6.v2 Flow Modal Body ────────────────────────────────────────────────
+  { name: 'FLOW_PURPOSE_ES', source: 'flows[n].purposeEs', type: 'string', required: false, default: '' },
+  { name: 'FLOW_PURPOSE_EN', source: 'flows[n].purposeEn', type: 'string', required: false, default: '' },
+  { name: 'FLOW_STEPS', source: 'flows[n].steps[]', type: 'array', required: false, default: '[]' },
+  { name: 'FLOW_OUTPUT_ES', source: 'flows[n].outputEs', type: 'string', required: false, default: '' },
+  { name: 'FLOW_OUTPUT_EN', source: 'flows[n].outputEn', type: 'string', required: false, default: '' },
+  { name: 'FLOW_DOD_ES', source: 'flows[n].dodEs', type: 'string', required: false, default: '' },
+  { name: 'FLOW_DOD_EN', source: 'flows[n].dodEn', type: 'string', required: false, default: '' },
+  { name: 'FLOW_PROGRESSION_ES', source: 'flows[n].progressionEs', type: 'string', required: false, default: '' },
+  { name: 'FLOW_PROGRESSION_EN', source: 'flows[n].progressionEn', type: 'string', required: false, default: '' },
+  { name: 'FLOW_CTA', source: 'flows[n].cta[]', type: 'array', required: false, default: '[]' },
+
+  // ── 6.v2 Anti-Pattern Modal Body ────────────────────────────────────────
+  { name: 'AP_CONCEPT_ES', source: 'antiPatterns[n].conceptEs', type: 'string', required: false, default: '' },
+  { name: 'AP_CONCEPT_EN', source: 'antiPatterns[n].conceptEn', type: 'string', required: false, default: '' },
+  { name: 'AP_WHY_ES', source: 'antiPatterns[n].whyEs', type: 'string', required: false, default: '' },
+  { name: 'AP_WHY_EN', source: 'antiPatterns[n].whyEn', type: 'string', required: false, default: '' },
+  { name: 'AP_DETECT_ES', source: 'antiPatterns[n].detectEs', type: 'string', required: false, default: '' },
+  { name: 'AP_DETECT_EN', source: 'antiPatterns[n].detectEn', type: 'string', required: false, default: '' },
+  { name: 'AP_STEPS', source: 'antiPatterns[n].steps[]', type: 'array', required: true, default: null },
+  { name: 'AP_ACCOUNTABILITY_ES', source: 'antiPatterns[n].accountabilityEs', type: 'string', required: false, default: '' },
+  { name: 'AP_ACCOUNTABILITY_EN', source: 'antiPatterns[n].accountabilityEn', type: 'string', required: false, default: '' },
+
+  // ── 6.v2 Glossary ──────────────────────────────────────────────────────
+  { name: 'TERM_CONCEPT_ES', source: 'glossary[n].conceptEs', type: 'string', required: true, default: null },
+  { name: 'TERM_CONCEPT_EN', source: 'glossary[n].conceptEn', type: 'string', required: true, default: null },
+  { name: 'TERM_WHY_ES', source: 'glossary[n].whyEs', type: 'string', required: false, default: '' },
+  { name: 'TERM_WHY_EN', source: 'glossary[n].whyEn', type: 'string', required: false, default: '' },
+  { name: 'TERM_EXAMPLE_STEPS', source: 'glossary[n].exampleSteps[]', type: 'array', required: false, default: '[]' },
+  { name: 'GLOSSARY_CARDS', source: 'renderGlossaryGrid(glossary)', type: 'html-block', required: false, default: '' },
+  { name: 'TERM_COLOR', source: 'glossary[n].color', type: 'css-color', required: false, default: 'var(--sofka-info)' },
+  { name: 'TERM_MODAL_ID', source: 'glossary[n].id', type: 'string', required: true, default: null },
+  { name: 'TERM_NAME_ES', source: 'glossary[n].nameEs', type: 'string', required: false, default: '' },
+  { name: 'TERM_NAME_EN', source: 'glossary[n].nameEn', type: 'string', required: false, default: '' },
+  { name: 'TERM_SHORT_ES', source: 'glossary[n].shortEs', type: 'string', required: false, default: '' },
+  { name: 'TERM_SHORT_EN', source: 'glossary[n].shortEn', type: 'string', required: false, default: '' },
+
+  // ── 6.v2 Kata Modal ────────────────────────────────────────────────────
+  { name: 'KA_CONCEPT_ES', source: 'katas[n].conceptEs', type: 'string', required: false, default: '' },
+  { name: 'KA_CONCEPT_EN', source: 'katas[n].conceptEn', type: 'string', required: false, default: '' },
+  { name: 'KA_PRACTICE_STEPS', source: 'katas[n].practiceSteps[]', type: 'array', required: false, default: '[]' },
+  { name: 'KA_CRITERION_ES', source: 'katas[n].criterionEs', type: 'string', required: false, default: '' },
+  { name: 'KA_CRITERION_EN', source: 'katas[n].criterionEn', type: 'string', required: false, default: '' },
+
+  // ── 6.v2 Profiles ──────────────────────────────────────────────────────
+  { name: 'PROFILE_CARDS', source: 'renderProfileSection(managerProfiles)', type: 'html-block', required: false, default: '' },
+  { name: 'PROFILE_MODAL_ID', source: 'managerProfiles[n].id', type: 'string', required: true, default: null },
+  { name: 'PROFILE_NAME_ES', source: 'managerProfiles[n].nameEs', type: 'string', required: true, default: null },
+  { name: 'PROFILE_NAME_EN', source: 'managerProfiles[n].nameEn', type: 'string', required: true, default: null },
+  { name: 'PROFILE_COLOR', source: 'managerProfiles[n].color', type: 'css-color', required: false, default: 'var(--sofka-primary)' },
+  { name: 'PROFILE_DIM', source: 'managerProfiles[n].dim', type: 'css-color', required: false, default: '' },
+  { name: 'PROFILE_BORDER', source: 'managerProfiles[n].border', type: 'css-color', required: false, default: '' },
+  { name: 'PROFILE_ICON', source: 'managerProfiles[n].icon', type: 'string', required: false, default: '' },
+  { name: 'PROFILE_DESC_ES', source: 'managerProfiles[n].descEs', type: 'string', required: false, default: '' },
+  { name: 'PROFILE_DESC_EN', source: 'managerProfiles[n].descEn', type: 'string', required: false, default: '' },
+  { name: 'PROFILE_SHU_HA_RI', source: 'managerProfiles[n].shuHaRi', type: 'string', required: true, default: null },
+
+  // ── 6.v2 APM Equation ──────────────────────────────────────────────────
+  { name: 'APM_TERM1_TITLE_ES', source: 'apmEquation.terms[0].titleEs', type: 'string', required: false, default: '' },
+  { name: 'APM_TERM1_TITLE_EN', source: 'apmEquation.terms[0].titleEn', type: 'string', required: false, default: '' },
+  { name: 'APM_TERM1_DESC_ES', source: 'apmEquation.terms[0].descEs', type: 'string', required: false, default: '' },
+  { name: 'APM_TERM1_DESC_EN', source: 'apmEquation.terms[0].descEn', type: 'string', required: false, default: '' },
+  { name: 'APM_OP1', source: 'apmEquation.operators[0]', type: 'string', required: false, default: '+' },
+  { name: 'APM_TERM2_TITLE_ES', source: 'apmEquation.terms[1].titleEs', type: 'string', required: false, default: '' },
+  { name: 'APM_TERM2_TITLE_EN', source: 'apmEquation.terms[1].titleEn', type: 'string', required: false, default: '' },
+  { name: 'APM_TERM2_DESC_ES', source: 'apmEquation.terms[1].descEs', type: 'string', required: false, default: '' },
+  { name: 'APM_TERM2_DESC_EN', source: 'apmEquation.terms[1].descEn', type: 'string', required: false, default: '' },
+  { name: 'APM_OP2', source: 'apmEquation.operators[1]', type: 'string', required: false, default: '=' },
+  { name: 'APM_RESULT_TITLE_ES', source: 'apmEquation.result.titleEs', type: 'string', required: false, default: '' },
+  { name: 'APM_RESULT_TITLE_EN', source: 'apmEquation.result.titleEn', type: 'string', required: false, default: '' },
+  { name: 'APM_RESULT_DESC_ES', source: 'apmEquation.result.descEs', type: 'string', required: false, default: '' },
+  { name: 'APM_RESULT_DESC_EN', source: 'apmEquation.result.descEn', type: 'string', required: false, default: '' },
+
+  // ── 6.v2 Anti-Pattern Table ─────────────────────────────────────────────
+  { name: 'AP_TABLE_ROWS', source: 'renderAntiPatternTable(antiPatterns)', type: 'html-block', required: false, default: '' },
+  { name: 'AP_NUM', source: 'antiPatterns[n].num', type: 'integer', required: true, default: null },
+  { name: 'AP_SYMPTOM_ES', source: 'antiPatterns[n].symptomEs', type: 'string', required: false, default: '' },
+  { name: 'AP_SYMPTOM_EN', source: 'antiPatterns[n].symptomEn', type: 'string', required: false, default: '' },
+  { name: 'AP_NAME_ES', source: 'antiPatterns[n].nameEs', type: 'string', required: true, default: null },
+  { name: 'AP_NAME_EN', source: 'antiPatterns[n].nameEn', type: 'string', required: true, default: null },
+  { name: 'AP_REMEDY_ES', source: 'antiPatterns[n].remedyEs', type: 'string', required: false, default: '' },
+  { name: 'AP_REMEDY_EN', source: 'antiPatterns[n].remedyEn', type: 'string', required: false, default: '' },
+
+  // ── 6.v2 Reveal Box ────────────────────────────────────────────────────
+  { name: 'REVEAL_ID', source: 'component.data.revealId', type: 'string', required: false, default: null },
+  { name: 'REVEAL_LABEL_ES', source: 'component.data.revealLabelEs', type: 'string', required: false, default: '' },
+  { name: 'REVEAL_LABEL_EN', source: 'component.data.revealLabelEn', type: 'string', required: false, default: '' },
+  { name: 'REVEAL_CONTENT', source: 'component.data.revealContent', type: 'html', required: false, default: '' },
+
   // ── 7. Kata ──────────────────────────────────────────────────────────────
   { name: 'KATA_ID', source: 'katas[n].id', type: 'string', required: true, default: null },
   { name: 'KATA_NUMBER', source: 'katas[n].number', type: 'integer', required: true, default: null },
@@ -256,6 +366,17 @@ const PLACEHOLDERS = [
   { name: 'KATA_CHECKPOINT', source: 'katas[n].checkpoint', type: 'string', required: false, default: null },
   { name: 'KATA_ANTIPATTERNS', source: 'katas[n].antiPatterns[]', type: 'array', required: false, default: '[]' },
   { name: 'KATA_PLATFORMS', source: 'katas[n].platforms[]', type: 'array', required: false, default: '[]' },
+  { name: 'KATA_NUM', source: 'katas[n].number', type: 'integer', required: true, default: null },
+  { name: 'KATA_GEM_NAME_ES', source: 'katas[n].nameEs', type: 'string', required: false, default: '' },
+  { name: 'KATA_GEM_NAME_EN', source: 'katas[n].nameEn', type: 'string', required: false, default: '' },
+  { name: 'KATA_GEM_SUBTITLE_ES', source: 'katas[n].objectiveEs', type: 'string', required: false, default: '' },
+  { name: 'KATA_GEM_SUBTITLE_EN', source: 'katas[n].objectiveEn', type: 'string', required: false, default: '' },
+  { name: 'KATA_WHY_VALUE_ES', source: 'katas[n].objectiveEs', type: 'string', required: false, default: '' },
+  { name: 'KATA_WHY_VALUE_EN', source: 'katas[n].objectiveEn', type: 'string', required: false, default: '' },
+  { name: 'KATA_PHASE', source: 'katas[n].shuHaRiLevel', type: 'string', required: true, default: null },
+  { name: 'KATA_PHASE_COLOR', source: 'derived from shuHaRiLevel', type: 'css-color', required: false, default: 'var(--sofka-orange)' },
+  { name: 'KATA_PHASE_COLOR_DIM', source: 'derived from shuHaRiLevel', type: 'css-color', required: false, default: 'var(--sofka-orange-dim)' },
+  { name: 'KATA_PHASE_COLOR_BORDER', source: 'derived from shuHaRiLevel', type: 'css-color', required: false, default: 'rgba(255,126,8,.25)' },
 
   // ── 8. Flow ──────────────────────────────────────────────────────────────
   { name: 'FLOW_NUMBER', source: 'flows[n].number', type: 'integer', required: true, default: null },
@@ -266,6 +387,16 @@ const PLACEHOLDERS = [
   { name: 'FLOW_OUTPUT', source: 'flows[n].output', type: 'string', required: true, default: null },
   { name: 'FLOW_TIME', source: 'flows[n].estimatedTime', type: 'string', required: false, default: null },
   { name: 'FLOW_FREQUENCY', source: 'flows[n].frequency', type: 'string', required: false, default: null },
+  { name: 'FLOW_NUM', source: 'flows[n].number', type: 'integer', required: true, default: null },
+  { name: 'FLOW_NAME_ES', source: 'flows[n].nameEs', type: 'string', required: false, default: '' },
+  { name: 'FLOW_NAME_EN', source: 'flows[n].nameEn', type: 'string', required: false, default: '' },
+  { name: 'FLOW_SUBTITLE_ES', source: 'flows[n].triggerEs', type: 'string', required: false, default: '' },
+  { name: 'FLOW_SUBTITLE_EN', source: 'flows[n].triggerEn', type: 'string', required: false, default: '' },
+  { name: 'FLOW_WHY_VALUE_ES', source: 'flows[n].triggerEs', type: 'string', required: false, default: '' },
+  { name: 'FLOW_WHY_VALUE_EN', source: 'flows[n].triggerEn', type: 'string', required: false, default: '' },
+  { name: 'FLOW_SUCCESS_VALUE_ES', source: 'flows[n].outputEs', type: 'string', required: false, default: '' },
+  { name: 'FLOW_SUCCESS_VALUE_EN', source: 'flows[n].outputEn', type: 'string', required: false, default: '' },
+  { name: 'FLOW_CTA_LINKS', source: 'flows[n].cta[]', type: 'html-block', required: false, default: '' },
 
   // ── 9. Architecture Layers ───────────────────────────────────────────────
   { name: 'ARCH_LAYER_NAME', source: 'architectureLayers[n].name', type: 'string', required: true, default: null },

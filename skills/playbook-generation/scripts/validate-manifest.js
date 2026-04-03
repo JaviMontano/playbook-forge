@@ -167,7 +167,9 @@ function validateSection(section, index) {
     'semaforo-grid', 'vraid-box', 'gem-bar', 'callout',
     'decision-table', 'guardrail-grid', 'gate-box', 'acceptance-list',
     'testimonial-grid', 'case-highlight', 'recommendations',
-    'inline-heading', 'inline-table', 'inline-paragraph'
+    'inline-heading', 'inline-table', 'inline-paragraph',
+    // v2 component types
+    'glossary-grid', 'antipattern-table', 'profile-section', 'apm-equation'
   ];
 
   if (checkArray(section, 'components', p, true, 1)) {
@@ -203,16 +205,23 @@ function validateKata(kata, index) {
   checkString(kata, 'objective', p, true);
   checkString(kata, 'jarvisAgent', p, true);
 
-  // Validate id pattern
-  if (isNonEmptyString(kata.id) && !/^kata[1-4]$/.test(kata.id)) {
-    err(`${p}.id`, `Kata ID must match pattern ^kata[1-4]$, got "${kata.id}".`);
+  // Validate id pattern (v2: supports kata1-kata5)
+  if (isNonEmptyString(kata.id) && !/^kata[1-5]$/.test(kata.id)) {
+    err(`${p}.id`, `Kata ID must match pattern ^kata[1-5]$, got "${kata.id}".`);
   }
 
-  // Validate number
+  // Validate number (v2: 1-5)
   if (exists(kata, 'number')) {
-    if (typeof kata.number !== 'number' || kata.number < 1 || kata.number > 4) {
-      err(`${p}.number`, `Kata number must be 1-4, got ${kata.number}.`);
+    if (typeof kata.number !== 'number' || kata.number < 1 || kata.number > 5) {
+      err(`${p}.number`, `Kata number must be 1-5, got ${kata.number}.`);
     }
+  }
+
+  // v2: shuHaRiLevel required
+  if (!exists(kata, 'shuHaRiLevel')) {
+    err(`${p}.shuHaRiLevel`, `Required field "shuHaRiLevel" is missing.`);
+  } else if (!['shu', 'ha', 'ri'].includes(kata.shuHaRiLevel)) {
+    err(`${p}.shuHaRiLevel`, `Must be one of shu/ha/ri, got "${kata.shuHaRiLevel}".`);
   }
 
   // Steps
@@ -348,7 +357,7 @@ function validate() {
   }
 
   // 2. Top-level required fields
-  const topRequired = ['meta', 'hero', 'sections', 'katas', 'flows', 'architectureLayers', 'footer'];
+  const topRequired = ['meta', 'hero', 'sections', 'katas', 'flows', 'architectureLayers', 'footer', 'glossary', 'antiPatterns', 'managerProfiles'];
   for (const field of topRequired) {
     if (!exists(manifest, field)) {
       err('root', `Required top-level field "${field}" is missing.`);
@@ -369,8 +378,8 @@ function validate() {
   }
 
   if (Array.isArray(manifest.katas)) {
-    if (manifest.katas.length !== 4) {
-      err('katas', `Must have exactly 4 katas, got ${manifest.katas.length}.`);
+    if (manifest.katas.length !== 5) {
+      err('katas', `Must have exactly 5 katas, got ${manifest.katas.length}.`);
     }
     for (let i = 0; i < manifest.katas.length; i++) {
       validateKata(manifest.katas[i], i);
@@ -392,13 +401,128 @@ function validate() {
 
   if (manifest.footer) validateFooter(manifest.footer);
 
+  // ── v2 Validations ───────────────────────────────────────────────────────
+
+  // Glossary: required array, minItems 10
+  if (!exists(manifest, 'glossary')) {
+    err('root', 'Required top-level field "glossary" is missing.');
+  } else if (checkArray(manifest, 'glossary', 'root', true, 10)) {
+    for (let i = 0; i < manifest.glossary.length; i++) {
+      const term = manifest.glossary[i];
+      const tp = `glossary[${i}]`;
+      if (!term || typeof term !== 'object') {
+        err(tp, 'Glossary term must be an object.');
+        continue;
+      }
+      checkRequired(term, ['id', 'name', 'conceptEs', 'conceptEn'], tp);
+      checkString(term, 'id', tp, true);
+      checkString(term, 'name', tp, true);
+      checkString(term, 'conceptEs', tp, true);
+      checkString(term, 'conceptEn', tp, true);
+    }
+  }
+
+  // Anti-patterns: required array, minItems 10
+  if (!exists(manifest, 'antiPatterns')) {
+    err('root', 'Required top-level field "antiPatterns" is missing.');
+  } else if (checkArray(manifest, 'antiPatterns', 'root', true, 10)) {
+    for (let i = 0; i < manifest.antiPatterns.length; i++) {
+      const ap = manifest.antiPatterns[i];
+      const ap_path = `antiPatterns[${i}]`;
+      if (!ap || typeof ap !== 'object') {
+        err(ap_path, 'Anti-pattern must be an object.');
+        continue;
+      }
+      checkRequired(ap, ['num', 'nameEs', 'nameEn', 'steps'], ap_path);
+      if (exists(ap, 'num') && typeof ap.num !== 'number') {
+        err(`${ap_path}.num`, 'num must be a number.');
+      }
+      checkString(ap, 'nameEs', ap_path, true);
+      checkString(ap, 'nameEn', ap_path, true);
+      checkArray(ap, 'steps', ap_path, true, 1);
+    }
+  }
+
+  // Manager profiles: required array, exactly 3
+  if (!exists(manifest, 'managerProfiles')) {
+    err('root', 'Required top-level field "managerProfiles" is missing.');
+  } else if (checkArray(manifest, 'managerProfiles', 'root', true, 3, 3)) {
+    for (let i = 0; i < manifest.managerProfiles.length; i++) {
+      const prof = manifest.managerProfiles[i];
+      const pp = `managerProfiles[${i}]`;
+      if (!prof || typeof prof !== 'object') {
+        err(pp, 'Manager profile must be an object.');
+        continue;
+      }
+      checkRequired(prof, ['level', 'shuHaRi', 'nameEs', 'nameEn'], pp);
+      checkString(prof, 'level', pp, true);
+      checkString(prof, 'shuHaRi', pp, true);
+      checkString(prof, 'nameEs', pp, true);
+      checkString(prof, 'nameEn', pp, true);
+    }
+  }
+
+  // Bilingual completeness check: for every field ending in Es, verify En counterpart
+  function checkBilingualCompleteness(obj, basePath) {
+    if (!obj || typeof obj !== 'object') return;
+    for (const key of Object.keys(obj)) {
+      if (key.endsWith('Es') && typeof obj[key] === 'string') {
+        const enKey = key.slice(0, -2) + 'En';
+        if (!isNonEmptyString(obj[enKey])) {
+          warn(`${basePath}.${enKey}`, `Bilingual pair incomplete: "${key}" exists but "${enKey}" is missing or empty.`);
+        }
+      }
+      // Recurse into nested objects and arrays
+      if (typeof obj[key] === 'object' && obj[key] !== null) {
+        if (Array.isArray(obj[key])) {
+          obj[key].forEach((item, idx) => {
+            if (typeof item === 'object' && item !== null) {
+              checkBilingualCompleteness(item, `${basePath}.${key}[${idx}]`);
+            }
+          });
+        } else {
+          checkBilingualCompleteness(obj[key], `${basePath}.${key}`);
+        }
+      }
+    }
+  }
+  checkBilingualCompleteness(manifest, 'root');
+
+  // Modal count warning
+  const modalCount = (
+    (Array.isArray(manifest.flows) ? manifest.flows.length : 0) +
+    (Array.isArray(manifest.antiPatterns) ? manifest.antiPatterns.length : 0) +
+    (Array.isArray(manifest.glossary) ? manifest.glossary.length : 0) +
+    (Array.isArray(manifest.katas) ? manifest.katas.length : 0) +
+    (Array.isArray(manifest.managerProfiles) ? manifest.managerProfiles.length : 0) +
+    (Array.isArray(manifest.modals) ? manifest.modals.length : 0)
+  );
+  if (modalCount < 40) {
+    warn('modals', `Total modal count is ${modalCount}, expected at least 40 for a complete v2 playbook.`);
+  }
+
+  // Schema version check
+  if (!exists(manifest, 'schemaVersion')) {
+    warn('root.schemaVersion', 'Field "schemaVersion" is missing. Recommended for v2 manifests.');
+  } else if (manifest.schemaVersion !== '2.0') {
+    warn('root.schemaVersion', `Expected schemaVersion "2.0", got "${manifest.schemaVersion}". Some v2 features may not render correctly.`);
+  }
+
   // ── Report ───────────────────────────────────────────────────────────────
   const valid = errors.length === 0;
-  const summary = valid
-    ? `PASS: Manifest is valid. ${warnings.length} warning(s).`
-    : `FAIL: ${errors.length} error(s), ${warnings.length} warning(s).`;
+  const glossaryCount = Array.isArray(manifest.glossary) ? manifest.glossary.length : 0;
+  const antiPatternCount = Array.isArray(manifest.antiPatterns) ? manifest.antiPatterns.length : 0;
+  const profileCount = Array.isArray(manifest.managerProfiles) ? manifest.managerProfiles.length : 0;
+  const kataCount = Array.isArray(manifest.katas) ? manifest.katas.length : 0;
+  const flowCount = Array.isArray(manifest.flows) ? manifest.flows.length : 0;
+  const sectionCount = Array.isArray(manifest.sections) ? manifest.sections.length : 0;
 
-  const report = { valid, errors, warnings, summary };
+  const v2Stats = `katas=${kataCount} glossary=${glossaryCount} antiPatterns=${antiPatternCount} profiles=${profileCount} flows=${flowCount} sections=${sectionCount}`;
+  const summary = valid
+    ? `PASS (v2): Manifest is valid. ${warnings.length} warning(s). ${modalCount} modals detected. [${v2Stats}]`
+    : `FAIL (v2): ${errors.length} error(s), ${warnings.length} warning(s). ${modalCount} modals detected. [${v2Stats}]`;
+
+  const report = { valid, schemaVersion: manifest.schemaVersion || 'unspecified', modalCount, v2Stats: { glossaryCount, antiPatternCount, profileCount, kataCount, flowCount, sectionCount }, errors, warnings, summary };
   process.stdout.write(JSON.stringify(report, null, 2) + '\n');
 
   if (valid) {

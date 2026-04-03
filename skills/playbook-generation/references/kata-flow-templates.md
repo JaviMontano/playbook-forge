@@ -342,17 +342,25 @@ Includes `.jf-prompt` block with example system prompt text.
 
 ---
 
-## Part C: Learning Katas (KA-1 to KA-5) -- Transversal
+## Part C: 5 Katas (Shu-Ha-Ri Progression)
 
-These are meta-learning katas that apply across all 13 flows. They follow the Shu-Ha-Ri progression:
+| KA | Phase | Name ES | Name EN | Duration | Concept |
+|----|-------|---------|---------|----------|---------|
+| KA-1 | Shu | Observar | Observe | 15 min | Watch the flow executed, read the modal, understand the structure |
+| KA-2 | Shu | Imitar | Imitate | 30 min | Copy the flow step-by-step, 4 trials without deviation |
+| KA-3 | Ha | Adaptar | Adapt | 30 min | Modify context, naming, cadence -- keep the output structure |
+| KA-4 | Ri | Ensenar | Teach | 30 min | Teach a colleague, verify they can execute alone |
+| KA-5 | Ri | Crear | Create | 60 min | Design your own flow (Flow 13) with 4 artifacts |
 
-| Kata | Name | Level | Duration | What You Do |
-|------|------|-------|----------|-------------|
-| KA-1 | Observar | Shu | 15 min | Watch someone execute the flow |
-| KA-2 | Imitar | Shu | 30 min | Copy the exact steps |
-| KA-3 | Adaptar | Ha | 30 min | Modify for your context |
-| KA-4 | Ensenar | Ri | 30 min | Teach another person |
-| KA-5 | Crear | Ri | 60 min | Design your own flow |
+## Kata x Flow Activation Matrix
+
+| | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10 | F11 | F12 | F13 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| KA-1 | Read | Read | Read | Read | -- | -- | -- | -- | -- | -- | -- | -- | -- |
+| KA-2 | Execute | Execute | Execute | Execute | -- | -- | Execute | -- | Execute | -- | -- | -- | -- |
+| KA-3 | Adapt | Adapt | Adapt | Adapt | Execute | Execute | Adapt | Execute | Adapt | -- | -- | -- | -- |
+| KA-4 | Teach | Teach | Teach | Teach | Adapt | Adapt | Teach | Adapt | Teach | Execute | Execute | Execute | -- |
+| KA-5 | check | check | check | check | check | check | check | check | check | check | check | check | Create |
 
 **Mapping to flows**:
 - Flows 1-4: Start at KA-2 (imitate)

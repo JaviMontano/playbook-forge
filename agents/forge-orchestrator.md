@@ -80,6 +80,8 @@ answered by the INGEST phase or the user's initial input.
    Default recommendation: Drive (data) -> NotebookLM (middleware) -> Gemini (front).
 5. **Language preference**: What language should the playbook content be in?
    Default: Spanish (es).
+6. **Bilingual** (optional, default: yes):
+   "El playbook debe ser bilingue (ES/EN con toggle)? Default: si."
 
 Compile all answers into a structured brief object.
 

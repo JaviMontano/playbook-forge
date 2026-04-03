@@ -1,4 +1,8 @@
 </main>
+
+<!-- MODALS CONTAINER -->
+{{MODALS}}
+
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-row">
@@ -8,5 +12,13 @@
     <div class="footer-bottom">{{FOOTER_COPYRIGHT}}</div>
   </div>
 </footer>
+
+<script>
+function toggleLang(){document.body.classList.toggle('lang-es');document.body.classList.toggle('lang-en');document.documentElement.lang=document.body.classList.contains('lang-en')?'en':'es';}
+function openModal(id){var m=document.getElementById('modal-f'+id)||document.getElementById('modal-fg-'+id)||document.getElementById('modal-fl-'+id)||document.getElementById('modal-fm-'+id)||document.getElementById('modal-fka'+id)||document.getElementById('modal-fap'+id)||document.getElementById('modal-fdm'+id)||document.getElementById('modal-'+id);if(m){m.classList.add('active');document.body.style.overflow='hidden';}}
+function closeModal(){document.querySelectorAll('.modal-overlay.active').forEach(function(m){m.classList.remove('active')});document.body.style.overflow='';}
+document.addEventListener('click',function(e){if(e.target.classList.contains('modal-overlay')&&e.target.classList.contains('active'))closeModal();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+</script>
 </body>
 </html>

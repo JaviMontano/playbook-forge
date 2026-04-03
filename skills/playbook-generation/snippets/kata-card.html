@@ -1,30 +1,36 @@
-<div class="jarvis-card" style="max-width:none;">
+<div class="jarvis-card clickable-card" style="max-width:none;" onclick="openModal('ka{{KATA_NUM}}')">
   <div class="jarvis-card-header">
     <div class="jarvis-icon {{KATA_ICON_CLASS}}">{{KATA_ICON_TEXT}}</div>
-    <h3>{{KATA_GEM_NAME}}<small>{{KATA_GEM_SUBTITLE}}</small></h3>
+    <h3>
+      <span class="es">{{KATA_GEM_NAME_ES}}</span><span class="en">{{KATA_GEM_NAME_EN}}</span>
+      <small><span class="es">{{KATA_GEM_SUBTITLE_ES}}</span><span class="en">{{KATA_GEM_SUBTITLE_EN}}</span></small>
+    </h3>
+    <span class="jtag" style="background:{{KATA_PHASE_COLOR_DIM}};border-color:{{KATA_PHASE_COLOR_BORDER}};color:{{KATA_PHASE_COLOR}};">{{KATA_PHASE}}</span>
   </div>
   <div class="jarvis-card-body">
     <div class="jf">
-      <div class="jf-label">{{KATA_WHY_LABEL}}</div>
-      <div class="jf-value">{{KATA_WHY_VALUE}}</div>
-    </div>
-
-    <div class="jf">
-      <div class="jf-label">{{KATA_EXERCISE_LABEL}}</div>
+      <div class="jf-label"><span class="es">Objetivo</span><span class="en">Objective</span></div>
       <div class="jf-value">
-        <ol style="padding-left:1.2rem;margin:.5rem 0;">
-          {{KATA_EXERCISE_STEPS}}
-        </ol>
+        <span class="es">{{KATA_WHY_VALUE_ES}}</span><span class="en">{{KATA_WHY_VALUE_EN}}</span>
       </div>
     </div>
 
     <div class="jf">
-      <div class="jf-label">{{KATA_SUCCESS_LABEL}}</div>
-      <div class="jf-value">{{KATA_SUCCESS_VALUE}}</div>
+      <div class="jf-label"><span class="es">Ejercicio</span><span class="en">Exercise</span></div>
+      <div class="jf-value">
+        <div class="timeline">
+          {{KATA_EXERCISE_STEPS}}
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="border-color:var(--sofka-orange);background:var(--sofka-orange-dim);margin-top:1rem;">
+      <strong><span class="es">Criterio de superacion</span><span class="en">Success criterion</span></strong>
+      <p>{{KATA_SUCCESS_VALUE}}</p>
     </div>
 
     <div class="jf">
-      <div class="jf-label">{{KATA_BEST_PRACTICE_LABEL}}</div>
+      <div class="jf-label"><span class="es">Buenas Practicas</span><span class="en">Best Practices</span></div>
       <div class="jf-value">{{KATA_BEST_PRACTICE_VALUE}}</div>
     </div>
   </div>

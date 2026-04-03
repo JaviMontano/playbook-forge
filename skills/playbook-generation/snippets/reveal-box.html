@@ -1,0 +1,10 @@
+<div style="margin:1rem 0;">
+  <input type="checkbox" class="reveal-trigger" id="reveal-{{REVEAL_ID}}" style="display:none;">
+  <label class="reveal-label" for="reveal-{{REVEAL_ID}}" style="display:inline-flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--sofka-orange);">
+    <span class="es">{{REVEAL_LABEL_ES}}</span><span class="en">{{REVEAL_LABEL_EN}}</span> &#9662;
+  </label>
+  <div class="reveal-box" style="max-height:0;overflow:hidden;opacity:0;padding:0 1rem;transition:max-height .4s ease,opacity .3s ease,padding .3s ease;">
+    {{REVEAL_CONTENT}}
+  </div>
+</div>
+<style>#reveal-{{REVEAL_ID}}:checked ~ .reveal-box{max-height:2000px;opacity:1;padding:1rem;}</style>

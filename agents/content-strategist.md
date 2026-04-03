@@ -2,8 +2,9 @@
 name: content-strategist
 description: |
   Use this agent when the playbook brief is ready and a complete content
-  manifest needs to be generated. This agent architects all 13 flows, 4 katas,
-  and every section of the playbook content.
+  manifest needs to be generated. This agent architects all 13 flows, 5 katas
+  (Shu-Ha-Ri), 65 interactive modals, bilingual content (ES/EN), 13 anti-patterns,
+  and every section of the v2 playbook content.
 
   <example>
   Context: Generating content for a QA team playbook
@@ -110,6 +111,15 @@ Design 4 progressive checkpoint exercises using the user's real scenarios:
 
 Each kata must include: objective, prerequisites, step-by-step instructions,
 acceptance criteria, and a gate checkpoint (pass/fail criteria).
+
+8. Generate ALL content bilingually (ES + EN for every text field)
+9. Generate 15+ glossary terms with: id, name, subtitleEs/En, conceptEs/En, whyEs/En, exampleEs/En
+10. Generate 13 anti-patterns with: num, nameEs/En, subtitleEs/En, symptomEs/En, whyEs/En, detectEs/En, remediation steps (3 each), accountabilityEs/En
+11. Generate 3 manager profiles: novato (Shu), practicante (Ha), autonomo (Ri) with nameEs/En, descEs/En, characteristics
+12. Generate modal content for all 65 modals: 13 flow deep-dives, 13 anti-pattern details, 15 glossary terms, 5 kata details, 7 decision matrix, 3 learning layers, 3 manager profiles, 1 impact
+13. For each flow modal: purposeEs/En, steps[] with time+descEs/En, outputEs/En, dodEs/En (Definition of Done), progressionEs/En (week 1-2, 4, 8), cta[] with gem links
+14. Adapt katas to 5-level Shu-Ha-Ri model: KA-1 Observe, KA-2 Imitate, KA-3 Adapt, KA-4 Teach, KA-5 Create
+15. Generate kata x flow activation matrix (which flows activate at each kata level)
 
 ## Section Content
 

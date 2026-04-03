@@ -1,6 +1,6 @@
-# Playbook Forge — Plugin Hub
+# Playbook Forge v2.0.0 — Plugin Hub
 
-> Genera playbooks HTML branded con metodologia vivida: 13 flujos AI-native, 4 katas, adopcion progresiva, VR-AID, semaforo de valor. Sofka DS v5.1.
+> Genera playbooks HTML branded v2 con metodologia vivida: 13 flujos AI-native, 5 katas (Shu-Ha-Ri), 65 modals interactivos, contenido bilingue ES/EN, 13 anti-patrones, glosario, perfiles de manager, adopcion progresiva, VR-AID, semaforo de valor. Sofka DS v5.1.
 
 ## Quick Start
 
@@ -12,7 +12,7 @@
 
 | Command | What it does |
 |---------|-------------|
-| `/playbook:forge "<topic>"` | Genera playbook completo (13 secciones + katas + flujos) |
+| `/playbook:forge "<topic>"` | Genera playbook completo (11 secciones + 5 katas + 13 flujos + 65 modals) |
 | `/playbook:ingest [path]` | Ingesta fuentes de contexto |
 | `/playbook:preview` | Abre ultimo playbook en browser |
 | `/playbook:section "<tipo>"` | Genera una seccion individual |
@@ -28,9 +28,9 @@ INTAKE → INGEST → CLARIFY → GENERATE → ASSEMBLE → VALIDATE → DELIVER
 1. **INTAKE**: Parsea topic, detecta fuentes
 2. **INGEST**: `context-ingester` extrae roles, herramientas, problemas
 3. **CLARIFY**: 3-5 preguntas al usuario (roles, tools, problemas, stack, idioma)
-4. **GENERATE**: `content-strategist` produce JSON manifest con 13 secciones + katas + flujos
+4. **GENERATE**: `content-strategist` produce JSON manifest con 11 secciones + 5 katas + 13 flujos + 65 modals (bilingue)
 5. **ASSEMBLE**: `html-assembler` ensambla HTML desde snippets + manifest (84% deterministico)
-6. **VALIDATE**: `playbook-reviewer` verifica 12 checkpoints de calidad
+6. **VALIDATE**: `playbook-reviewer` verifica 19 checkpoints de calidad (v2)
 7. **DELIVER**: HTML self-contained en `outputs/`, se ofrece preview
 
 ## Agents
@@ -45,11 +45,14 @@ INTAKE → INGEST → CLARIFY → GENERATE → ASSEMBLE → VALIDATE → DELIVER
 
 ## Design System
 
-- **Brand**: Sofka DS v5.1 — 42 CSS tokens, 22 componentes
+- **Brand**: Sofka DS v5.1 — 42 CSS tokens, 33 componentes
 - **Fonts**: Clash Grotesk (display) + Inter (body)
 - **Primary**: `#FF7E08` (Sofka Orange)
 - **Tokens**: `references/brand-tokens-sofka.json`
-- **Snippets**: `skills/playbook-generation/snippets/*.html` (22 archivos)
+- **Snippets**: `skills/playbook-generation/snippets/*.html` (33 archivos)
+- **Modals**: 65 interactive modals (flows, anti-patterns, glossary, katas, profiles)
+- **Bilingual**: Native ES/EN with toggle
+- **Anti-patterns**: 13 with remediation
 
 ## Arquitectura de 3 Capas (Grounding)
 
@@ -98,11 +101,11 @@ Cada playbook promueve centralizar la informacion:
 | Component inventory (base) | `references/component-inventory.md` |
 | Katas inventory | `references/katas-inventory.md` |
 | Design system reference | `skills/playbook-generation/references/design-system.md` |
-| Component catalog (22) | `references/component-inventory.md` |
-| Section templates (13) | `skills/playbook-generation/references/section-templates.md` |
+| Component catalog (33) | `references/component-inventory.md` |
+| Section templates (11) | `skills/playbook-generation/references/section-templates.md` |
 | Kata/flow templates | `skills/playbook-generation/references/kata-flow-templates.md` |
 | Grounding strategy | `skills/playbook-generation/references/grounding-architecture.md` |
-| HTML snippets (22) | `skills/playbook-generation/snippets/*.html` |
+| HTML snippets (33) | `skills/playbook-generation/snippets/*.html` |
 | Assembly script | `skills/playbook-generation/scripts/assemble.js` |
 | Validation script | `skills/playbook-generation/scripts/validate-manifest.js` |
 | Placeholder map script | `skills/playbook-generation/scripts/placeholder-map.js` |
