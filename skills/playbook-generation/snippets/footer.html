@@ -14,11 +14,36 @@
 </footer>
 
 <script>
-function toggleLang(){document.body.classList.toggle('lang-es');document.body.classList.toggle('lang-en');document.documentElement.lang=document.body.classList.contains('lang-en')?'en':'es';}
-function openModal(id){var m=document.getElementById('modal-f'+id)||document.getElementById('modal-fg-'+id)||document.getElementById('modal-fl-'+id)||document.getElementById('modal-fm-'+id)||document.getElementById('modal-fka'+id)||document.getElementById('modal-fap'+id)||document.getElementById('modal-fdm'+id)||document.getElementById('modal-'+id);if(m){m.classList.add('active');document.body.style.overflow='hidden';}}
-function closeModal(){document.querySelectorAll('.modal-overlay.active').forEach(function(m){m.classList.remove('active')});document.body.style.overflow='';}
-document.addEventListener('click',function(e){if(e.target.classList.contains('modal-overlay')&&e.target.classList.contains('active'))closeModal();});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+(function(){
+  // Restore language preference
+  var saved = localStorage.getItem('wr-lang');
+  if (saved === 'en') { document.body.classList.remove('lang-es'); document.body.classList.add('lang-en'); document.documentElement.lang = 'en'; }
+
+  window.toggleLang = function(){
+    document.body.classList.toggle('lang-es');
+    document.body.classList.toggle('lang-en');
+    var isEn = document.body.classList.contains('lang-en');
+    document.documentElement.lang = isEn ? 'en' : 'es';
+    localStorage.setItem('wr-lang', isEn ? 'en' : 'es');
+  };
+  window.openModal = function(id){
+    var m = document.getElementById('modal-f'+id) || document.getElementById('modal-fg-'+id) || document.getElementById('modal-fl-'+id) || document.getElementById('modal-fm-'+id) || document.getElementById('modal-fka'+id) || document.getElementById('modal-fap'+id) || document.getElementById('modal-fdm'+id) || document.getElementById('modal-frv-'+id) || document.getElementById('modal-'+id);
+    if(m){ m.classList.add('active'); document.body.style.overflow='hidden'; }
+  };
+  window.closeModal = function(){
+    document.querySelectorAll('.modal-overlay.active').forEach(function(m){ m.classList.remove('active'); });
+    document.body.style.overflow = '';
+  };
+  document.addEventListener('click', function(e){
+    if(e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeModal();
+    if((e.key === 'Enter' || e.key === ' ') && e.target.getAttribute('role') === 'button'){
+      e.preventDefault(); e.target.click();
+    }
+  });
+})();
 </script>
 </body>
 </html>

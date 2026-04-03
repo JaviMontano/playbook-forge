@@ -483,11 +483,11 @@ function renderAllModals(manifest) {
 }
 
 function renderGlossaryGrid(terms) {
-  var colors = ['var(--sofka-orange)', 'var(--sofka-info)', 'var(--sofka-violet)', '#16A34A', 'var(--sofka-critical)', 'var(--sofka-teal)'];
+  var colors = ['var(--sofka-orange)', 'var(--sofka-info)', 'var(--sofka-accent-c)', '#16A34A', 'var(--sofka-critical)', 'var(--sofka-accent-b)'];
   var html = '<div class="problem-grid" style="margin-top:1.5rem;">';
   (terms || []).forEach(function(t, i) {
     var c = colors[i % colors.length];
-    html += '<div class="problem-card tip-card clickable-card" style="border-left-color:' + c + ';cursor:pointer;" onclick="openModal(\'fg-' + t.id + '\')">';
+    html += '<div class="problem-card tip-card clickable-card" style="border-left-color:' + c + ';" onclick="openModal(\'fg-' + t.id + '\')" role="button" tabindex="0">';
     html += '<h4 style="color:' + c + ';">' + escapeHtml(t.name || '') + '</h4>';
     html += '<p>' + renderBilingual(t.subtitleEs || '', t.subtitleEn || '') + '</p></div>';
   });
@@ -501,7 +501,7 @@ function renderAntiPatternTable(patterns) {
   html += '<th>' + renderBilingual('Anti-patrón', 'Anti-pattern') + '</th>';
   html += '<th>' + renderBilingual('Remediación', 'Remediation') + '</th></tr></thead><tbody>';
   (patterns || []).forEach(function(ap) {
-    html += '<tr onclick="openModal(\'fap' + ap.num + '\')" style="cursor:pointer;">';
+    html += '<tr onclick="openModal(\'fap' + ap.num + '\')" role="button" tabindex="0" class="clickable-row">';
     html += '<td>' + renderBilingual(ap.symptomEs || '', ap.symptomEn || '') + '</td>';
     html += '<td style="font-weight:700;color:var(--sofka-critical);">' + renderBilingual(ap.nameEs || '', ap.nameEn || '') + '</td>';
     html += '<td>' + renderBilingual(ap.remedyEs || '', ap.remedyEn || '') + '</td></tr>';
