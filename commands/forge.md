@@ -1,43 +1,55 @@
 ---
-description: "Genera un playbook HTML completo con 13 flujos AI-native, 4 katas y adopcion progresiva"
+description: "Genera un playbook HTML completo con 13 flujos AI-native, 5 katas y adopcion progresiva"
 user-invocable: true
 argument-hint: "<topic> [--source=path]"
 allowed-tools: ["Read", "Write", "Glob", "Grep", "Bash", "Agent", "AskUserQuestion", "TodoWrite"]
 ---
 
-# /forge — Main Playbook Generation Command
+# /playbook:forge — Generate Complete Playbook
 
-## Execution Steps
+## What This Command Does
 
-### 1. Parse Arguments
+Generates a complete, self-contained HTML playbook with 13 AI-native workflows, 5 katas (Shu-Ha-Ri), 65+ interactive modals, bilingual ES/EN content, and full Sofka DS v5.1 branding.
 
-Extract the `<topic>` from the first positional argument. Check for the optional `--source=<path>` flag. If no topic is provided, ask the user with AskUserQuestion.
+## How It Works
 
-### 2. Resolve Source Context
+1. Parse the topic from arguments. If `--source=path` is provided, run `/playbook:ingest` on that path first.
+2. **Launch the `forge-orchestrator` agent** with the parsed topic and any source context.
+3. The orchestrator executes the **V4 Deterministic Pipeline** (11 steps):
 
-- If `--source=<path>` is provided, use that path as the context source directory.
-- If no `--source` flag, scan the current working directory for context files: `.md`, `.txt`, `.json`, `.yaml`, `.csv`, `.docx` files that could inform the playbook.
-- If context files are found, summarize what was discovered and confirm with the user before proceeding.
+| Step | Phase | Method | Script/Agent |
+|------|-------|--------|-------------|
+| 1 | INTAKE | Parse topic | — |
+| 2 | INGEST | Extract context (optional) | `context-ingester` agent |
+| 3 | CLARIFY | Ask 5-6 questions | `AskUserQuestion` |
+| 4 | COMPOSE | Template-based manifest | `compose-manifest.js` (deterministic) |
+| 5 | VALIDATE-PRE | Content density check | `verify-content.js` (deterministic) |
+| 6 | ENRICH | Fill _generate fields only | `content-strategist` agent (LLM) |
+| 7 | VALIDATE-POST | Re-check density | `verify-content.js` (deterministic) |
+| 8 | ASSEMBLE | Manifest → HTML | `assemble.js` (deterministic) |
+| 9 | ROBUSTIFY | Spec compliance fix | `robustify.js` (deterministic) |
+| 10 | VERIFY | 28-gate check | `verify-spec.js` (BLOCKING) |
+| 11 | DELIVER | Report + preview | — |
 
-### 3. Launch the Forge Pipeline
+**Steps 4, 5, 7, 8, 9, 10 are SCRIPTS** — 90% deterministic. Only step 6 uses LLM.
 
-Execute the full playbook generation pipeline in order:
+## Blocking Gate
 
-1. **Ingest**: Read and extract context from source files. Write structured context to `outputs/.playbook-context.json`.
-2. **Clarify**: Run the intake questions from `prompts/intake-questions.md` to gather audience, tools, problems, centralization strategy, and language. If context files already answer some questions, pre-fill and confirm.
-3. **Generate Manifest**: Using the structured brief from intake + context, generate the complete playbook manifest (JSON) following `prompts/content-generation.md`. Write to `outputs/.playbook-manifest.json`.
-4. **Assemble HTML**: Transform the manifest into a self-contained HTML playbook using Sofka DS v5.1 design system. The HTML must include all CSS inline, be 80-200KB, responsive, and print-friendly. Write to `outputs/playbook-<slugified-topic>-<YYYYMMDD>.html`.
-5. **Validate**: Check the assembled HTML for: no unreplaced `{{placeholders}}`, file size within 80-200KB, all 13 sections present, valid HTML structure, consistent terminology.
-6. **Deliver**: Report the output file path and key metrics (sections, file size, word count).
+`verify-spec.js` must return **28/28 PASS** before delivery. If it fails, the orchestrator runs `robustify.js` and re-verifies. If still failing, the playbook is NOT delivered.
 
-### 4. Post-Generation
+## Artifacts Produced
 
-- Report the output file path: `outputs/playbook-<topic>-<date>.html`
-- Offer to open the playbook in the browser with: `open <path>`
-- Offer to export to a custom location with `/export`
+| File | When | Purpose |
+|------|------|---------|
+| `outputs/.playbook-brief.json` | Step 3 | Structured user responses |
+| `outputs/.playbook-context.json` | Step 2 | Extracted source context |
+| `outputs/.playbook-manifest.json` | Step 4 | Template-composed manifest |
+| `outputs/.playbook-manifest-enriched.json` | Step 6 | LLM-enriched manifest |
+| `outputs/playbook_{unit}_{slug}_v{ver}.html` | Step 8 | Final HTML playbook |
+| `outputs/.playbook-verification.json` | Step 10 | 28-gate report |
 
-### Error Handling
+## Reference Specs
 
-- If any pipeline stage fails, report which stage failed and why.
-- Partial results are preserved in `outputs/` so the user can resume.
-- Use TodoWrite to track pipeline progress across stages.
+- `references/PLAYBOOK-SPEC.md` — HTML structure (28 gates)
+- `references/CONTENT-SPEC.md` — Content density per section
+- `references/CHECKLIST.md` — 78 checks across 4 gates

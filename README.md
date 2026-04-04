@@ -1,6 +1,6 @@
-# playbook-forge v2.0.0
+# playbook-forge v4.0.0
 
-Claude Code plugin that generates branded HTML playbooks with a lived methodology: 13 AI-native workflows, 5 progressive katas (Shu-Ha-Ri), 65 interactive modals, bilingual content (ES/EN with toggle), 13 anti-patterns with remediation, glossary, manager profiles, 11 sections, VR-AID framework, and value traffic light system.
+Claude Code plugin that generates branded HTML playbooks with a lived methodology. Uses a 3-layer deterministic architecture: specs define the standard, templates compose 90% of content, scripts assemble and verify. Only ~10% requires LLM generation.
 
 ## Installation
 
@@ -14,41 +14,61 @@ Claude Code plugin that generates branded HTML playbooks with a lived methodolog
 /playbook:forge "Workflows agénticos para equipos de QA en BU3"
 ```
 
-The plugin will:
-1. Ask 3-6 clarifying questions about your team, tools, problems, and bilingual preference
-2. Generate a bilingual content manifest adapted to your context
-3. Assemble a self-contained HTML playbook (120-400KB) with 65 interactive modals
-4. Validate quality against 19-point v2 checklist and deliver
+## V4 Architecture: 3-Layer Determinism
 
-## V2 Highlights
+### Layer 1: Specs (6 entrusted standards)
+| Spec | Governs |
+|------|---------|
+| PLAYBOOK-SPEC.md | HTML structure (28 automated gates) |
+| CONTENT-SPEC.md | Content density per section |
+| MODAL-SPEC.md | Modal internal patterns (10 categories) |
+| FLOW-SPEC.md | 13 flow definitions |
+| KATA-SPEC.md | 5 kata levels (Shu-Ha-Ri) |
+| CHECKLIST.md | 78 checks across 4 gates |
 
-- **65 Modals**: 13 flow deep-dives, 13 anti-pattern details, 15 glossary terms, 5 kata details, 7 decision matrix, 3 learning layers, 3 manager profiles, 1 impact
-- **Bilingual**: Native ES/EN toggle for all content fields
-- **5 Katas**: Shu-Ha-Ri progression (Observe, Imitate, Adapt, Teach, Create)
-- **13 Anti-patterns**: Each with symptoms, detection, 3 remediation steps, accountability
-- **11 Sections**: Organized in 4 groups (Foundation, Flows, Learning, Governance)
-- **Manager Profiles**: 3 maturity levels (novato/Shu, practicante/Ha, autonomo/Ri)
-- **Kata x Flow Matrix**: Activation matrix showing which flows activate at each kata level
+### Layer 2: Templates (8 composable blocks)
+| Template | Purpose |
+|----------|---------|
+| golden-manifest.json | Reference manifest (source of truth) |
+| section-blocks/*.json | 6 pre-written section templates |
+| modal-templates/*.json | Modal body patterns |
+
+### Layer 3: Engine (7 scripts)
+| Script | Purpose |
+|--------|---------|
+| compose-manifest.js | 90% deterministic manifest composition |
+| verify-content.js | Content density validation |
+| assemble.js | Manifest → HTML builder |
+| robustify.js | Spec compliance auto-fixer |
+| verify-spec.js | 28-gate HTML validator |
+| validate-manifest.js | JSON schema validator |
+| placeholder-map.js | Placeholder coverage checker |
+
+## What It Generates
+
+- 13 AI-native workflows with interactive flow modals
+- 5 progressive katas (Shu-Ha-Ri: Observe → Imitate → Adapt → Teach → Create)
+- 65+ interactive modals (flows, anti-patterns, glossary, katas, profiles)
+- Bilingual ES/EN with instant toggle
+- 13 anti-patterns with 3-step remediation
+- 15+ glossary terms with deep-dive modals
+- VR-AID framework + value traffic light
+- Sofka DS v5.1 branded, responsive, print-ready
 
 ## Commands
 
-- `/playbook:forge "<topic>"` -- Generate complete playbook
-- `/playbook:ingest [path]` -- Ingest source files for context
-- `/playbook:preview` -- Open latest playbook in browser
-- `/playbook:section "<type>"` -- Generate a single section
-- `/playbook:status` -- Pipeline status
-- `/playbook:export [path]` -- Export to specific path
+| Command | Description |
+|---------|-------------|
+| `/playbook:forge "<topic>"` | Generate complete playbook (11-step pipeline) |
+| `/playbook:ingest [path]` | Ingest source files for context |
+| `/playbook:preview` | Open latest playbook in browser |
+| `/playbook:section "<type>"` | Generate a single section |
+| `/playbook:status` | Pipeline status |
+| `/playbook:export [path]` | Export to specific path |
 
-## Design System
+## Quality Gate
 
-Sofka DS v5.1 -- 42 CSS tokens, 33 reusable components, responsive + print, modal system, bilingual CSS.
-
-## Architecture
-
-Every playbook promotes a 3-layer information grounding strategy:
-- **Data**: Google Drive (governed units)
-- **Middleware**: NotebookLM (anti-hallucination)
-- **Front**: Gemini + Gems (command center)
+Every playbook must pass `verify-spec.js` with **28/28** before delivery. No exceptions.
 
 ## License
 

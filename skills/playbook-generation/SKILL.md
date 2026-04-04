@@ -1,8 +1,9 @@
 ---
 name: playbook-generation
+version: "4.0.0"
 description: >
   Genera playbooks HTML branded con metodologia vivida (13 flujos AI-native,
-  4 katas, adopcion progresiva, VR-AID, semaforo de valor). Use when the user asks
+  5 katas (Shu-Ha-Ri), adopcion progresiva, VR-AID, semaforo de valor). Use when the user asks
   to "crear playbook", "generar playbook", "playbook HTML", "cartilla de adopcion",
   "playbook de workflows", "generar cartilla".
 argument-hint: "<topic>"
@@ -25,7 +26,7 @@ allowed-tools:
 ## TL;DR
 
 - Generates a self-contained, branded HTML playbook from a topic and optional source files.
-- Covers 13 AI-native workflows, 4 hands-on katas, progressive adoption timeline, and a value traffic light.
+- Covers 13 AI-native workflows, 5 progressive katas (Shu-Ha-Ri), progressive adoption timeline, and a value traffic light.
 - Outputs a single HTML file (80-200KB) that works offline, prints cleanly, and looks professional.
 - Follows the Sofka DS v5.1 design system with 42 CSS tokens and 22 components.
 - Promotes the 3-layer grounding architecture (Drive/NLM/Gemini or adapted stack).

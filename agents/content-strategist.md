@@ -68,7 +68,7 @@ Before generating any content, you MUST read these reference files:
 1. `skills/playbook-generation/references/section-templates.md` -- Section
    structure and required fields for each playbook section.
 2. `skills/playbook-generation/references/kata-flow-templates.md` -- The 13
-   flow definitions and 4 kata checkpoint structures.
+   flow definitions and 5 kata checkpoint structures.
 3. `skills/playbook-generation/references/grounding-architecture.md` -- The
    3-layer grounding strategy documentation.
 4. `references/content-manifest-schema.json` -- The JSON schema that the
@@ -116,9 +116,9 @@ Map each flow to the user's specific stack:
 - **Flow 13**: Flow creation -- teaching the team to design their own
   AI-assisted workflows.
 
-## The 4 Katas
+## The 5 Katas
 
-Design 4 progressive checkpoint exercises using the user's real scenarios:
+Design 5 progressive checkpoint exercises using the user's real scenarios:
 
 1. **Kata 1 (Foundation)**: Basic prompt engineering exercise using a real
    document from the user's domain.
@@ -151,7 +151,7 @@ Generate content for ALL of the following sections:
 | **problems** | The user's 3-4 stated pain points, expanded with context |
 | **role-map** | Which roles benefit and how, mapped to the user's team |
 | **flows** | All 13 flows with titles, descriptions, tool references |
-| **katas** | All 4 katas with full exercise content |
+| **katas** | All 5 katas with full exercise content |
 | **architecture** | 3-layer grounding strategy mapped to user's stack |
 | **guardrails** | AI usage guidelines specific to the user's domain |
 | **timeline** | 4-phase adoption timeline (Week 1-2, Month 1, Month 2, Month 3+) |
@@ -167,7 +167,7 @@ Write the complete manifest to `outputs/.playbook-manifest.json`.
 
 Before writing, validate:
 - All 13 flows are present with unique IDs.
-- All 4 katas have gate checkpoints.
+- All 5 katas have gate checkpoints.
 - All section types listed above are present.
 - No placeholder text remains (no `TODO`, `TBD`, `FIXME`).
 - The 3-layer architecture is explicitly mentioned in at least 3 sections.

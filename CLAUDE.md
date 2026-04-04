@@ -137,3 +137,16 @@ Cada playbook promueve centralizar la informacion:
 | Assembly script | `skills/playbook-generation/scripts/assemble.js` |
 | Validation script | `skills/playbook-generation/scripts/validate-manifest.js` |
 | Placeholder map script | `skills/playbook-generation/scripts/placeholder-map.js` |
+| PLAYBOOK-SPEC (28 gates) | `references/PLAYBOOK-SPEC.md` |
+| CONTENT-SPEC (density) | `references/CONTENT-SPEC.md` |
+| MODAL-SPEC (10 categories) | `references/MODAL-SPEC.md` |
+| FLOW-SPEC (13 flows) | `references/FLOW-SPEC.md` |
+| KATA-SPEC (5 levels) | `references/KATA-SPEC.md` |
+| CHECKLIST (78 checks) | `references/CHECKLIST.md` |
+| Golden manifest | `templates/golden-manifest.json` |
+| Section blocks (6) | `templates/section-blocks/*.json` |
+| Modal templates | `templates/modal-templates/*.json` |
+| Compose manifest script | `skills/playbook-generation/scripts/compose-manifest.js` |
+| Verify content script | `skills/playbook-generation/scripts/verify-content.js` |
+| Verify spec script | `skills/playbook-generation/scripts/verify-spec.js` |
+| Robustify script | `skills/playbook-generation/scripts/robustify.js` |

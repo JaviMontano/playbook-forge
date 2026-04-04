@@ -2,7 +2,7 @@
 description: "Genera una sola seccion del playbook (ej: timeline, katas, flujos, semaforo)"
 user-invocable: true
 argument-hint: "<section-type>"
-allowed-tools: ["Read", "Write", "Glob", "Agent"]
+allowed-tools: ["Read", "Write", "Glob"]
 ---
 
 # /section — Generate a Single Playbook Section
@@ -13,21 +13,18 @@ allowed-tools: ["Read", "Write", "Glob", "Agent"]
 
 Extract `<section-type>` from the argument. Valid section types:
 
-| Type | Description |
-|------|-------------|
-| `oportunidad` | S1 — Oportunidad: 4 problemas, mapa rol-workflow, guardrails |
-| `ciclo` | S2 — Ciclo Semanal: 5 momentos del ciclo mapeados a herramientas |
-| `jarvis` | S3 — Fichas de Herramientas: cards por cada tool/workflow |
-| `adopcion` | S4 — Adopcion Progresiva: timeline 4 semanas |
-| `decision` | S5 — Arbol de Decision: tabla Situacion → Herramienta |
-| `semaforo` | S6 — Semaforo de Valor: traffic light + VR-AID framework |
-| `agradecimiento` | S7 — Equipo: reconocimiento (generico si no hay nombres) |
-| `cierre` | S8 — Cierre: acciones dia-1 + criterios de aceptacion |
-| `empieza` | Quick-start: primeros pasos inmediatos |
-| `habitos` | Habitos AI-native: rutinas diarias recomendadas |
-| `katas` | 4 katas adaptadas a herramientas y escenarios del usuario |
-| `flujos` | 13 flujos AI-native con arquitectura 3 capas |
-| `consolidacion` | Consolidacion: metricas de adopcion y siguiente nivel |
+## Supported Section Types
+
+| Type | Template | Description |
+|------|----------|-------------|
+| `glosario` | section-blocks/glosario.json | 10+ glossary term cards + gem-bar |
+| `katas` | section-blocks/katas.json | 3 mastery levels (Shu-Ha-Ri) |
+| `antipatrones` | section-blocks/antipatrones.json | 5+ anti-patterns with remediation |
+| `ritmo` | section-blocks/ritmo.json | Metrics + acceptance criteria |
+| `empezar` | section-blocks/empezar.json | 6 empathy cards |
+| `cierre` | section-blocks/cierre.json | Metadata table + acknowledgments |
+
+Other sections (nucleo, investigacion, infra, avanzado) require flow-specific content and are composed by the full `/playbook:forge` pipeline — they are not available as standalone sections.
 
 If the section type is not recognized, list the valid options and ask the user to choose.
 

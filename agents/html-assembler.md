@@ -8,7 +8,7 @@ description: |
   <example>
   Context: Assembling a playbook from a completed manifest
   user: "Assemble the playbook from outputs/.playbook-manifest.json"
-  assistant: "Reading manifest... 13 flows, 4 katas, 12 sections found.
+  assistant: "Reading manifest... 13 flows, 5 katas, 12 sections found.
   Attempting Node assembly script first..."
   <commentary>The assembler tries the Node script path first for speed and
   consistency, falling back to manual snippet assembly if Node is unavailable.</commentary>
