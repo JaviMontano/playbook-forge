@@ -1,4 +1,4 @@
-# Playbook Forge v2.0.0 — Plugin Hub
+# Playbook Forge v4.0.0 — Plugin Hub
 
 > Genera playbooks HTML branded v2 con metodologia vivida: 13 flujos AI-native, 5 katas (Shu-Ha-Ri), 65 modals interactivos, contenido bilingue ES/EN, 13 anti-patrones, glosario, perfiles de manager, adopcion progresiva, VR-AID, semaforo de valor. Sofka DS v5.1.
 
@@ -32,6 +32,34 @@ INTAKE → INGEST → CLARIFY → GENERATE → ASSEMBLE → VALIDATE → DELIVER
 5. **ASSEMBLE**: `html-assembler` ensambla HTML desde snippets + manifest (84% deterministico)
 6. **VALIDATE**: `playbook-reviewer` verifica 19 checkpoints de calidad (v2)
 7. **DELIVER**: HTML self-contained en `outputs/`, se ofrece preview
+
+## Entrusted Standard (3-Layer Determinism)
+
+### Layer 1: Specs (references/)
+| Spec | What it governs |
+|------|----------------|
+| PLAYBOOK-SPEC.md | HTML structure (28 gates) |
+| CONTENT-SPEC.md | Content density per section |
+| MODAL-SPEC.md | Modal internal patterns (10 categories) |
+| FLOW-SPEC.md | 13 flow definitions |
+| KATA-SPEC.md | 5 kata levels (Shu-Ha-Ri) |
+| CHECKLIST.md | 78 checks across 4 gates |
+
+### Layer 2: Templates (templates/)
+| Template | Purpose |
+|----------|---------|
+| golden-manifest.json | Reference manifest (source of truth) |
+| section-blocks/*.json | 6 composable section templates |
+| modal-templates/*.json | Modal body patterns |
+
+### Layer 3: Engine (scripts/)
+| Script | Purpose |
+|--------|---------|
+| compose-manifest.js | 90% deterministic manifest composition |
+| verify-content.js | Content density validation |
+| assemble.js | Manifest → HTML builder |
+| robustify.js | Spec compliance auto-fixer |
+| verify-spec.js | 28-gate HTML validator |
 
 ## Agents
 

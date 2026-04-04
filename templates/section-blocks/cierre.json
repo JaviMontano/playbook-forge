@@ -1,0 +1,82 @@
+{
+  "sectionId": "cierre",
+  "mandatory": true,
+  "headerEs": "<span>Cierre</span> — Lo que aprendiste",
+  "headerEn": "<span>Closing</span> — What you learned",
+  "descEs": "",
+  "descEn": "",
+  "threePrinciples": {
+    "titleEs": "Tres principios que cambian todo",
+    "titleEn": "Three principles that change everything",
+    "principles": [
+      {
+        "titleEs": "Estructura > herramienta",
+        "titleEn": "Structure > tool",
+        "bodyEs": "La IA sin un flujo gobernado produce outputs bonitos que nadie usa. Los flujos existen para que cada output tenga dueno, fecha y criterio de exito.",
+        "bodyEn": "AI without a governed flow produces pretty outputs nobody uses. The flows exist so every output has an owner, a date, and a success criterion."
+      },
+      {
+        "titleEs": "Flujos gobernados = decisiones capitalizadas",
+        "titleEn": "Governed flows = capitalized decisions",
+        "bodyEs": "Cada artefacto es una decision que no se pierde. {{PILOT_METRIC_STATEMENT}}",
+        "bodyEn": "Every artifact is a decision that doesn't get lost. {{PILOT_METRIC_STATEMENT}}"
+      },
+      {
+        "titleEs": "Accountability es el multiplicador",
+        "titleEn": "Accountability is the multiplier",
+        "bodyEs": "Un output sin nombre es un output que nadie defiende. Cada artefacto que produces lleva tu firma profesional — eso es lo que separa ejecucion de excelencia.",
+        "bodyEn": "An output without a name is an output nobody defends. Every artifact you produce carries your professional signature — that's what separates execution from excellence."
+      }
+    ]
+  },
+  "accountabilityCascadeCallout": {
+    "titleEs": "Accountability Cascade — recuerda los anti-patrones finales",
+    "titleEn": "Accountability Cascade — remember the final anti-patterns",
+    "bodyEs": "Cada output que compartes lleva tu nombre. Output sin dueno, decision sin fecha, artefacto sin criterio de exito — estos tres anti-patrones destruyen la confianza del equipo mas rapido que cualquier error tecnico.",
+    "bodyEn": "Every output you share carries your name. Output without owner, decision without date, artifact without success criteria — these three anti-patterns destroy team trust faster than any technical error."
+  },
+  "nextSteps": [
+    {
+      "timeframeEs": "Semana 1",
+      "timeframeEn": "Week 1",
+      "bodyEs": "Elige {{CORE_FLOW_1}} y {{CORE_FLOW_2}}. Ejecutalos en tu proxima situacion real. Guarda los outputs en Drive.",
+      "bodyEn": "Pick {{CORE_FLOW_1}} and {{CORE_FLOW_2}}. Run them in your next real situation. Save the outputs in Drive.",
+      "color": "var(--sofka-info)",
+      "flowRef": "{{CORE_FLOW_1_NUM}}"
+    },
+    {
+      "timeframeEs": "Mes 1",
+      "timeframeEn": "Month 1",
+      "bodyEs": "Incorpora {{CORE_FLOWS}} a tu rutina semanal. Los artefactos se vuelven tu lenguaje operativo. Configura tu infraestructura ({{INFRA_FLOWS}}).",
+      "bodyEn": "Incorporate {{CORE_FLOWS}} into your weekly routine. The artifacts become your operational language. Set up your infrastructure ({{INFRA_FLOWS}}).",
+      "color": "var(--sofka-orange)",
+      "flowRef": "{{CORE_FLOW_3_NUM}}"
+    },
+    {
+      "timeframeEs": "Mes 3",
+      "timeframeEn": "Month 3",
+      "bodyEs": "Crea tus propios flujos con {{MASTER_FLOW}}. Ya dominas el sistema — ahora lo extiendes para tus necesidades especificas. Eso es Ri.",
+      "bodyEn": "Create your own flows with {{MASTER_FLOW}}. You've mastered the system — now you extend it for your specific needs. That's Ri.",
+      "color": "var(--sofka-accent-a)",
+      "flowRef": "{{MASTER_FLOW_NUM}}"
+    }
+  ],
+  "metadataTable": {
+    "fields": [
+      { "labelEs": "Autor", "labelEn": "Author", "value": "{{AUTHOR}}" },
+      { "labelEs": "Audiencia primaria", "labelEn": "Primary audience", "value": "{{AUDIENCE}}" },
+      { "labelEs": "Equipo", "labelEn": "Team", "value": "{{TEAM}}" },
+      { "labelEs": "Iniciativa", "labelEn": "Initiative", "value": "{{INITIATIVE}}" },
+      { "labelEs": "Version", "labelEn": "Version", "value": "{{VERSION}}" },
+      { "labelEs": "Piloto", "labelEn": "Pilot", "value": "{{PILOT_NAME}}" },
+      { "labelEs": "Resultados piloto", "labelEn": "Pilot results", "value": "{{PILOT_RESULTS}}" }
+    ]
+  },
+  "acknowledgmentsCallout": {
+    "titleEs": "Agradecimiento",
+    "titleEn": "Acknowledgments",
+    "bodyEs": "{{ACKNOWLEDGMENTS_ES}}",
+    "bodyEn": "{{ACKNOWLEDGMENTS_EN}}"
+  },
+  "_composerNotes": "Placeholders: {{AUTHOR}}, {{AUDIENCE}}, {{TEAM}}, {{INITIATIVE}}, {{VERSION}}, {{PILOT_NAME}}, {{PILOT_RESULTS}}, {{PILOT_METRIC_STATEMENT}}, {{ACKNOWLEDGMENTS_ES/EN}}, {{CORE_FLOW_*}}, {{MASTER_FLOW}}, {{INFRA_FLOWS}} are all resolved from the manifest meta and flows arrays. The three principles and accountability cascade are generic to any playbook."
+}

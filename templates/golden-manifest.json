@@ -1,0 +1,843 @@
+{
+  "schemaVersion": "3.0",
+  "meta": {
+    "title": "Weekly Rituals — AI-Native Workflows for Managers · BU2 | Sofka Technologies",
+    "company": "Sofka Technologies",
+    "badges": [
+      "BU2 — Business Unit 2",
+      "13 Flujos AI-Native",
+      "3 horas / semana",
+      "Management Excellence · PMI + Agile + AI"
+    ],
+    "language": "es",
+    "bilingual": true,
+    "version": "v3.0",
+    "team": "Presales Transversal Sofka",
+    "initiative": "Big Rocks Scale Up 2026",
+    "designSystem": "Sofka DS v5.1",
+    "copyright": "&copy; 2026 Sofka Technologies. Todos los derechos reservados. Autor: Javier Montano — Software + Kaizen + IA."
+  },
+  "hero": {
+    "logoText": "Sofka Technologies",
+    "h1Es": "Weekly Rituals — <span>Rituales Semanales</span> para Managers AI-Native de Sofka",
+    "h1En": "Weekly Rituals — <span>AI-Native Workflows</span> for Sofka Managers",
+    "h1HighlightEs": "Rituales Semanales",
+    "h1HighlightEn": "AI-Native Workflows",
+    "h1Plain": "Weekly Rituals —",
+    "h1Highlight": "Rituales Semanales",
+    "subtitleEs": "Si llegas a una reunion sin saber exactamente que decir, o si termina una reunion y ya olvidaste que se decidio — este playbook es para ti. No necesitas experiencia previa con IA. Solo necesitas tu primera reunion de manana y 30 minutos despues para ponerlo en practica.",
+    "subtitleEn": "If you walk into a meeting not knowing exactly what to say, or if a meeting ends and you've already forgotten what was decided — this playbook is for you. You don't need prior AI experience. You just need your first meeting tomorrow and 30 minutes afterward to put it into practice.",
+    "subtitle": "Si llegas a una reunion sin saber exactamente que decir, o si termina una reunion y ya olvidaste que se decidio — este playbook es para ti.",
+    "kpis": [
+      {
+        "icon": "&#128202;",
+        "value": "13",
+        "labelEs": "Flujos AI-Native",
+        "labelEn": "AI-Native flows",
+        "label": "Flujos AI-Native"
+      },
+      {
+        "icon": "&#127919;",
+        "value": "5",
+        "labelEs": "Katas de aprendizaje",
+        "labelEn": "Learning katas",
+        "label": "Katas de aprendizaje"
+      },
+      {
+        "icon": "&#128295;",
+        "value": "5",
+        "labelEs": "Gemas IA (Gemini)",
+        "labelEn": "AI Gems (Gemini)",
+        "label": "Gemas IA (Gemini)"
+      },
+      {
+        "icon": "&#9201;",
+        "value": "-50%",
+        "labelEs": "Tiempo operativo (prep + reporte + infografia)",
+        "labelEn": "Operational time (prep + report + infographic)",
+        "label": "Tiempo operativo"
+      },
+      {
+        "icon": "&#128176;",
+        "value": "~4h/sem",
+        "labelEs": "Tiempo recuperado (F1-F4 combinados)",
+        "labelEn": "Time recovered (F1-F4 combined)",
+        "label": "Tiempo recuperado"
+      },
+      {
+        "icon": "&#9989;",
+        "value": "Solo Google",
+        "labelEs": "Solo ecosistema Google Workspace",
+        "labelEn": "Google Workspace ecosystem only",
+        "label": "Solo ecosistema Google Workspace"
+      }
+    ]
+  },
+  "nav": {
+    "logoText": "Sofka",
+    "links": [
+      { "href": "#glosario", "labelEs": "Glosario", "labelEn": "Glossary", "label": "Glosario" },
+      { "href": "#agile-pm", "labelEs": "Perfil", "labelEn": "Profile", "label": "Perfil" },
+      { "href": "#flujos", "labelEs": "13 Flujos", "labelEn": "13 Flows", "label": "13 Flujos" },
+      { "href": "#katas", "label": "5 KAs" },
+      { "href": "#nucleo", "labelEs": "Nucleo", "labelEn": "Core", "label": "Nucleo" },
+      { "href": "#investigacion", "labelEs": "Investiga", "labelEn": "Research", "label": "Investiga" },
+      { "href": "#infra", "label": "Infra" },
+      { "href": "#avanzado", "labelEs": "Avanzado", "labelEn": "Advanced", "label": "Avanzado" },
+      { "href": "#antipatrones", "labelEs": "Anti-patrones", "labelEn": "Anti-patterns", "label": "Anti-patrones" },
+      { "href": "#ritmo", "labelEs": "Ritmo", "labelEn": "Pace", "label": "Ritmo" },
+      { "href": "#empezar", "labelEs": "Empieza", "labelEn": "Start", "label": "Empieza" },
+      { "href": "#cierre", "labelEs": "Cierre", "labelEn": "Close", "label": "Cierre" }
+    ]
+  },
+  "sections": [
+    {
+      "id": "glosario",
+      "order": 1,
+      "h2Es": "<span>Glosario</span>, arquitectura y acceso directo",
+      "h2En": "<span>Glossary</span>, architecture and quick access",
+      "descEs": "Antes de empezar, estos son los conceptos que vas a ver repetidos en todo el playbook. No los memorices ahora — vuelve aqui cuando los encuentres y no sepas que significan.",
+      "descEn": "Before starting, these are the concepts you'll see repeated throughout the playbook. Don't memorize them now — come back when you encounter them and don't know what they mean.",
+      "components": ["glossary-cards", "architecture-layers", "gem-bar", "prerequisite-callout"]
+    },
+    {
+      "id": "agile-pm",
+      "order": 2,
+      "h2Es": "<span>El perfil</span>: PMI + mentalidad agile y lean",
+      "h2En": "<span>The profile</span>: PMI + agile and lean mindset",
+      "descEs": "Tu cargo dice Project Manager — y eso viene con responsabilidades bien definidas: scope, cronograma, riesgos, reportes. Eso es la base PMI. Pero Sofka tambien espera que trabajes con ritmos agiles.",
+      "descEn": "Your title says Project Manager — and that comes with well-defined responsibilities: scope, schedule, risks, reports. That's the PMI foundation. But Sofka also expects you to work with agile rhythms.",
+      "components": ["apm-equation", "key-principle-callout", "role-variants-grid"]
+    },
+    {
+      "id": "flujos",
+      "order": 3,
+      "h2Es": "Los <span>13 flujos</span> AI-native",
+      "h2En": "The <span>13 AI-native</span> flows",
+      "descEs": "Empieza por los primeros 4. Los demas los iras descubriendo cuando los necesites. Esta semana solo necesitas los flujos 1 y 2.",
+      "descEn": "Start with the first 4. You'll discover the rest when you need them. This week you only need flows 1 and 2.",
+      "components": ["flows-table"]
+    },
+    {
+      "id": "katas",
+      "order": 4,
+      "h2Es": "5 Katas de Aprendizaje <span>— como construir el habito</span>",
+      "h2En": "5 Learning Katas <span>— how to build the habit</span>",
+      "descEs": "Una kata es como ir al gimnasio: si lo haces una vez no pasa nada. Si lo haces 21 veces, se convierte en un habito.",
+      "descEn": "A kata is like going to the gym: do it once and nothing happens. Do it 21 times, and it becomes a habit.",
+      "components": ["katas-table", "kata-flow-map", "level-traps"]
+    },
+    {
+      "id": "nucleo",
+      "order": 5,
+      "h2Es": "Flujos <span>1-4</span>: el nucleo operativo",
+      "h2En": "Flows <span>1-4</span>: the operational core",
+      "descEs": "6 sesiones de 30 minutos por semana = 3 horas. Flujo 2 se repite 3 veces (1 por reunion).",
+      "descEn": "6 sessions of 30 minutes per week = 3 hours. Flow 2 repeats 3 times (1 per meeting).",
+      "components": ["flow-cards-f1-f4"]
+    },
+    {
+      "id": "investigacion",
+      "order": 6,
+      "h2Es": "Flujos <span>5-6</span>: investigacion con IA",
+      "h2En": "Flows <span>5-6</span>: AI-powered research",
+      "descEs": "",
+      "descEn": "",
+      "components": ["flow-cards-f5-f6"]
+    },
+    {
+      "id": "infra",
+      "order": 7,
+      "h2Es": "Flujos <span>7-10</span>: infraestructura AI-native",
+      "h2En": "Flows <span>7-10</span>: AI-native infrastructure",
+      "descEs": "",
+      "descEn": "",
+      "components": ["flow-cards-f7-f10", "decision-matrix", "gemini-vs-nlm"]
+    },
+    {
+      "id": "avanzado",
+      "order": 8,
+      "h2Es": "Flujos <span>11-13</span>: nivel avanzado",
+      "h2En": "Flows <span>11-13</span>: advanced level",
+      "descEs": "",
+      "descEn": "",
+      "components": ["flow-cards-f11-f13", "winning-deck-gem-bar"]
+    },
+    {
+      "id": "antipatrones",
+      "order": 9,
+      "h2Es": "Cosas que <span>no funcionan</span>",
+      "h2En": "Things that <span>don't work</span>",
+      "descEs": "",
+      "descEn": "",
+      "components": ["antipatterns-table", "garbage-callout"]
+    },
+    {
+      "id": "ritmo",
+      "order": 10,
+      "h2Es": "Tu ritmo + <span>auto-despliegue</span>",
+      "h2En": "Your pace + <span>auto-deploy</span>",
+      "descEs": "",
+      "descEn": "",
+      "components": ["maturity-cards", "transition-rules", "progression-callout", "calendar-autodeploy", "role-variants-table", "availability-grid"]
+    },
+    {
+      "id": "empezar",
+      "order": 11,
+      "h2Es": "<span>&#191;Por donde empiezo?</span>",
+      "h2En": "<span>Where do I start?</span>",
+      "descEs": "No tienes que hacer todo a la vez. Lee las tarjetas y elige la que describe exactamente como te sientes hoy.",
+      "descEn": "You don't have to do everything at once. Read the cards and pick the one that describes exactly how you feel today.",
+      "components": ["empathy-cards", "accountability-callout", "first-monday-timeline"]
+    },
+    {
+      "id": "cierre",
+      "order": 12,
+      "h2Es": "<span>Cierre</span> — Lo que aprendiste",
+      "h2En": "<span>Closing</span> — What you learned",
+      "descEs": "",
+      "descEn": "",
+      "components": ["three-principles-callout", "accountability-cascade-callout", "next-steps-cards", "metadata-table", "acknowledgments-callout"]
+    }
+  ],
+  "flows": [
+    {
+      "num": 1,
+      "nameEs": "Preparar sesiones efectivas",
+      "nameEn": "Prepare effective sessions",
+      "tool": "LaForja + LaReu",
+      "whenEs": "Antes de cada reunion clave",
+      "whenEn": "Before each key meeting",
+      "outputEs": "Agenda + moderacion",
+      "outputEn": "Agenda + moderation",
+      "kata": "KA-2",
+      "duration": "30 min",
+      "modalId": "modal-f1",
+      "color": "var(--sofka-info)",
+      "iconClass": "lareu",
+      "gemLinks": [
+        { "name": "LaForja", "url": "https://gemini.google.com/gem/1n0GlVXpCmItHWLBM2e17ChV7ceFW6Teq", "pulse": true },
+        { "name": "LaReu", "url": "https://gemini.google.com/gem/1dxbSKPGyDZR1iPtjDReRThZS86gEPmqB" }
+      ]
+    },
+    {
+      "num": 2,
+      "nameEs": "Capitalizar decisiones",
+      "nameEn": "Capitalize decisions",
+      "tool": "LaVuelta",
+      "whenEs": "Post-reunion inmediato",
+      "whenEn": "Immediately post-meeting",
+      "outputEs": "Quad-Doc",
+      "outputEn": "Quad-Doc",
+      "kata": "KA-2",
+      "duration": "30 min",
+      "frequency": "3x/semana",
+      "modalId": "modal-f2",
+      "color": "var(--sofka-orange)",
+      "iconClass": "lavuelta",
+      "gemLinks": [
+        { "name": "LaVuelta", "url": "https://gemini.google.com/gem/1uXB-whRTHB1OcaLo7yLA0rVeKVyY3kbp" }
+      ]
+    },
+    {
+      "num": 3,
+      "nameEs": "Reportar avances y valor",
+      "nameEn": "Report progress & value",
+      "tool": "ElRepo",
+      "whenEs": "Viernes",
+      "whenEn": "Friday",
+      "outputEs": "Reporte + VR-AID",
+      "outputEn": "Report + VR-AID",
+      "kata": "KA-2",
+      "duration": "30 min",
+      "modalId": "modal-f3",
+      "color": "#CC6506",
+      "iconClass": "elrepo",
+      "gemLinks": [
+        { "name": "ElRepo", "url": "https://gemini.google.com/gem/1ZK3CMeM7Yw-cNgzJeRsV2BRDyXNV_81S" }
+      ]
+    },
+    {
+      "num": 4,
+      "nameEs": "Visibilizar impacto",
+      "nameEn": "Make impact visible",
+      "tool": "LaInfo",
+      "whenEs": "Quincenal",
+      "whenEn": "Biweekly",
+      "outputEs": "Infografia HTML",
+      "outputEn": "HTML infographic",
+      "kata": "KA-2",
+      "duration": "30 min",
+      "modalId": "modal-f4",
+      "color": "var(--sofka-accent-c)",
+      "iconClass": "lainfo",
+      "gemLinks": [
+        { "name": "LaInfo", "url": "https://gemini.google.com/gem/1YwjJ7X72zAaVHfSrycpEbW2u3xr1z39a" }
+      ]
+    },
+    {
+      "num": 5,
+      "nameEs": "Investigar con Deep Research",
+      "nameEn": "Research with Deep Research",
+      "tool": "LaForja + Gemini DR",
+      "whenEs": "Pre-reunion estrategica",
+      "whenEn": "Pre-strategic meeting",
+      "outputEs": "Dossier de mercado",
+      "outputEn": "Market dossier",
+      "kata": "KA-3",
+      "duration": "60 min",
+      "modalId": "modal-f5",
+      "color": "var(--sofka-critical)",
+      "iconClass": "laforja"
+    },
+    {
+      "num": 6,
+      "nameEs": "Vitaminizar presentaciones",
+      "nameEn": "Vitaminize presentations",
+      "tool": "DR + NotebookLM + LaInfo",
+      "whenEs": "Pre-reunion C-level",
+      "whenEn": "Pre-C-level meeting",
+      "outputEs": "Deck brand-ready",
+      "outputEn": "Brand-ready deck",
+      "kata": "KA-3",
+      "duration": "45 min",
+      "modalId": "modal-f6",
+      "color": "var(--sofka-critical)",
+      "iconClass": "elrepo"
+    },
+    {
+      "num": 7,
+      "nameEs": "Poblar NotebookLM",
+      "nameEn": "Populate NotebookLM",
+      "tool": "NotebookLM + Drive",
+      "whenEs": "Inicio proyecto",
+      "whenEn": "Project start",
+      "outputEs": "Cuaderno operativo",
+      "outputEn": "Operational notebook",
+      "kata": "KA-2",
+      "duration": "45 min",
+      "modalId": "modal-f7",
+      "color": "var(--sofka-info)"
+    },
+    {
+      "num": 8,
+      "nameEs": "System prompt del cuaderno",
+      "nameEn": "Notebook system prompt",
+      "tool": "NotebookLM",
+      "whenEs": "Post-poblar",
+      "whenEn": "Post-populate",
+      "outputEs": "Cuaderno configurado",
+      "outputEn": "Configured notebook",
+      "kata": "KA-3",
+      "duration": "15 min",
+      "modalId": "modal-f8",
+      "color": "var(--sofka-info)"
+    },
+    {
+      "num": 9,
+      "nameEs": "Gobernar Drive",
+      "nameEn": "Govern Drive",
+      "tool": "Google Drive",
+      "whenEs": "Inicio + continuo",
+      "whenEn": "Setup + ongoing",
+      "outputEs": "Fuente de verdad",
+      "outputEn": "Source of truth",
+      "kata": "KA-2",
+      "duration": "30 min",
+      "modalId": "modal-f9",
+      "color": "var(--sofka-info)"
+    },
+    {
+      "num": 10,
+      "nameEs": "NotebookLM = Middleware",
+      "nameEn": "NotebookLM = Middleware",
+      "tool": "NotebookLM",
+      "whenEs": "Continuo",
+      "whenEn": "Ongoing",
+      "outputEs": "Anti-alucinacion + graficos",
+      "outputEn": "Anti-hallucination + graphics",
+      "kata": "KA-2",
+      "duration": "20 min",
+      "modalId": "modal-f10",
+      "color": "var(--sofka-accent-b)"
+    },
+    {
+      "num": 11,
+      "nameEs": "Exploracion de datos",
+      "nameEn": "Data exploration",
+      "tool": "Gemini",
+      "whenEs": "Analisis ad-hoc",
+      "whenEn": "Ad-hoc analysis",
+      "outputEs": "Insights accionables",
+      "outputEn": "Actionable insights",
+      "kata": "KA-3",
+      "duration": "variable",
+      "modalId": "modal-f11",
+      "color": "var(--sofka-positive-text)"
+    },
+    {
+      "num": 12,
+      "nameEs": "Centro de mando personalizado",
+      "nameEn": "Personalized command center",
+      "tool": "Gemini Gems custom",
+      "whenEs": "Dominas flujos 1-11",
+      "whenEn": "Master flows 1-11",
+      "outputEs": "Workflows a medida",
+      "outputEn": "Custom workflows",
+      "kata": "KA-4",
+      "duration": "30 min",
+      "modalId": "modal-f12",
+      "color": "var(--sofka-positive-text)"
+    },
+    {
+      "num": 13,
+      "nameEs": "Crear tu flujo AI-native",
+      "nameEn": "Create your AI-native flow",
+      "tool": "LaForja + NLM + Gems",
+      "whenEs": "Proceso repetitivo",
+      "whenEn": "Repetitive process",
+      "outputEs": "Prompt+plantilla+cuaderno+Gema",
+      "outputEn": "Prompt+template+notebook+Gem",
+      "kata": "KA-5",
+      "duration": "90 min",
+      "modalId": "modal-f13",
+      "color": "var(--sofka-positive-text)",
+      "highlight": true
+    }
+  ],
+  "katas": [
+    {
+      "num": 1,
+      "id": "ka1",
+      "nameEs": "Observar",
+      "nameEn": "Observe",
+      "phase": "Shu",
+      "duration": "15 min",
+      "color": "var(--sofka-orange)",
+      "activeFlows": "F1-F4 (lectura)",
+      "practiceEs": "Leer fichas. Observar outputs reales. Identificar input -> output sin ejecutar.",
+      "practiceEn": "Read flow cards. Observe real outputs. Identify input -> output without executing.",
+      "advanceSignalEs": "Describes cualquier flujo en 2 min sin leer la ficha",
+      "advanceSignalEn": "You describe any flow in 2 min without the card"
+    },
+    {
+      "num": 2,
+      "id": "ka2",
+      "nameEs": "Imitar",
+      "nameEn": "Imitate",
+      "phase": "Shu",
+      "duration": "30 min",
+      "color": "var(--sofka-orange)",
+      "activeFlows": "F1-F4 (ejecucion)",
+      "practiceEs": "Ejecutar F1-F4 copiando exactamente los pasos, con tu evidencia real. Cero personalizaciones.",
+      "practiceEn": "Execute F1-F4 copying the steps exactly, with your real evidence. Zero customizations.",
+      "advanceSignalEs": "DoD cumplido en <30 min sin retrabajo, 4 veces seguidas",
+      "advanceSignalEn": "DoD met in <30 min without rework, 4 times in a row"
+    },
+    {
+      "num": 3,
+      "id": "ka3",
+      "nameEs": "Adaptar",
+      "nameEn": "Adapt",
+      "phase": "Ha",
+      "duration": "30 min",
+      "color": "var(--sofka-info)",
+      "activeFlows": "F1-F9",
+      "practiceEs": "F1-F4 sin guia + incorporar F5-F9. Ajustar prompt/formato de forma iterativa, un parametro a la vez.",
+      "practiceEn": "F1-F4 without guide + add F5-F9. Iteratively adjust prompt/format, one parameter at a time.",
+      "advanceSignalEs": "Tu version produce mejor output que el estandar en 3 ejecuciones consecutivas",
+      "advanceSignalEn": "Your version produces better output than the standard in 3 consecutive executions"
+    },
+    {
+      "num": 4,
+      "id": "ka4",
+      "nameEs": "Ensenar",
+      "nameEn": "Teach",
+      "phase": "Ri",
+      "duration": "30 min",
+      "color": "var(--sofka-positive-text)",
+      "activeFlows": "F1-F12",
+      "practiceEs": "F1-F12 de memoria. Ensenar a un colega. Donde se confunde = hueco que aun tienes tu.",
+      "practiceEn": "F1-F12 from memory. Teach a colleague. Where they get confused = gap you still have.",
+      "advanceSignalEs": "El colega ejecuta F1-F4 solo sin que le expliques de nuevo",
+      "advanceSignalEn": "Colleague executes F1-F4 alone without re-explanation"
+    },
+    {
+      "num": 5,
+      "id": "ka5",
+      "nameEs": "Crear",
+      "nameEn": "Create",
+      "phase": "Ri",
+      "duration": "60 min",
+      "color": "var(--sofka-positive-text)",
+      "activeFlows": "F13 + custom",
+      "practiceEs": "Disenar Flujo 13: prompt + plantilla + cuaderno NLM + Gema. Publicar y que alguien mas lo ejecute.",
+      "practiceEn": "Design Flow 13: prompt + template + NLM notebook + Gem. Publish and have someone else execute it.",
+      "advanceSignalEs": "Tu flujo custom es usado por otro PM sin friccion y sin explicacion previa",
+      "advanceSignalEn": "Your custom flow is used by another PM without friction or prior explanation"
+    }
+  ],
+  "glossary": [
+    {
+      "id": "g-gema",
+      "name": "Gema (Gem)",
+      "color": "var(--sofka-orange)",
+      "shortEs": "Asistente IA especializado dentro de Google Gemini, pre-configurado para una tarea concreta",
+      "shortEn": "Specialized AI assistant inside Google Gemini, pre-configured for a specific task"
+    },
+    {
+      "id": "g-vraid",
+      "name": "VR-AID",
+      "color": "var(--sofka-info)",
+      "shortEs": "Value, Risks, Assumptions, Issues, Dependencies — el framework que obliga a justificar cada semaforo con evidencia",
+      "shortEn": "Value, Risks, Assumptions, Issues, Dependencies — the framework that forces you to justify every traffic light with evidence"
+    },
+    {
+      "id": "g-quad",
+      "name": "Quad-Doc",
+      "color": "#CC6506",
+      "shortEs": "El artefacto que captura una reunion en 4 componentes: C1 Decisiones, C2 Tareas, C3 Ruta critica, C4 Indexacion",
+      "shortEn": "The artifact that captures a meeting in 4 components: C1 Decisions, C2 Tasks, C3 Critical path, C4 Indexing"
+    },
+    {
+      "id": "g-semaforo",
+      "name": "Semaforo de valor / Value traffic light",
+      "color": "var(--sofka-accent-c)",
+      "shortEs": "Sistema de 4 colores que clasifica el estado del proyecto por valor entregado, no por actividad",
+      "shortEn": "4-color system that classifies project status by delivered value, not activity"
+    },
+    {
+      "id": "g-dr",
+      "name": "Deep Research",
+      "color": "var(--sofka-critical)",
+      "shortEs": "Modo de investigacion avanzada de Gemini — navega docenas de fuentes web y produce un informe con citas verificables",
+      "shortEn": "Gemini's advanced research mode — navigates dozens of web sources and produces a report with verifiable citations"
+    },
+    {
+      "id": "g-nlm",
+      "name": "NotebookLM",
+      "color": "var(--sofka-accent-b)",
+      "shortEs": "Herramienta de Google que analiza TUS documentos y responde solo basandose en ellos — cero alucinacion",
+      "shortEn": "Google tool that analyzes YOUR documents and answers only based on them — zero hallucination"
+    },
+    {
+      "id": "g-dad",
+      "name": "DAD — Disciplined Agile",
+      "color": "var(--sofka-orange-dark)",
+      "shortEs": "Disciplined Agile Delivery: el marco del PMI que conecta tu formacion formal con la practica agile",
+      "shortEn": "Disciplined Agile Delivery: the PMI framework that connects your formal training with agile practice"
+    },
+    {
+      "id": "g-sdd",
+      "name": "SDD / BMAD / Desarrollo Agentico",
+      "color": "var(--sofka-positive-text)",
+      "shortEs": "Desarrollo agentico — herramientas de IA que planifican, ejecutan y despliegan tareas de forma autonoma",
+      "shortEn": "Agentic development — AI tools that plan, execute, and deploy tasks autonomously"
+    },
+    {
+      "id": "g-ainative",
+      "name": "AI-Native Workflow",
+      "color": "#10B981",
+      "shortEs": "Flujo de trabajo disenado con IA desde el origen — no es un proceso manual al que le agregas IA despues",
+      "shortEn": "Workflow designed with AI from the start — not a manual process where you add AI later"
+    },
+    {
+      "id": "g-agentic",
+      "name": "Agentic Workflow",
+      "color": "#8B5CF6",
+      "shortEs": "Llevar un proceso a una herramienta que lo resuelve sola, de punta a punta",
+      "shortEn": "Taking a process to a tool that solves it end-to-end autonomously"
+    },
+    {
+      "id": "g-asst-agent",
+      "name": "Asistente vs. Agente / Assistant vs. Agent",
+      "color": "#F59E0B",
+      "shortEs": "Agente trabaja solo hasta completar. Asistente responde cuando preguntas.",
+      "shortEn": "Agent works autonomously until completion. Assistant responds when asked."
+    },
+    {
+      "id": "g-prompt",
+      "name": "Prompt + Meta-prompting",
+      "color": "#EC4899",
+      "shortEs": "El prompt no es una pregunta casual — es una especificacion",
+      "shortEn": "A prompt isn't a casual question — it's a specification"
+    },
+    {
+      "id": "g-orq",
+      "name": "Orquestacion / Orchestration",
+      "color": "#06B6D4",
+      "shortEs": "Coordinar multiples herramientas de IA en secuencia para producir un resultado que ninguna produce sola",
+      "shortEn": "Coordinating multiple AI tools in sequence to produce a result none produces alone"
+    },
+    {
+      "id": "g-gobernado",
+      "name": "Flujo gobernado / Governed flow",
+      "color": "#14B8A6",
+      "shortEs": "Un flujo con estructura repetible, destino definido, verificacion y accountability",
+      "shortEn": "A flow with repeatable structure, defined destination, verification, and accountability"
+    },
+    {
+      "id": "g-iteracion",
+      "name": "Iteracion con IA / AI iteration",
+      "color": "#F97316",
+      "shortEs": "El ciclo de input -> output -> revision -> mejora del prompt -> re-ejecucion",
+      "shortEn": "The cycle of input -> output -> review -> prompt improvement -> re-execution"
+    },
+    {
+      "id": "g-accountability",
+      "name": "Accountability Cascade",
+      "color": "#DC2626",
+      "shortEs": "Cada output necesita tres elementos: dueno, fecha, criterio de exito",
+      "shortEn": "Every output needs three elements: owner, date, success criteria"
+    },
+    {
+      "id": "g-shuhari",
+      "name": "Shu-Ha-Ri",
+      "color": "#7C3AED",
+      "shortEs": "Modelo de maestria japones en tres etapas: sigue la forma, rompe la forma, trasciende la forma",
+      "shortEn": "Japanese mastery model in three stages: follow the form, break the form, transcend the form"
+    }
+  ],
+  "antiPatterns": [
+    {
+      "num": 1,
+      "nameEs": "Produccion sin insumo",
+      "nameEn": "Production without input",
+      "symptomEs": "El output tiene datos especificos que nunca proporcionaste",
+      "symptomEn": "The output has specific data you never provided",
+      "remediationEs": "Reune 3 piezas de evidencia real antes de abrir el flujo. Sin documento al lado, no ejecutes.",
+      "remediationEn": "Gather 3 pieces of real evidence before opening the flow. Without a document beside you, don't execute."
+    },
+    {
+      "num": 2,
+      "nameEs": "Flujo sin ancla temporal",
+      "nameEn": "Flow without time anchor",
+      "symptomEs": "Manana lo hago — y pasan 3 dias sin Quad-Doc",
+      "symptomEn": "I'll do it tomorrow — and 3 days pass without a Quad-Doc",
+      "remediationEs": "Bloquea 20 min post-reunion en calendario. Si no esta agendado, no existe.",
+      "remediationEn": "Block 20 min post-meeting on calendar. If it's not scheduled, it doesn't exist."
+    },
+    {
+      "num": 3,
+      "nameEs": "Produccion sin distribucion",
+      "nameEn": "Production without distribution",
+      "symptomEs": "El Quad-Doc esta listo pero sigue en el clipboard",
+      "symptomEn": "The Quad-Doc is ready but still in the clipboard",
+      "remediationEs": "Define destino antes de ejecutar. El flujo termina cuando esta en Confluence/Jira/correo.",
+      "remediationEn": "Define destination before executing. The flow ends when it's in Confluence/Jira/email."
+    },
+    {
+      "num": 4,
+      "nameEs": "Edicion perfectiva mata cadencia",
+      "nameEn": "Perfective editing kills cadence",
+      "symptomEs": "45 minutos editando formato y estilo del output",
+      "symptomEn": "45 minutes editing the output's format and style",
+      "remediationEs": "Timer de 5 min. Si cumple suficientemente bueno, distribuye. Mejora el prompt para la proxima vez.",
+      "remediationEn": "5-min timer. If it meets good enough, distribute. Improve the prompt for next time."
+    },
+    {
+      "num": 5,
+      "nameEs": "Reporte sin base de evidencia",
+      "nameEn": "Report without evidence base",
+      "symptomEs": "El reporte semanal no tiene Quad-Docs que lo respalden",
+      "symptomEn": "The weekly report has no Quad-Docs backing it",
+      "remediationEs": "Audita Quad-Docs antes de abrir ElRepo. Sin F2 ejecutado, el F3 es opinion disfrazada de reporte.",
+      "remediationEn": "Audit Quad-Docs before opening ElRepo. Without F2 executed, F3 is opinion disguised as a report."
+    },
+    {
+      "num": 6,
+      "nameEs": "Adopcion sin co-creacion",
+      "nameEn": "Adoption without co-creation",
+      "symptomEs": "Solo el manager usa los flujos. El equipo recibe pero no participa.",
+      "symptomEn": "Only the manager uses the flows. The team receives but doesn't participate.",
+      "remediationEs": "F2 en vivo: construye el Quad-Doc CON el equipo en los ultimos 5 min de la reunion.",
+      "remediationEn": "Live F2: build the Quad-Doc WITH the team in the last 5 min."
+    },
+    {
+      "num": 7,
+      "nameEs": "Canal informal = decision perdida",
+      "nameEn": "Informal channel = lost decision",
+      "symptomEs": "Las decisiones por Slack/email no se capitalizan. Solo las reuniones sincronas tienen Quad-Doc.",
+      "symptomEn": "Slack/email decisions aren't capitalized. Only sync meetings get Quad-Docs.",
+      "remediationEs": "Al cerrar un hilo de decision async, corre LaVuelta con el hilo como input.",
+      "remediationEn": "When closing an async decision thread, run LaVuelta with the thread as input."
+    },
+    {
+      "num": 8,
+      "nameEs": "Silos de reporte",
+      "nameEn": "Report silos",
+      "symptomEs": "VR-AID por proyecto, pero los riesgos cruzados entre proyectos son invisibles",
+      "symptomEn": "VR-AID per project, but cross-project risks are invisible",
+      "remediationEs": "F3 semanal: agrega seccion dependencias cross-proyecto. ElRepo cruza multiples Quad-Docs.",
+      "remediationEn": "Weekly F3: add cross-project dependencies section. ElRepo crosses multiple Quad-Docs."
+    },
+    {
+      "num": 9,
+      "nameEs": "Reporte sin trazabilidad",
+      "nameEn": "Report without traceability",
+      "symptomEs": "Por que deberia creer tu VR-AID? — el stakeholder pide datos crudos",
+      "symptomEn": "Why should I believe your VR-AID? — the stakeholder wants raw data",
+      "remediationEs": "Link a fuente en cada dato. Citaciones automaticas de ElRepo. Ofrece acceso al notebook.",
+      "remediationEn": "Source link for each data point. ElRepo's automatic citations. Offer notebook access."
+    },
+    {
+      "num": 10,
+      "nameEs": "Dependencia de herramienta, no de estructura",
+      "nameEn": "Tool dependency, not structure dependency",
+      "symptomEs": "Gemini o NLM no disponible — el flujo se cancela por completo",
+      "symptomEn": "Gemini or NLM unavailable — the flow gets cancelled entirely",
+      "remediationEs": "Fallback manual: misma estructura en Google Docs. La estructura importa mas que la herramienta.",
+      "remediationEn": "Manual fallback: same structure in Google Docs. Structure matters more than the tool."
+    },
+    {
+      "num": 11,
+      "nameEs": "Confianza ciega en el output",
+      "nameEn": "Blind trust in output",
+      "symptomEs": "El output de la Gema va directo al canal o correo sin abrir el documento completo",
+      "symptomEn": "Gem output goes straight to channel or email without opening the full document",
+      "remediationEs": "Regla 3x3: verifica 3 datos contra fuente. Abre completo. Si un dato no es trazable, marcalo.",
+      "remediationEn": "3x3 rule: verify 3 data points against source. Open in full. If data isn't traceable, flag it."
+    },
+    {
+      "num": 12,
+      "nameEs": "Deflexion de accountability",
+      "nameEn": "Accountability deflection",
+      "symptomEs": "Se detecta un error y la reaccion es la IA alucino en lugar de no verifique",
+      "symptomEn": "An error is found and the reaction is the AI hallucinated instead of I didn't verify",
+      "remediationEs": "Corrige con transparencia y dato verificado. Post-mortem de 2 min. Actualiza tu checklist.",
+      "remediationEn": "Correct with transparency and verified data. 2-min post-mortem. Update your checklist."
+    },
+    {
+      "num": 13,
+      "nameEs": "Accountability delegada a la herramienta",
+      "nameEn": "Accountability delegated to the tool",
+      "symptomEs": "Segun la Gema... como si la herramienta fuera una fuente con autoridad propia",
+      "symptomEn": "According to the Gem... as if the tool were a source with its own authority",
+      "remediationEs": "Prueba de la firma: firmarias esto con tu nombre? Tu firmas, tu respondes.",
+      "remediationEn": "Signature test: would you sign this with your name? You sign it, you own it."
+    }
+  ],
+  "managerProfiles": [
+    {
+      "level": "novato",
+      "shuHaRi": "shu",
+      "nameEs": "Novato",
+      "nameEn": "Novice",
+      "descEs": "Necesitas la cartilla. >30 min. Output con correccion significativa.",
+      "descEn": "Need the workbook. >30 min. Output needs significant correction.",
+      "characteristics": ["Needs reference material", ">30 min per flow", "Output requires significant correction"]
+    },
+    {
+      "level": "practicante",
+      "shuHaRi": "ha",
+      "nameEs": "Practicante",
+      "nameEn": "Practitioner",
+      "descEs": "Sin consultar. ~30 min. Output utilizable con ajustes menores.",
+      "descEn": "Without checking. ~30 min. Usable output with minor adjustments.",
+      "characteristics": ["No reference needed", "~30 min per flow", "Output usable with minor adjustments"]
+    },
+    {
+      "level": "autonomo",
+      "shuHaRi": "ri",
+      "nameEs": "Autonomo",
+      "nameEn": "Autonomous",
+      "descEs": "Automatico. <20 min. Ensenas a otros.",
+      "descEn": "Automatic. <20 min. You teach others.",
+      "characteristics": ["Automatic execution", "<20 min per flow", "Can teach others"]
+    }
+  ],
+  "architectureLayers": [
+    {
+      "id": "l-drive",
+      "nameEs": "Google Drive",
+      "nameEn": "Google Drive",
+      "icon": "&#128193;",
+      "roleEs": "Capa de datos. Unidades gobernadas con naming estandar. Tu fuente de verdad.",
+      "roleEn": "Data layer. Governed units with standard naming. Your source of truth.",
+      "color": "var(--sofka-info)"
+    },
+    {
+      "id": "l-nlm",
+      "nameEs": "NotebookLM",
+      "nameEn": "NotebookLM",
+      "icon": "&#128218;",
+      "roleEs": "Middleware. Anti-alucinacion: responde solo con tus fuentes. Genera contenido grafico de alta calidad.",
+      "roleEn": "Middleware. Anti-hallucination: answers only from your sources. Generates high-quality graphic content.",
+      "color": "var(--sofka-accent-b)"
+    },
+    {
+      "id": "l-gemini",
+      "nameEs": "Gemini + Gems",
+      "nameEn": "Gemini + Gems",
+      "icon": "&#10024;",
+      "roleEs": "Front. Explora, experimenta, crea. Con Gemas, se convierte en tu centro de mando.",
+      "roleEn": "Front. Explore, experiment, create. With Gems, it becomes your command center.",
+      "color": "var(--sofka-orange)"
+    }
+  ],
+  "empezarCards": [
+    {
+      "emoji": "&#128533;",
+      "titleEs": "Llego a las reuniones sin saber bien de que va",
+      "titleEn": "I walk into meetings not sure what they're about",
+      "descEs": "Esto te va a ayudar cuando: tienes la reunion en 2 horas y no sabes como estructurarla. -> Flujo 1 (LaForja + LaReu).",
+      "descEn": "This will help you when: you have a meeting in 2 hours and don't know how to structure it. -> Flow 1 (LaForja + LaReu).",
+      "color": "var(--sofka-info)",
+      "flowNum": "1"
+    },
+    {
+      "emoji": "&#128552;",
+      "titleEs": "Termina la reunion y ya olvide lo que se decidio",
+      "titleEn": "Meeting ends and I've already forgotten what was decided",
+      "descEs": "Esto te va a ayudar cuando: hay 3 reuniones esta semana y sientes que las decisiones se pierden. -> Flujo 2 (LaVuelta).",
+      "descEn": "This will help you when: there are 3 meetings this week and you feel decisions get lost. -> Flow 2 (LaVuelta).",
+      "color": "var(--sofka-orange)",
+      "flowNum": "2"
+    },
+    {
+      "emoji": "&#128221;",
+      "titleEs": "Tardo 2 horas haciendo el reporte semanal",
+      "titleEn": "I spend 2 hours on the weekly report",
+      "descEs": "Esto te va a ayudar cuando: es viernes y el reporte te quita la tarde entera. -> Flujo 3 (ElRepo).",
+      "descEn": "This will help you when: it's Friday and the report takes your whole afternoon. -> Flow 3 (ElRepo).",
+      "color": "#CC6506",
+      "flowNum": "3"
+    },
+    {
+      "emoji": "&#128064;",
+      "titleEs": "Mi trabajo no es visible para el liderazgo",
+      "titleEn": "My work isn't visible to leadership",
+      "descEs": "Esto te va a ayudar cuando: sientes que haces mucho pero nadie lo nota. -> Flujo 4 (LaInfo).",
+      "descEn": "This will help you when: you feel like you do a lot but nobody notices. -> Flow 4 (LaInfo).",
+      "color": "var(--sofka-orange)",
+      "flowNum": "4"
+    },
+    {
+      "emoji": "&#128269;",
+      "titleEs": "Tengo una reunion importante y no tengo contexto suficiente",
+      "titleEn": "I have an important meeting and no context",
+      "descEs": "Esto te va a ayudar cuando: manana hay una reunion estrategica y no sabes nada del sector. -> Flujo 5 (Deep Research).",
+      "descEn": "This will help you when: tomorrow is a strategic meeting and you know nothing about the sector. -> Flow 5 (Deep Research).",
+      "color": "var(--sofka-critical)",
+      "flowNum": "5"
+    },
+    {
+      "emoji": "&#127919;",
+      "titleEs": "No se cual herramienta usar para que",
+      "titleEn": "I don't know which tool to use for what",
+      "descEs": "Regla simple: si necesitas trabajar con TUS documentos con precision, usa NotebookLM. Si quieres explorar ideas libremente, usa Gemini. Si quieres un output estructurado, usa una Gema.",
+      "descEn": "Simple rule: if you need to work with YOUR documents with precision, use NotebookLM. For free exploration, use Gemini. For a structured output in one click, use a Gem.",
+      "color": "var(--sofka-warning)",
+      "isStatic": true
+    }
+  ],
+  "footer": {
+    "logoText": "Sofka Technologies",
+    "badges": [
+      "Weekly Rituals BU2 v3.0",
+      "Big Rocks Scale Up 2026",
+      "Presales Transversal"
+    ],
+    "copyright": "&copy; 2026 Sofka Technologies. Todos los derechos reservados. Autor: Javier Montano — Software + Kaizen + IA."
+  }
+}

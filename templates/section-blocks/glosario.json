@@ -1,0 +1,110 @@
+{
+  "sectionId": "glosario",
+  "mandatory": true,
+  "headerEs": "<span>Glosario</span>, arquitectura y acceso directo",
+  "headerEn": "<span>Glossary</span>, architecture and quick access",
+  "descEs": "Antes de empezar, estos son los conceptos que vas a ver repetidos en todo el playbook. No los memorices ahora — vuelve aqui cuando los encuentres y no sepas que significan. Cada tarjeta te dice que es, por que importa, y que pasa si lo ignoras. Click en cualquiera para ver el detalle completo.",
+  "descEn": "Before starting, these are the concepts you'll see repeated throughout the playbook. Don't memorize them now — come back when you encounter them and don't know what they mean. Each card tells you what it is, why it matters, and what happens if you ignore it. Click any for full detail.",
+  "terms": [
+    {
+      "id": "ai-native",
+      "nameEs": "Flujo AI-Nativo",
+      "nameEn": "AI-Native Workflow",
+      "shortEs": "Disenado con IA desde el origen",
+      "shortEn": "Designed with AI from the start",
+      "color": "#10B981",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "id": "prompt",
+      "nameEs": "Prompt + Meta-prompting",
+      "nameEn": "Prompt + Meta-prompting",
+      "shortEs": "La disciplina que multiplica calidad",
+      "shortEn": "The discipline that multiplies quality",
+      "color": "#EC4899",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "id": "vraid",
+      "nameEs": "VR-AID Framework",
+      "nameEn": "VR-AID Framework",
+      "shortEs": "Value, Risks, Assumptions, Issues, Dependencies — justifica cada semaforo con evidencia",
+      "shortEn": "Value, Risks, Assumptions, Issues, Dependencies — justify every traffic light with evidence",
+      "color": "var(--sofka-info)",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "id": "quad-doc",
+      "nameEs": "Quad-Doc",
+      "nameEn": "Quad-Doc",
+      "shortEs": "4 componentes: Decisiones, Tareas, Ruta critica, Indexacion",
+      "shortEn": "4 components: Decisions, Tasks, Critical path, Indexing",
+      "color": "#CC6506",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "id": "semaforo",
+      "nameEs": "Semaforo de Valor",
+      "nameEn": "Value Traffic Light",
+      "shortEs": "Estado del proyecto por valor entregado, no por actividad",
+      "shortEn": "Project status by delivered value, not activity",
+      "color": "var(--sofka-accent-c)",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "id": "deep-research",
+      "nameEs": "Deep Research",
+      "nameEn": "Deep Research",
+      "shortEs": "Investigacion avanzada con docenas de fuentes verificables",
+      "shortEn": "Advanced research with dozens of verifiable sources",
+      "color": "var(--sofka-critical)",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "id": "notebooklm",
+      "nameEs": "NotebookLM",
+      "nameEn": "NotebookLM",
+      "shortEs": "Responde solo basandose en TUS documentos — cero alucinacion",
+      "shortEn": "Answers only based on YOUR documents — zero hallucination",
+      "color": "var(--sofka-accent-b)",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "id": "shu-ha-ri",
+      "nameEs": "Shu-Ha-Ri",
+      "nameEn": "Shu-Ha-Ri",
+      "shortEs": "Sigue, rompe, trasciende — modelo de maestria japones",
+      "shortEn": "Follow, break, transcend — Japanese mastery model",
+      "color": "#7C3AED",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "id": "accountability-cascade",
+      "nameEs": "Accountability Cascade",
+      "nameEn": "Accountability Cascade",
+      "shortEs": "Cada output necesita dueno + fecha + criterio de exito",
+      "shortEn": "Every output needs owner + date + success criteria",
+      "color": "#DC2626",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "id": "flujo-gobernado",
+      "nameEs": "Flujo Gobernado",
+      "nameEn": "Governed Flow",
+      "shortEs": "Estructura repetible, destino definido, verificacion y accountability",
+      "shortEn": "Repeatable structure, defined destination, verification and accountability",
+      "color": "#14B8A6",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    }
+  ],
+  "gemBar": {
+    "titleEs": "Acceso directo a herramientas",
+    "titleEn": "Direct tool access",
+    "gems": [
+      { "name": "Gemini", "url": "https://gemini.google.com", "pulse": true },
+      { "name": "NotebookLM", "url": "https://notebooklm.google.com" },
+      { "name": "Drive", "url": "https://drive.google.com" }
+    ]
+  },
+  "_composerNotes": "The 10 terms above are generic and apply to ANY AI-native workflow playbook. The compose-manifest script should merge these with any playbook-specific terms. The _generate marker indicates which fields need LLM generation per playbook context."
+}

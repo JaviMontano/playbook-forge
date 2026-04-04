@@ -41,6 +41,26 @@ the complete JSON manifest that the html-assembler will use to build the
 final playbook. Every section, flow, kata, and content block is your
 responsibility.
 
+## V4 DETERMINISTIC PIPELINE
+
+Your role has CHANGED. You no longer generate from scratch. Instead:
+
+1. Read the PRE-COMPOSED manifest from outputs/.playbook-manifest.json
+2. The manifest was built by compose-manifest.js from section-block templates
+3. Fields marked with "_generate": true are YOUR responsibility to fill
+4. Fields with "_template": true are FIXED — do NOT modify them
+5. Fields with "_brief": true came from user input — do NOT modify them
+
+For each _generate field:
+- Read the surrounding context (section title, tool name, flow description)
+- Generate bilingual content (ES + EN) that fits the context
+- Keep generated text 20-100 words per language
+- Match the tone of the golden reference (direct, practical, action-oriented)
+
+NEVER rewrite structure. NEVER add sections. ONLY fill _generate fields.
+
+After filling, write the enriched manifest back to outputs/.playbook-manifest-enriched.json
+
 ## Required Reading
 
 Before generating any content, you MUST read these reference files:

@@ -1,0 +1,125 @@
+{
+  "category": "flow",
+  "idPattern": "modal-f{num}",
+  "description": "Template for the internal structure of a flow modal. Each flow modal follows this exact 10-section pattern extracted from the golden reference HTML.",
+  "sections": [
+    {
+      "order": 1,
+      "type": "modal-header",
+      "structure": {
+        "h3Es": "Flujo {{NUM}}: {{FLOW_NAME_ES}}",
+        "h3En": "Flow {{NUM}}: {{FLOW_NAME_EN}}",
+        "small": "{{TOOL}} — {{DURATION}} — {{FREQUENCY}}"
+      }
+    },
+    {
+      "order": 2,
+      "type": "callout-warning",
+      "titleEs": "&#10067; Para que lo usas?",
+      "titleEn": "&#10067; What is it for?",
+      "field": "purposeEs/En",
+      "_generate": true,
+      "_hint": "2-3 sentences explaining the pain point this flow solves. Start with 'Cuando...' / 'When...' describing the trigger situation."
+    },
+    {
+      "order": 3,
+      "type": "h4",
+      "textEs": "Como funciona",
+      "textEn": "How it works"
+    },
+    {
+      "order": 4,
+      "type": "timeline",
+      "field": "steps",
+      "minItems": 3,
+      "maxItems": 5,
+      "itemStructure": {
+        "timeLabel": "{{STEP_TIME_RANGE}}",
+        "dotColor": "auto",
+        "bodyEs": "{{STEP_INSTRUCTION_ES}}",
+        "bodyEn": "{{STEP_INSTRUCTION_EN}}"
+      },
+      "_generate": true,
+      "_hint": "Each step has a time range (e.g., '0-5 min') and a concrete instruction. Steps should be sequential and additive. Last step should always involve publishing/sharing."
+    },
+    {
+      "order": 5,
+      "type": "h4",
+      "textEs": "Que obtienes al final",
+      "textEn": "What you get at the end"
+    },
+    {
+      "order": 6,
+      "type": "p",
+      "field": "outputEs/En",
+      "_generate": true,
+      "_hint": "1-2 sentences describing the concrete artifact produced. Be specific: name the artifact type, its format, and its immediate use."
+    },
+    {
+      "order": 7,
+      "type": "callout-orange",
+      "titleEs": "Como sabes que lo hiciste bien",
+      "titleEn": "How you know you did it right",
+      "field": "dodEs/En",
+      "_generate": true,
+      "_hint": "Definition of Done. 2-3 verifiable criteria. At least one should involve a third party (stakeholder, colleague) being able to use/understand the output."
+    },
+    {
+      "order": 8,
+      "type": "h4",
+      "textEs": "Cuando vas a notar la diferencia",
+      "textEn": "When you'll notice the difference"
+    },
+    {
+      "order": 9,
+      "type": "p-progression",
+      "field": "progressionEs/En",
+      "pattern": "Semana 1-2: {{WEEK_1_2}} Semana 4: {{WEEK_4}} Semana 8: {{WEEK_8}}",
+      "_generate": true,
+      "_hint": "Three-phase progression: initial clumsy execution, competent execution, automatic mastery. Use bold for week labels. Show time reduction and quality improvement."
+    },
+    {
+      "order": 10,
+      "type": "modal-cta",
+      "field": "cta",
+      "structure": {
+        "links": [
+          {
+            "label": "{{GEM_1_NAME}}",
+            "url": "{{GEM_1_URL}}",
+            "pulse": true,
+            "class": "gem-link"
+          },
+          {
+            "label": "{{GEM_2_NAME}}",
+            "url": "{{GEM_2_URL}}",
+            "pulse": false,
+            "class": "gem-link",
+            "_optional": true
+          }
+        ]
+      }
+    }
+  ],
+  "cssClasses": {
+    "overlay": "modal-overlay",
+    "box": "modal-box",
+    "close": "modal-close",
+    "header": "modal-header",
+    "body": "modal-body",
+    "cta": "modal-cta",
+    "calloutWarning": "callout callout-warning",
+    "calloutOrange": "callout callout-orange",
+    "timeline": "timeline",
+    "timelineItem": "timeline-item",
+    "timelineDot": "timeline-dot",
+    "timelineContent": "timeline-content"
+  },
+  "renderBehavior": {
+    "openFunction": "openModal('{{NUM}}')",
+    "closeFunction": "closeModal()",
+    "bilingualToggle": true,
+    "animation": "modalIn 0.25s ease"
+  },
+  "_composerNotes": "This template defines the STRUCTURE of every flow modal. Fields marked _generate:true need LLM generation per flow. The compose-manifest script uses this template to validate that every flow modal has all 10 sections. The golden reference has this exact pattern for all 13 flow modals."
+}

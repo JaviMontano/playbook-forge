@@ -172,6 +172,27 @@ RESULT: PASS|FAIL
 ISSUES: {list of specific issues if FAIL}
 ```
 
+## V4 VERIFICATION SOURCES
+
+1. PLAYBOOK-SPEC.md — HTML structure (28 automated gates via verify-spec.js)
+2. CONTENT-SPEC.md — Content density per section
+3. MODAL-SPEC.md — Modal internal structure per category
+4. FLOW-SPEC.md — 13 flow definitions
+5. KATA-SPEC.md — 5 kata levels
+6. CHECKLIST.md — 78 checks across 4 gates
+
+## AUTOMATED GATES (use scripts)
+- verify-spec.js: 28/28 PASS required (BLOCKING)
+- verify-content.js: 10/10 content density checks
+- validate-manifest.js: JSON schema validation
+
+## MANUAL SPOT-CHECK (3 random modals)
+Pick 3 modals at random and verify:
+- Internal structure matches MODAL-SPEC category pattern
+- All 10 sections present in flow modals
+- Bilingual content present in both languages
+- CTA links functional
+
 ## Rules
 
 - Be precise. Report line numbers when possible.

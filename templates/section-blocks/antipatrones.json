@@ -1,0 +1,107 @@
+{
+  "sectionId": "antipatrones",
+  "mandatory": true,
+  "headerEs": "Cosas que <span>no funcionan</span>",
+  "headerEn": "Things that <span>don't work</span>",
+  "descEs": "Errores predecibles que destruyen la cadencia y la confianza. Conocerlos de antemano ahorra semanas de frustracion.",
+  "descEn": "Predictable errors that destroy cadence and trust. Knowing them in advance saves weeks of frustration.",
+  "genericAntiPatterns": [
+    {
+      "num": 1,
+      "id": "ap-sin-evidencia",
+      "nameEs": "Produccion sin insumo",
+      "nameEn": "Production without input",
+      "subtitleEs": "Sin evidencia real",
+      "subtitleEn": "No real evidence",
+      "symptomEs": "El output tiene datos especificos que nunca proporcionaste. La IA invento nombres, fechas o metricas.",
+      "symptomEn": "The output has specific data you never provided. The AI invented names, dates, or metrics.",
+      "steps": [
+        { "stepEs": "Reune 3 piezas de evidencia real antes de abrir el flujo", "stepEn": "Gather 3 pieces of real evidence before opening the flow" },
+        { "stepEs": "Sin documento al lado, no ejecutes — la IA amplifica lo que le das", "stepEn": "Without a document beside you, don't execute — AI amplifies what you give it" },
+        { "stepEs": "Verifica cada dato del output contra tu input original", "stepEn": "Verify each output data point against your original input" }
+      ],
+      "accountabilityEs": "Tu input determina la calidad del output. Garbage in, garbage out.",
+      "accountabilityEn": "Your input determines output quality. Garbage in, garbage out.",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "num": 2,
+      "id": "ap-postergada",
+      "nameEs": "Flujo sin ancla temporal",
+      "nameEn": "Flow without time anchor",
+      "subtitleEs": "Postergada — manana lo hago",
+      "subtitleEn": "Postponed — I'll do it tomorrow",
+      "symptomEs": "Manana lo hago — y pasan 3 dias sin ejecutar el flujo. La memoria fresca se pierde.",
+      "symptomEn": "I'll do it tomorrow — and 3 days pass without executing the flow. Fresh memory is lost.",
+      "steps": [
+        { "stepEs": "Bloquea tiempo inmediatamente post-trigger en calendario", "stepEn": "Block time immediately post-trigger on calendar" },
+        { "stepEs": "Si no esta agendado, no existe — trata el flujo como una reunion", "stepEn": "If it's not scheduled, it doesn't exist — treat the flow as a meeting" },
+        { "stepEs": "Vincula el trigger al evento: post-reunion = LaVuelta, viernes = ElRepo", "stepEn": "Link the trigger to the event: post-meeting = LaVuelta, Friday = ElRepo" }
+      ],
+      "accountabilityEs": "El flujo tiene un trigger temporal. Si no lo anclas al calendario, la inercia gana.",
+      "accountabilityEn": "The flow has a time trigger. If you don't anchor it to the calendar, inertia wins.",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "num": 3,
+      "id": "ap-sin-destino",
+      "nameEs": "Produccion sin distribucion",
+      "nameEn": "Production without distribution",
+      "subtitleEs": "Output sin destino",
+      "subtitleEn": "Output with no destination",
+      "symptomEs": "El artefacto esta listo pero sigue en el clipboard o en una pestana abierta. Nadie mas lo vio.",
+      "symptomEn": "The artifact is ready but still in the clipboard or an open tab. Nobody else saw it.",
+      "steps": [
+        { "stepEs": "Define destino ANTES de ejecutar: Confluence, Jira, correo, Drive", "stepEn": "Define destination BEFORE executing: Confluence, Jira, email, Drive" },
+        { "stepEs": "El flujo termina cuando esta publicado, no cuando la herramienta lo genera", "stepEn": "The flow ends when it's published, not when the tool generates it" },
+        { "stepEs": "Notifica al destinatario — publicar sin avisar es lo mismo que no publicar", "stepEn": "Notify the recipient — publishing without alerting is the same as not publishing" }
+      ],
+      "accountabilityEs": "Un artefacto sin destinatario no tiene impacto. Publicar = completar.",
+      "accountabilityEn": "An artifact without a recipient has no impact. Publishing = completing.",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "num": 4,
+      "id": "ap-perfeccionismo",
+      "nameEs": "Edicion perfectiva mata cadencia",
+      "nameEn": "Perfective editing kills cadence",
+      "subtitleEs": "Perfeccionismo",
+      "subtitleEn": "Perfectionism",
+      "symptomEs": "45 minutos editando formato y estilo del output en lugar de mejorar el prompt para la proxima vez.",
+      "symptomEn": "45 minutes editing the output's format and style instead of improving the prompt for next time.",
+      "steps": [
+        { "stepEs": "Timer de 5 min para revision. Si cumple suficientemente bueno, distribuye", "stepEn": "5-min timer for review. If it meets good enough, distribute" },
+        { "stepEs": "Mejora el prompt para la proxima ejecucion, no el output de esta vez", "stepEn": "Improve the prompt for next execution, not this time's output" },
+        { "stepEs": "La cadencia importa mas que la perfeccion — 4 outputs buenos > 1 output perfecto", "stepEn": "Cadence matters more than perfection — 4 good outputs > 1 perfect output" }
+      ],
+      "accountabilityEs": "Editar el output es trabajo lineal. Mejorar el prompt es trabajo exponencial.",
+      "accountabilityEn": "Editing the output is linear work. Improving the prompt is exponential work.",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    },
+    {
+      "num": 5,
+      "id": "ap-sin-revisar",
+      "nameEs": "Confianza ciega en el output",
+      "nameEn": "Blind trust in output",
+      "subtitleEs": "Enviar sin revisar",
+      "subtitleEn": "Send without reviewing",
+      "symptomEs": "El output de la herramienta va directo al canal o correo sin abrir el documento completo.",
+      "symptomEn": "Tool output goes straight to channel or email without opening the full document.",
+      "steps": [
+        { "stepEs": "Regla 3x3: verifica 3 datos contra fuente original", "stepEn": "3x3 rule: verify 3 data points against original source" },
+        { "stepEs": "Abre el documento completo — nunca envies desde el preview", "stepEn": "Open the full document — never send from the preview" },
+        { "stepEs": "Prueba de la firma: firmarias esto con tu nombre? Si no, itera", "stepEn": "Signature test: would you sign this with your name? If not, iterate" }
+      ],
+      "accountabilityEs": "Todo output que compartes lleva tu nombre, no el de la herramienta. Tu firmas, tu respondes.",
+      "accountabilityEn": "Every output you share carries your name, not the tool's. You sign it, you own it.",
+      "_generate": "conceptEs,conceptEn,whyEs,whyEn"
+    }
+  ],
+  "garbageInCallout": {
+    "titleEs": "Garbage in, garbage out — la regla que no cambia con la IA",
+    "titleEn": "Garbage in, garbage out — the rule that doesn't change with AI",
+    "bodyEs": "Una herramienta de IA es un sistema de transformacion: convierte tu input en un output estructurado. Si el input es vago, incompleto o sin contexto — el output hereda ese problema. La IA amplifica lo que le das.",
+    "bodyEn": "An AI tool is a transformation system: it converts your input into structured output. If the input is vague, incomplete or lacks context — the output inherits that problem. AI amplifies what you give it."
+  },
+  "_composerNotes": "These 5 anti-patterns are GENERIC and apply to any AI-native workflow playbook. The compose-manifest script should merge these with playbook-specific anti-patterns (up to 13 total per the schema). The _generate markers indicate fields that need LLM contextualization."
+}

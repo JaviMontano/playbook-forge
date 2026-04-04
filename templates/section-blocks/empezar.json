@@ -1,0 +1,103 @@
+{
+  "sectionId": "empezar",
+  "mandatory": true,
+  "headerEs": "<span>&#191;Por donde empiezo?</span>",
+  "headerEn": "<span>Where do I start?</span>",
+  "descEs": "No tienes que hacer todo a la vez. Lee las tarjetas y elige la que describe exactamente como te sientes hoy. Ahi empieza tu primer flujo.",
+  "descEn": "You don't have to do everything at once. Read the cards and pick the one that describes exactly how you feel today. That's where your first flow starts.",
+  "empathyCards": [
+    {
+      "slot": 1,
+      "emoji": "{{UC_1_EMOJI}}",
+      "titleEs": "{{UC_1_PAIN_ES}}",
+      "titleEn": "{{UC_1_PAIN_EN}}",
+      "descEs": "Esto te va a ayudar cuando: {{UC_1_WHEN_ES}}. -> {{UC_1_FLOW_REF}}.",
+      "descEn": "This will help you when: {{UC_1_WHEN_EN}}. -> {{UC_1_FLOW_REF}}.",
+      "color": "var(--sofka-info)",
+      "flowNum": "{{UC_1_FLOW_NUM}}",
+      "_generate": "titleEs,titleEn,descEs,descEn"
+    },
+    {
+      "slot": 2,
+      "emoji": "{{UC_2_EMOJI}}",
+      "titleEs": "{{UC_2_PAIN_ES}}",
+      "titleEn": "{{UC_2_PAIN_EN}}",
+      "descEs": "Esto te va a ayudar cuando: {{UC_2_WHEN_ES}}. -> {{UC_2_FLOW_REF}}.",
+      "descEn": "This will help you when: {{UC_2_WHEN_EN}}. -> {{UC_2_FLOW_REF}}.",
+      "color": "var(--sofka-orange)",
+      "flowNum": "{{UC_2_FLOW_NUM}}",
+      "_generate": "titleEs,titleEn,descEs,descEn"
+    },
+    {
+      "slot": 3,
+      "emoji": "{{UC_3_EMOJI}}",
+      "titleEs": "{{UC_3_PAIN_ES}}",
+      "titleEn": "{{UC_3_PAIN_EN}}",
+      "descEs": "Esto te va a ayudar cuando: {{UC_3_WHEN_ES}}. -> {{UC_3_FLOW_REF}}.",
+      "descEn": "This will help you when: {{UC_3_WHEN_EN}}. -> {{UC_3_FLOW_REF}}.",
+      "color": "#CC6506",
+      "flowNum": "{{UC_3_FLOW_NUM}}",
+      "_generate": "titleEs,titleEn,descEs,descEn"
+    },
+    {
+      "slot": 4,
+      "emoji": "{{UC_4_EMOJI}}",
+      "titleEs": "{{UC_4_PAIN_ES}}",
+      "titleEn": "{{UC_4_PAIN_EN}}",
+      "descEs": "Esto te va a ayudar cuando: {{UC_4_WHEN_ES}}. -> {{UC_4_FLOW_REF}}.",
+      "descEn": "This will help you when: {{UC_4_WHEN_EN}}. -> {{UC_4_FLOW_REF}}.",
+      "color": "var(--sofka-orange)",
+      "flowNum": "{{UC_4_FLOW_NUM}}",
+      "_generate": "titleEs,titleEn,descEs,descEn"
+    },
+    {
+      "slot": 5,
+      "emoji": "{{UC_5_EMOJI}}",
+      "titleEs": "{{UC_5_PAIN_ES}}",
+      "titleEn": "{{UC_5_PAIN_EN}}",
+      "descEs": "Esto te va a ayudar cuando: {{UC_5_WHEN_ES}}. -> {{UC_5_FLOW_REF}}.",
+      "descEn": "This will help you when: {{UC_5_WHEN_EN}}. -> {{UC_5_FLOW_REF}}.",
+      "color": "var(--sofka-critical)",
+      "flowNum": "{{UC_5_FLOW_NUM}}",
+      "_generate": "titleEs,titleEn,descEs,descEn"
+    },
+    {
+      "slot": 6,
+      "emoji": "&#127919;",
+      "titleEs": "No se cual herramienta usar para que",
+      "titleEn": "I don't know which tool to use for what",
+      "descEs": "Regla simple: si necesitas trabajar con TUS documentos con precision, usa {{PRECISION_TOOL}}. Si quieres explorar ideas libremente, usa {{EXPLORATION_TOOL}}. Si quieres un output estructurado con un clic, usa {{STRUCTURED_TOOL}}.",
+      "descEn": "Simple rule: if you need to work with YOUR documents with precision, use {{PRECISION_TOOL}}. For free exploration, use {{EXPLORATION_TOOL}}. For a structured output in one click, use {{STRUCTURED_TOOL}}.",
+      "color": "var(--sofka-warning)",
+      "isStatic": true
+    }
+  ],
+  "accountabilityCallout": {
+    "titleEs": "Antes de empezar: Accountability",
+    "titleEn": "Before you start: Accountability",
+    "bodyEs": "Cada output que generes con estos flujos lleva tu nombre. No es un documento de la IA — es tu artefacto profesional. Si tu output no tiene dueno, fecha y criterio de exito, no esta listo para compartir.",
+    "bodyEn": "Every output you generate with these flows carries your name. It's not an AI document — it's your professional artifact. If your output lacks owner, date, and success criteria, it's not ready to share."
+  },
+  "firstDayTimeline": {
+    "titleEs": "Tu primer {{DAY_NAME}}",
+    "titleEn": "Your first {{DAY_NAME}}",
+    "steps": [
+      {
+        "duration": "5 min",
+        "actionEs": "Elige 1 flujo de las tarjetas de arriba. El que mas te duela hoy.",
+        "actionEn": "Pick 1 flow from the cards above. The one that hurts most today."
+      },
+      {
+        "duration": "30-45 min",
+        "actionEs": "Ejecutalo en una situacion real. No practiques en vacio — usa una tarea que tengas pendiente esta semana.",
+        "actionEn": "Execute it in a real situation. Don't practice in a vacuum — use a task you have pending this week."
+      },
+      {
+        "duration": "5 min",
+        "actionEs": "Guarda el output en tu carpeta de Drive. Ponle nombre con el formato YYYY-MM-DD_Tipo_Descripcion. Ese output es tu primera evidencia de practica.",
+        "actionEn": "Save the output in your Drive folder. Name it with the format YYYY-MM-DD_Type_Description. That output is your first evidence of practice."
+      }
+    ]
+  },
+  "_composerNotes": "Cards 1-5 map to the first 5 flows in the manifest. Card 6 is always static (tool guidance). Placeholders {{UC_N_*}} are resolved by the compose-manifest script from flows[0..4]. {{DAY_NAME}} defaults to 'lunes/Monday'. The _generate markers on cards 1-5 indicate the empathy copy needs LLM generation specific to the playbook audience."
+}

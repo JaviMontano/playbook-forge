@@ -1,0 +1,103 @@
+{
+  "sectionId": "ritmo",
+  "mandatory": true,
+  "headerEs": "Tu ritmo + <span>auto-despliegue</span>",
+  "headerEn": "Your pace + <span>auto-deploy</span>",
+  "descEs": "",
+  "descEn": "",
+  "maturityCards": [
+    {
+      "id": "novato",
+      "nameEs": "Novato",
+      "nameEn": "Novice",
+      "phase": "Shu",
+      "color": "verde",
+      "descEs": "Necesitas la cartilla. >30 min. Output con correccion significativa.",
+      "descEn": "Need the workbook. >30 min. Output needs significant correction."
+    },
+    {
+      "id": "practicante",
+      "nameEs": "Practicante",
+      "nameEn": "Practitioner",
+      "phase": "Ha",
+      "color": "blanco",
+      "descEs": "Sin consultar. ~30 min. Output utilizable con ajustes menores.",
+      "descEn": "Without checking. ~30 min. Usable output with minor adjustments."
+    },
+    {
+      "id": "autonomo",
+      "nameEs": "Autonomo",
+      "nameEn": "Autonomous",
+      "phase": "Ri",
+      "color": "orange",
+      "descEs": "Automatico. <20 min. Ensenas a otros.",
+      "descEn": "Automatic. <20 min. You teach others."
+    }
+  ],
+  "transitionRules": {
+    "noviceToTraineeEs": "4 ejecuciones consecutivas de un flujo sin consultar el playbook y con output publicado el mismo dia.",
+    "noviceToTraineeEn": "4 consecutive executions of a flow without consulting the playbook, with output published same day.",
+    "traineeToAutoEs": "Ensenaste el flujo a 1 colega Y esa persona lo ejecuto sola con output aceptable.",
+    "traineeToAutoEn": "You taught the flow to 1 colleague AND that person executed it alone with acceptable output.",
+    "regressionEs": "Si no ejecutas un flujo por 3+ semanas consecutivas, regresas un nivel. Re-inicias con 4 repeticiones para recuperar nivel.",
+    "regressionEn": "If you don't execute a flow for 3+ consecutive weeks, you drop one level. Restart with 4 repetitions to recover."
+  },
+  "metrics": [
+    {
+      "id": "tiempo",
+      "valueEs": "-50%",
+      "valueEn": "-50%",
+      "labelEs": "Tiempo operativo (prep + reporte + {{OUTPUT_TYPE}})",
+      "labelEn": "Operational time (prep + report + {{OUTPUT_TYPE}})"
+    },
+    {
+      "id": "verificable",
+      "valueEs": "100%",
+      "valueEn": "100%",
+      "labelEs": "Verificable — cada dato trazable a fuente",
+      "labelEn": "Verifiable — every data point traceable to source"
+    },
+    {
+      "id": "entregables",
+      "valueEs": "3/3",
+      "valueEn": "3/3",
+      "labelEs": "Entregables semanales ({{DELIVERABLE_LIST}})",
+      "labelEn": "Weekly deliverables ({{DELIVERABLE_LIST}})"
+    },
+    {
+      "id": "primer-nivel",
+      "valueEs": "4 sem",
+      "valueEn": "4 wks",
+      "labelEs": "Primer nivel de autonomia",
+      "labelEn": "First autonomy level"
+    }
+  ],
+  "acceptanceCriteria": [
+    {
+      "id": "ca-1",
+      "criterionEs": "3 {{USE_CASES}} con evidencia en semana 1",
+      "criterionEn": "3 {{USE_CASES}} with evidence in week 1"
+    },
+    {
+      "id": "ca-2",
+      "criterionEs": "Nivel novato en 2 semanas para {{CORE_FLOWS}}",
+      "criterionEn": "Novice level in 2 weeks for {{CORE_FLOWS}}"
+    },
+    {
+      "id": "ca-3",
+      "criterionEs": "VR-AID producido desde evidencia real, no desde opinion",
+      "criterionEn": "VR-AID produced from real evidence, not from opinion"
+    }
+  ],
+  "progression": {
+    "week1Es": "{{CORE_FLOW_1}} + {{CORE_FLOW_2}} (3 sesiones)",
+    "week1En": "{{CORE_FLOW_1}} + {{CORE_FLOW_2}} (3 sessions)",
+    "week2Es": "{{CORE_FLOW_2}} + {{CORE_FLOW_3}} (repite por reunion)",
+    "week2En": "{{CORE_FLOW_2}} + {{CORE_FLOW_3}} (repeat per meeting)",
+    "week3Es": "Ciclo completo {{CORE_FLOWS}} (6 sesiones)",
+    "week3En": "Full cycle {{CORE_FLOWS}} (6 sessions)",
+    "week4Es": "Automatico + agrega flujos extendidos progresivamente",
+    "week4En": "Automatic + add extended flows progressively"
+  },
+  "_composerNotes": "Placeholders: {{OUTPUT_TYPE}}, {{DELIVERABLE_LIST}}, {{USE_CASES}}, {{CORE_FLOWS}}, {{CORE_FLOW_1}}, {{CORE_FLOW_2}}, {{CORE_FLOW_3}} are resolved from the flows array. Metrics and acceptance criteria are generic but their labels adapt to the specific playbook."
+}
