@@ -1,55 +1,95 @@
-# playbook-forge v2.0.0
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:1E3258,100:137DC5&height=220&section=header&text=Playbook%20Forge&fontSize=50&fontColor=FFD700&fontAlignY=35&desc=De%20la%20metodolog%C3%ADa%20vivida%20al%20playbook%20con%20marca&descSize=18&descColor=ffffff&descAlignY=55" alt="Playbook Forge Banner" />
+</p>
 
-Claude Code plugin that generates branded HTML playbooks with a lived methodology: 13 AI-native workflows, 5 progressive katas (Shu-Ha-Ri), 65 interactive modals, bilingual content (ES/EN with toggle), 13 anti-patterns with remediation, glossary, manager profiles, 11 sections, VR-AID framework, and value traffic light system.
+<p align="center">
+  <img src="https://img.shields.io/badge/versión-2.0.0-137DC5?style=for-the-badge" alt="Versión" />
+  <img src="https://img.shields.io/badge/licencia-GPL--3.0-122562?style=for-the-badge" alt="Licencia" />
+  <img src="https://img.shields.io/badge/workflows-13-FFD700?style=for-the-badge" alt="Workflows" />
+  <img src="https://img.shields.io/badge/katas-5-BBA0CC?style=for-the-badge" alt="Katas" />
+  <img src="https://img.shields.io/badge/modales-65-808080?style=for-the-badge" alt="Modales" />
+</p>
 
-## Installation
+---
+
+## Acerca de Playbook Forge
+
+**Playbook Forge** es un plugin de Claude Code que genera playbooks HTML con marca. Incluye 13 workflows de adopción de IA, contenido bilingüe (ES/EN con toggle), 13 anti-patrones con remediación, glosario, perfiles de gerente y secciones interactivas.
+
+Cada playbook producido es un archivo HTML autocontenido con la identidad visual de tu organización, listo para distribuir sin dependencias externas.
+
+---
+
+## Características principales
+
+- **13 flujos IA-nativos** — Workflows diseñados para adopción progresiva de inteligencia artificial
+- **5 katas Shu-Ha-Ri** — Ejercicios progresivos desde imitación hasta maestría
+- **Contenido bilingüe ES/EN** — Toggle integrado para cambiar entre español e inglés
+- **65 modales interactivos** — Componentes UI para explorar contenido en profundidad
+- **13 anti-patrones documentados** — Cada uno con diagnóstico y remediación
+- **HTML self-contained con marca** — Un solo archivo, cero dependencias externas
+- **Sofka Design System v5.1** — Consistencia visual profesional en cada entregable
+
+---
+
+## Instalación
+
+Agrega Playbook Forge como plugin de Claude Code:
 
 ```bash
-# Plugin auto-detected from ~/.claude/plugins/playbook-forge/
+# El plugin se auto-detecta desde ~/.claude/plugins/playbook-forge/
 ```
 
-## Usage
+---
+
+## Uso rápido
 
 ```
-/playbook:forge "Workflows agénticos para equipos de QA en BU3"
+/playbook:forge "<tema>"   # Genera un playbook completo
+/playbook:preview          # Vista previa del playbook actual
+/playbook:section "<tipo>" # Genera una sección específica
+/playbook:ingest [ruta]    # Ingesta contenido fuente
+/playbook:export [ruta]    # Exporta el playbook final
+/playbook:status           # Estado del playbook en progreso
 ```
 
-The plugin will:
-1. Ask 3-6 clarifying questions about your team, tools, problems, and bilingual preference
-2. Generate a bilingual content manifest adapted to your context
-3. Assemble a self-contained HTML playbook (120-400KB) with 65 interactive modals
-4. Validate quality against 19-point v2 checklist and deliver
+---
 
-## V2 Highlights
+## Estructura del playbook generado
 
-- **65 Modals**: 13 flow deep-dives, 13 anti-pattern details, 15 glossary terms, 5 kata details, 7 decision matrix, 3 learning layers, 3 manager profiles, 1 impact
-- **Bilingual**: Native ES/EN toggle for all content fields
-- **5 Katas**: Shu-Ha-Ri progression (Observe, Imitate, Adapt, Teach, Create)
-- **13 Anti-patterns**: Each with symptoms, detection, 3 remediation steps, accountability
-- **11 Sections**: Organized in 4 groups (Foundation, Flows, Learning, Governance)
-- **Manager Profiles**: 3 maturity levels (novato/Shu, practicante/Ha, autonomo/Ri)
-- **Kata x Flow Matrix**: Activation matrix showing which flows activate at each kata level
+| Sección | Contenido |
+|---------|-----------|
+| Workflows IA | 13 flujos de adopción con pasos detallados |
+| Katas | 5 niveles progresivos (Shu-Ha-Ri) |
+| Anti-patrones | 13 patrones problemáticos con remediación |
+| Glosario | Términos clave con definiciones contextuales |
+| Perfiles de gerente | Arquetipos de liderazgo para adopción de IA |
+| Secciones interactivas | 65 modales con contenido expandible |
 
-## Commands
+---
 
-- `/playbook:forge "<topic>"` -- Generate complete playbook
-- `/playbook:ingest [path]` -- Ingest source files for context
-- `/playbook:preview` -- Open latest playbook in browser
-- `/playbook:section "<type>"` -- Generate a single section
-- `/playbook:status` -- Pipeline status
-- `/playbook:export [path]` -- Export to specific path
+## Parte del Ecosistema MetodologIA / JM Labs
 
-## Design System
+Playbook Forge funciona junto con otros repositorios del ecosistema:
 
-Sofka DS v5.1 -- 42 CSS tokens, 33 reusable components, responsive + print, modal system, bilingual CSS.
+| Repositorio | Descripción |
+|-------------|-------------|
+| [mao-discovery-framework](https://github.com/JaviMontano/mao-discovery-framework) | Framework de discovery y análisis organizacional |
+| [mao-pm-apex](https://github.com/JaviMontano/mao-pm-apex) | Gestión de proyectos con agentes especializados |
+| [mao-sdd](https://github.com/JaviMontano/mao-sdd) | Specification-Driven Development para software |
 
-## Architecture
+---
 
-Every playbook promotes a 3-layer information grounding strategy:
-- **Data**: Google Drive (governed units)
-- **Middleware**: NotebookLM (anti-hallucination)
-- **Front**: Gemini + Gems (command center)
+## Licencia
 
-## License
+Este proyecto está licenciado bajo **GPL-3.0**. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
-All Rights Reserved - Sofka Technologies
+---
+
+<p align="center">
+  Creado por <a href="https://github.com/JaviMontano">Javier Montaño</a> · MetodologIA · GPL-3.0
+</p>
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:1E3258,100:137DC5&height=120&section=footer" alt="Footer" />
+</p>
