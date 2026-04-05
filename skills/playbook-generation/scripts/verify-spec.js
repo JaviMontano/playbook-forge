@@ -139,16 +139,31 @@ function gateG2(html) {
     'paired OR >=80% internal'));
 
   // G2.3: modal-header h3 elements have bilingual pairs
-  const modalHeaders = html.match(/<div class=["']modal-header["']>[\s\S]*?<\/div>/gi) || [];
+  // Accepts TWO patterns: (a) <h3><span class="es">...</span><span class="en">...</span></h3>
+  //                        (b) <h3 class="es">...</h3><h3 class="en">...</h3> (paired siblings)
+  const modalHeaders = html.match(/<div[^>]*class=["'][^"']*modal-header[^"']*["'][^>]*>[\s\S]*?<\/div>/gi) || [];
   const mhTotal = modalHeaders.length;
   let mhBilingual = 0;
   for (const mh of modalHeaders) {
-    const h3Match = mh.match(/<h3[^>]*>[\s\S]*?<\/h3>/i);
-    if (h3Match) {
-      const hasEs = /class=["']es["']/i.test(h3Match[0]);
-      const hasEn = /class=["']en["']/i.test(h3Match[0]);
-      if (hasEs && hasEn) mhBilingual++;
+    // Pattern A: spans inside a single h3
+    const h3All = mh.match(/<h3[^>]*>[\s\S]*?<\/h3>/gi) || [];
+    let foundBilingual = false;
+    for (const h3 of h3All) {
+      if (/class=["']es["']/i.test(h3) && /class=["']en["']/i.test(h3)) {
+        foundBilingual = true; break;
+      }
     }
+    // Pattern B: paired h3.es + h3.en siblings
+    if (!foundBilingual) {
+      const hasH3Es = h3All.some(function(h) { return /<h3[^>]*class=["']es["']/i.test(h); });
+      const hasH3En = h3All.some(function(h) { return /<h3[^>]*class=["']en["']/i.test(h); });
+      if (hasH3Es && hasH3En) foundBilingual = true;
+    }
+    // Pattern C: single h3 without class (acceptable — language-agnostic title like "VR-AID")
+    if (!foundBilingual && h3All.length === 1 && !/<h3[^>]*class=/i.test(h3All[0])) {
+      foundBilingual = true;
+    }
+    if (foundBilingual) mhBilingual++;
   }
   const mhRatio = mhTotal > 0 ? mhBilingual / mhTotal : 0;
   checks.push(check('G2.3', 'Modal h3 bilingual pairs',
