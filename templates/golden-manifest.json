@@ -3,6 +3,8 @@
   "meta": {
     "title": "Weekly Rituals — AI-Native Workflows for Managers · BU2 | Sofka Technologies",
     "company": "Sofka Technologies",
+    "logoUrl": "https://github.com/ejemplo-deo-repo/mao-brand-assets/blob/main/sofka_logo_full.jpg?raw=true",
+    "logoAlt": "Sofka Technologies",
     "badges": [
       "BU2 — Business Unit 2",
       "13 Flujos AI-Native",
@@ -19,6 +21,7 @@
   },
   "hero": {
     "logoText": "Sofka Technologies",
+    "logoUrl": "https://github.com/ejemplo-deo-repo/mao-brand-assets/blob/main/sofka_logo_full.jpg?raw=true",
     "h1Es": "Weekly Rituals — <span>Rituales Semanales</span> para Managers AI-Native de Sofka",
     "h1En": "Weekly Rituals — <span>AI-Native Workflows</span> for Sofka Managers",
     "h1HighlightEs": "Rituales Semanales",
@@ -75,6 +78,7 @@
   },
   "nav": {
     "logoText": "Sofka",
+    "logoUrl": "https://github.com/ejemplo-deo-repo/mao-brand-assets/blob/main/sofka_logo_full.jpg?raw=true",
     "links": [
       { "href": "#glosario", "labelEs": "Glosario", "labelEn": "Glossary", "label": "Glosario" },
       { "href": "#agile-pm", "labelEs": "Perfil", "labelEn": "Profile", "label": "Perfil" },
@@ -833,6 +837,7 @@
   ],
   "footer": {
     "logoText": "Sofka Technologies",
+    "logoUrl": "https://github.com/ejemplo-deo-repo/mao-brand-assets/blob/main/sofka_logo_full.jpg?raw=true",
     "badges": [
       "Weekly Rituals BU2 v3.0",
       "Big Rocks Scale Up 2026",

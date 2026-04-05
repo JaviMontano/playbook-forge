@@ -3,37 +3,74 @@
 <!-- MODALS CONTAINER -->
 {{MODALS}}
 
+<!-- BACK TO TOP -->
+<button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba / Back to top">&#8593;</button>
+
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-row">
-      <div class="footer-logo">{{FOOTER_LOGO}}</div>
+      <div class="footer-logo">{{FOOTER_LOGO_HTML}}</div>
       <div class="footer-badges">{{FOOTER_BADGES}}</div>
     </div>
-    <div class="footer-bottom">{{FOOTER_COPYRIGHT}}</div>
+    <div class="footer-bottom">
+      <span>{{FOOTER_COPYRIGHT}}</span>
+      <span class="footer-powered">Sofka DS v5.1</span>
+    </div>
   </div>
 </footer>
 
 <script>
 (function(){
-  // Restore language preference
-  var saved = localStorage.getItem('wr-lang');
-  if (saved === 'en') { document.body.classList.remove('lang-es'); document.body.classList.add('lang-en'); document.documentElement.lang = 'en'; }
+  /* ═══ LANGUAGE PERSISTENCE ═══ */
+  try { var saved = localStorage.getItem('pb-lang');
+    if (saved === 'en') { document.body.classList.remove('lang-es'); document.body.classList.add('lang-en'); document.documentElement.lang = 'en'; }
+  } catch(e){}
 
   window.toggleLang = function(){
     document.body.classList.toggle('lang-es');
     document.body.classList.toggle('lang-en');
     var isEn = document.body.classList.contains('lang-en');
     document.documentElement.lang = isEn ? 'en' : 'es';
-    localStorage.setItem('wr-lang', isEn ? 'en' : 'es');
+    try { localStorage.setItem('pb-lang', isEn ? 'en' : 'es'); } catch(e){}
   };
+
+  /* ═══ MODAL SYSTEM (regex-based routing) ═══ */
   window.openModal = function(id){
-    var m = document.getElementById('modal-f'+id) || document.getElementById('modal-fg-'+id) || document.getElementById('modal-fl-'+id) || document.getElementById('modal-fm-'+id) || document.getElementById('modal-fka'+id) || document.getElementById('modal-fap'+id) || document.getElementById('modal-fdm'+id) || document.getElementById('modal-frv-'+id) || document.getElementById('modal-'+id);
-    if(m){ m.classList.add('active'); document.body.style.overflow='hidden'; }
+    var el = null;
+    if (/^\d+$/.test(id)) { el = document.getElementById('modal-f'+id); }
+    else if (/^ap\d/.test(id)) { el = document.getElementById('modal-fap'+id) || document.getElementById('modal-f'+id); }
+    else if (/^g-/.test(id)) { el = document.getElementById('modal-fg-'+id) || document.getElementById('modal-f'+id); }
+    else if (/^ka\d/.test(id)) { el = document.getElementById('modal-fka'+id) || document.getElementById('modal-f'+id); }
+    else if (/^dm\d/.test(id)) { el = document.getElementById('modal-fdm'+id) || document.getElementById('modal-f'+id); }
+    else if (/^l-/.test(id)) { el = document.getElementById('modal-fl-'+id) || document.getElementById('modal-f'+id); }
+    else if (/^m-/.test(id)) { el = document.getElementById('modal-fm-'+id) || document.getElementById('modal-f'+id); }
+    else if (/^rv-/.test(id)) { el = document.getElementById('modal-frv-'+id) || document.getElementById('modal-f'+id); }
+    else { el = document.getElementById('modal-f'+id); }
+    if (!el) { el = document.getElementById('modal-'+id) || document.getElementById('modal-uc'+id) || document.getElementById('modal-ap-'+id) || document.getElementById('modal-fuc'+id); }
+    if (el) { el.classList.add('active'); document.body.style.overflow='hidden'; }
   };
+
   window.closeModal = function(){
     document.querySelectorAll('.modal-overlay.active').forEach(function(m){ m.classList.remove('active'); });
     document.body.style.overflow = '';
   };
+
+  /* ═══ COPY TO CLIPBOARD ═══ */
+  window.copyPrompt = function(btn){
+    var b = btn.closest('.prompt-copyable');
+    var t = b.querySelector('.prompt-text').textContent;
+    navigator.clipboard.writeText(t).then(function(){
+      btn.textContent = 'Copiado \u2713'; btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    }).catch(function(){
+      var ta = document.createElement('textarea'); ta.value = t;
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      btn.textContent = 'Copiado \u2713'; btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    });
+  };
+
+  /* ═══ EVENT LISTENERS ═══ */
   document.addEventListener('click', function(e){
     if(e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) closeModal();
   });
@@ -43,6 +80,55 @@
       e.preventDefault(); e.target.click();
     }
   });
+
+  /* ═══ SCROLL PROGRESS BAR ═══ */
+  var progressBar = document.querySelector('.scroll-progress-bar');
+  if (progressBar) {
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+      progressBar.style.width = pct + '%';
+    }, {passive: true});
+  }
+
+  /* ═══ NAV ACTIVE SECTION TRACKING ═══ */
+  var navLinks = document.querySelectorAll('nav.toc a[href^="#"]');
+  if (navLinks.length > 0 && 'IntersectionObserver' in window) {
+    var sections = [];
+    navLinks.forEach(function(link) {
+      var target = document.querySelector(link.getAttribute('href'));
+      if (target) sections.push({el: target, link: link});
+    });
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(l){ l.classList.remove('active'); });
+          sections.forEach(function(s){
+            if (s.el === entry.target) s.link.classList.add('active');
+          });
+        }
+      });
+    }, {rootMargin: '-20% 0px -70% 0px'});
+    sections.forEach(function(s){ observer.observe(s.el); });
+  }
+
+  /* ═══ BACK TO TOP VISIBILITY ═══ */
+  var btt = document.querySelector('.back-to-top');
+  if (btt) {
+    window.addEventListener('scroll', function(){
+      btt.classList.toggle('visible', window.scrollY > 600);
+    }, {passive: true});
+  }
+
+  /* ═══ SECTION FADE-IN ON SCROLL ═══ */
+  if ('IntersectionObserver' in window) {
+    var fadeObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); fadeObs.unobserve(entry.target); }
+      });
+    }, {threshold: 0.08});
+    document.querySelectorAll('main.container > section').forEach(function(s){ s.classList.add('fade-section'); fadeObs.observe(s); });
+  }
 })();
 </script>
 </body>

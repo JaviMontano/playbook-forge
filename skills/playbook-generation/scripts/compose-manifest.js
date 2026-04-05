@@ -113,8 +113,8 @@ function replacePlaceholders(obj) {
       .replace(/\{\{PILOT_NAME\}\}/g, '')
       .replace(/\{\{PILOT_RESULTS\}\}/g, '')
       .replace(/\{\{PILOT_METRIC_STATEMENT\}\}/g, '')
-      .replace(/\{\{ACKNOWLEDGMENTS_ES\}\}/g, 'Parte de la ruta de playbooks AI-native de Sofka Technologies — ' + b.initiative + '.')
-      .replace(/\{\{ACKNOWLEDGMENTS_EN\}\}/g, 'Part of the AI-native playbook route from Sofka Technologies — ' + b.initiative + '.')
+      .replace(/\{\{ACKNOWLEDGMENTS_ES\}\}/g, 'Analisis forense, conversacional y multidimensional — Sofka Technologies · ' + b.initiative + '.')
+      .replace(/\{\{ACKNOWLEDGMENTS_EN\}\}/g, 'Forensic, conversational and multidimensional analysis — Sofka Technologies · ' + b.initiative + '.')
       .replace(/\{\{OUTPUT_TYPE\}\}/g, 'infografia')
       .replace(/\{\{DELIVERABLE_LIST\}\}/g, 'artefactos semanales')
       .replace(/\{\{USE_CASES\}\}/g, 'casos de uso');
@@ -167,14 +167,16 @@ function tagOrigin(obj, origin) {
 // ── Compose meta ────────────────────────────────────────────────────────────
 
 function composeMeta() {
-  var flowCount = golden.flows ? golden.flows.length : 13;
+  var dimCount = (b.dimensions && b.dimensions.length) || 13;
   var meta = {
-    title: b.topicEs + ' — AI-Native Workflows for ' + primaryRole + 's | Sofka Technologies',
+    title: b.topicEs + ' — Analisis Forense Multidimensional | Sofka Technologies',
     company: 'Sofka Technologies',
+    logoUrl: 'https://github.com/ejemplo-deo-repo/mao-brand-assets/blob/main/sofka_logo_full.jpg?raw=true',
+    logoAlt: 'Sofka Technologies',
     badges: [
       b.team,
-      flowCount + ' Flujos AI-Native',
-      '3 horas / semana',
+      dimCount + ' Dimensiones de Analisis',
+      'Forensic · Conversacional · Multidimensional',
       b.topicEs + ' · ' + b.initiative
     ],
     language: b.language,
@@ -192,24 +194,26 @@ function composeMeta() {
 // ── Compose hero ────────────────────────────────────────────────────────────
 
 function composeHero() {
-  var flowCount = golden.flows ? golden.flows.length : 13;
+  var dimCount = (b.dimensions && b.dimensions.length) || 13;
+  var findingsCount = (b.findings && b.findings.length) || 0;
   return {
     logoText: 'Sofka Technologies',
-    h1Es: b.topicEs + ' — <span>Flujos AI-Native</span> para ' + primaryRole + 's',
-    h1En: b.topicEn + ' — <span>AI-Native Workflows</span> for ' + primaryRole + 's',
+    logoUrl: 'https://github.com/ejemplo-deo-repo/mao-brand-assets/blob/main/sofka_logo_full.jpg?raw=true',
+    h1Es: b.topicEs + ' — <span>Analisis Forense</span> Multidimensional',
+    h1En: b.topicEn + ' — Multidimensional <span>Forensic Analysis</span>',
     h1Plain: b.topicEs + ' —',
-    h1Highlight: 'Flujos AI-Native',
+    h1Highlight: 'Analisis Forense',
     subtitle: '_generate',
     subtitleEs: '_generate',
     subtitleEn: '_generate',
     _generate: true,
     kpis: [
-      { icon: '&#128202;', value: String(flowCount), labelEs: 'Flujos AI-Native', labelEn: 'AI-Native flows', label: 'Flujos AI-Native' },
-      { icon: '&#127919;', value: '5', labelEs: 'Katas de aprendizaje', labelEn: 'Learning katas', label: 'Katas de aprendizaje' },
-      { icon: '&#128295;', value: String(b.tools.length || 5), labelEs: 'Herramientas IA', labelEn: 'AI tools', label: 'Herramientas IA' },
-      { icon: '&#9201;', value: '-50%', labelEs: 'Tiempo operativo', labelEn: 'Operational time', label: 'Tiempo operativo' },
-      { icon: '&#128176;', value: '~4h/sem', labelEs: 'Tiempo recuperado', labelEn: 'Time recovered', label: 'Tiempo recuperado' },
-      { icon: '&#9989;', value: b.dataStack.front || 'Google', labelEs: 'Ecosistema principal', labelEn: 'Main ecosystem', label: 'Ecosistema principal' }
+      { icon: '&#128269;', value: String(dimCount), labelEs: 'Dimensiones analizadas', labelEn: 'Dimensions assessed', label: 'Dimensiones analizadas' },
+      { icon: '&#128200;', value: String(findingsCount || '—'), labelEs: 'Hallazgos documentados', labelEn: 'Documented findings', label: 'Hallazgos documentados' },
+      { icon: '&#128101;', value: String((b.stakeholders && b.stakeholders.length) || '—'), labelEs: 'Stakeholders entrevistados', labelEn: 'Stakeholders interviewed', label: 'Stakeholders entrevistados' },
+      { icon: '&#128736;', value: '3 capas', labelEs: 'Forense + Conversacional + Multidimensional', labelEn: 'Forensic + Conversational + Multidimensional', label: 'Metodologia 3 capas' },
+      { icon: '&#128203;', value: '—', labelEs: 'Recomendaciones accionables', labelEn: 'Actionable recommendations', label: 'Recomendaciones' },
+      { icon: '&#9989;', value: 'Evidencia', labelEs: 'Cada hallazgo trazable a su fuente', labelEn: 'Every finding traceable to its source', label: 'Evidencia trazable' }
     ],
     _brief: true
   };
@@ -509,6 +513,7 @@ function composeNav(sections, flowCount) {
   });
   return {
     logoText: 'Sofka',
+    logoUrl: 'https://github.com/ejemplo-deo-repo/mao-brand-assets/blob/main/sofka_logo_full.jpg?raw=true',
     links: links,
     _template: true
   };
@@ -519,6 +524,7 @@ function composeNav(sections, flowCount) {
 function composeFooter() {
   return {
     logoText: 'Sofka Technologies',
+    logoUrl: 'https://github.com/ejemplo-deo-repo/mao-brand-assets/blob/main/sofka_logo_full.jpg?raw=true',
     copyright: '&copy; 2026 Sofka Technologies. Todos los derechos reservados. Autor: ' + b.author + '.',
     badges: [b.team, b.initiative, b.version],
     _template: true

@@ -2,6 +2,8 @@
   "meta": {
     "company": "Sofka Technologies",
     "logoText": "Sofka Technologies",
+    "logoUrl": "https://github.com/ejemplo-deo-repo/mao-brand-assets/blob/main/sofka_logo_full.jpg?raw=true",
+    "logoAlt": "Sofka Technologies",
     "copyright": "\u00a9 2026 Sofka Technologies. Todos los derechos reservados.",
     "language": "es",
     "designSystem": "Sofka DS v5.1"

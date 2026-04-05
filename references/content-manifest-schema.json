@@ -21,6 +21,15 @@
           "type": "string",
           "description": "Company name shown in hero-logo, footer-logo, and copyright line."
         },
+        "logoUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the company logo image. Rendered as <img> in hero, nav, and footer. Falls back to text if omitted."
+        },
+        "logoAlt": {
+          "type": "string",
+          "description": "Alt text for the logo image. Defaults to meta.company if omitted."
+        },
         "badges": {
           "type": "array",
           "description": "Hero badge labels and footer badge labels. Typically 3 items.",
@@ -67,6 +76,11 @@
           "type": "string",
           "description": "Text rendered in .hero-logo. Defaults to meta.company if omitted."
         },
+        "logoUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to logo image for hero. Falls back to meta.logoUrl, then to logoText."
+        },
         "h1Plain": {
           "type": "string",
           "description": "Non-highlighted portion of the <h1> tag."
@@ -97,6 +111,11 @@
         "logoText": {
           "type": "string",
           "description": "Short brand text in nav .toc-logo (e.g., 'Sofka')."
+        },
+        "logoUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to logo image for nav. Falls back to meta.logoUrl, then to logoText."
         },
         "links": {
           "type": "array",
@@ -270,6 +289,11 @@
         "logoText": {
           "type": "string",
           "description": "Brand text in .footer-logo."
+        },
+        "logoUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to logo image for footer. Falls back to meta.logoUrl, then to logoText."
         },
         "badges": {
           "type": "array",

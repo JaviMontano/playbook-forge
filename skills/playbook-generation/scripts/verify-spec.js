@@ -3,8 +3,8 @@
  * verify-spec.js — PLAYBOOK-SPEC v1.0 Gate Validator
  *
  * Validates any HTML playbook file against the Entrusted Playbook Specification.
- * Runs Gates G0-G4 (automated). Reports pass/fail per check with actual vs
- * required counts.
+ * Runs Gates G0-G5 (38 automated blocking checks) + G6 (soft). Reports pass/fail per
+ * check with actual vs required counts.
  *
  * Usage: node verify-spec.js <playbook.html>
  * Output: JSON report to stdout
@@ -241,6 +241,71 @@ function gateG4(html) {
   return { gate: 'G4', name: 'Mandatory Sections', checks };
 }
 
+function gateG5(html) {
+  // ═══ GATE G5: V5 Production Bug Prevention ═══
+  var g5Checks = [];
+
+  // G5.1: No broken bilingual CSS (.es,.en{display:none} hides everything)
+  var hasBrokenBilingual = /\.es\s*,\s*\.en\s*\{\s*display\s*:\s*none/i.test(html);
+  g5Checks.push(check('G5.1', 'No broken bilingual CSS', !hasBrokenBilingual,
+    hasBrokenBilingual ? 'FOUND .es,.en{display:none} — hides all text!' : 'clean', 'absent'));
+
+  // G5.2: body has class="lang-es" (not just html[lang])
+  var hasBodyLangEs = /class=["'][^"']*lang-es[^"']*["']/i.test((html.match(/<body[^>]*>/i) || [''])[0]);
+  g5Checks.push(check('G5.2', 'body.lang-es class', hasBodyLangEs,
+    hasBodyLangEs ? 'present' : 'missing', 'present'));
+
+  // G5.3: toggleLang without syntax error (no }else{ on same line without space)
+  var toggleBlock = (html.match(/function\s+toggleLang[^}]*\}[^}]*\}/s) || [''])[0];
+  var hasBadElse = /\}else\{/.test(toggleBlock) && !/\}\s*else\s*\{/.test(toggleBlock);
+  g5Checks.push(check('G5.3', 'toggleLang no syntax error', !hasBadElse,
+    hasBadElse ? 'FOUND }else{ without space' : 'clean', 'no syntax errors'));
+
+  // G5.4: modal-box has max-height AND overflow-y
+  var modalBoxCSS = (html.match(/\.modal-box\s*\{[^}]*\}/i) || [''])[0];
+  var hasMaxH = /max-height/.test(modalBoxCSS);
+  var hasOverY = /overflow-y/.test(modalBoxCSS);
+  g5Checks.push(check('G5.4', 'modal-box scrollable', hasMaxH && hasOverY,
+    'max-height:' + hasMaxH + ' overflow-y:' + hasOverY, 'both present'));
+
+  // G5.5: Nav link count matches section count (±3)
+  var navBlock = (html.match(/<nav[^>]*>[\s\S]*?<\/nav>/i) || [''])[0];
+  var navLinks2 = countMatches(navBlock, /<a\s+href="#[^"]+"/gi);
+  var sectionCount2 = countMatches(html, /<section[^>]+id=/gi);
+  var navDiff2 = Math.abs(navLinks2 - sectionCount2);
+  g5Checks.push(check('G5.5', 'Nav matches sections', navDiff2 <= 3,
+    'nav:' + navLinks2 + ' sections:' + sectionCount2 + ' diff:' + navDiff2, 'diff<=3'));
+
+  // G5.6: JS functions exported to window
+  var hasWindowToggle = /window\.toggleLang/i.test(html);
+  var hasWindowOpen = /window\.openModal/i.test(html);
+  var hasWindowClose = /window\.closeModal/i.test(html);
+  g5Checks.push(check('G5.6', 'JS window exports', hasWindowToggle && hasWindowOpen && hasWindowClose,
+    'toggle:' + hasWindowToggle + ' open:' + hasWindowOpen + ' close:' + hasWindowClose, 'all 3 present'));
+
+  // G5.7: Anti-pattern modals use fap prefix (not ap-)
+  var badApModals = countMatches(html, /id=["']modal-ap-\d/gi);
+  g5Checks.push(check('G5.7', 'AP modal IDs use fap prefix', badApModals === 0,
+    badApModals > 0 ? badApModals + ' modal-ap-N found' : 'all fapN', '0 modal-ap-N'));
+
+  // G5.8: At least 1 prompt-copyable element
+  var promptCopyCount = countMatches(html, /class=["'][^"']*prompt-copyable[^"']*["']/gi);
+  g5Checks.push(check('G5.8', 'prompt-copyable present', promptCopyCount >= 1,
+    promptCopyCount, '>=1'));
+
+  // G5.9: EXITO criteria in at least 1 prompt
+  var exitoCount = countMatches(html, /EXITO\s*:/gi);
+  g5Checks.push(check('G5.9', 'EXITO criteria present', exitoCount >= 1,
+    exitoCount, '>=1'));
+
+  // G5.10: copyPrompt function present
+  var hasCopyPrompt = /function\s+copyPrompt|window\.copyPrompt/i.test(html);
+  g5Checks.push(check('G5.10', 'copyPrompt function', hasCopyPrompt,
+    hasCopyPrompt ? 'present' : 'missing', 'present'));
+
+  return { gate: 'G5', name: 'V5 Bug Prevention', checks: g5Checks };
+}
+
 // ---------------------------------------------------------------------------
 // Soft gates (informational, not blocking)
 // ---------------------------------------------------------------------------
@@ -269,7 +334,7 @@ function main() {
 
   if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
     console.error('Usage: node verify-spec.js <playbook.html>');
-    console.error('Output: JSON report with gates G0-G4 (blocking) + G6 (soft)');
+    console.error('Output: JSON report with gates G0-G5 (38 blocking checks) + G6 (soft)');
     process.exit(1);
   }
 
@@ -290,9 +355,10 @@ function main() {
   const g2 = gateG2(html);
   const g3 = gateG3(html);
   const g4 = gateG4(html);
+  const g5 = gateG5(html);
   const g6 = gateG6(html, fileSize);
 
-  const blockingGates = [g0, g1, g2, g3, g4];
+  const blockingGates = [g0, g1, g2, g3, g4, g5];
   const allGates = [...blockingGates, g6];
 
   // Compute results

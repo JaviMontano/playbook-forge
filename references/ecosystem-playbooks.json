@@ -1,0 +1,156 @@
+[
+  {
+    "id": "P0",
+    "slug": "sistema-archivos",
+    "nameEs": "Sistema de Archivos en la Era de la IA",
+    "nameEn": "File System in the AI Era",
+    "layer": "foundation",
+    "gem": null,
+    "tier": "Foundation",
+    "descriptionEs": "Convenciones de nombrado, estructura de carpetas, y gobernanza de archivos para equipos AI-native.",
+    "descriptionEn": "Naming conventions, folder structure, and file governance for AI-native teams."
+  },
+  {
+    "id": "P1",
+    "slug": "laforja-prompts",
+    "nameEs": "LaForja — Prompts que Producen Resultados",
+    "nameEn": "LaForja — Prompts that Produce Results",
+    "layer": "front",
+    "gem": "LaForja",
+    "tier": "Tier 1 Core",
+    "descriptionEs": "Meta-prompting, patrones de prompt, y biblioteca de prompts maestros.",
+    "descriptionEn": "Meta-prompting, prompt patterns, and master prompt library."
+  },
+  {
+    "id": "P2",
+    "slug": "lareu-reuniones",
+    "nameEs": "LaReu — Reuniones Efectivas",
+    "nameEn": "LaReu — Effective Meetings",
+    "layer": "front",
+    "gem": "LaReu",
+    "tier": "Tier 1 Core",
+    "descriptionEs": "Capitalizacion de reuniones: agenda, notas, compromisos, seguimiento AI-assisted.",
+    "descriptionEn": "Meeting capitalization: agenda, notes, commitments, AI-assisted follow-up."
+  },
+  {
+    "id": "P3",
+    "slug": "lavuelta-decisiones",
+    "nameEs": "LaVuelta — Nunca Pierdas una Decision",
+    "nameEn": "LaVuelta — Never Lose a Decision",
+    "layer": "front",
+    "gem": "LaVuelta",
+    "tier": "Tier 1 Core",
+    "descriptionEs": "Capitalizacion de decisiones y gestion de compromisos post-reunion.",
+    "descriptionEn": "Decision capitalization and post-meeting commitment management."
+  },
+  {
+    "id": "P4",
+    "slug": "elrepo-reportar-valor",
+    "nameEs": "ElRepo — Reportes que Demuestran Impacto",
+    "nameEn": "ElRepo — Reports that Demonstrate Impact",
+    "layer": "front",
+    "gem": "ElRepo",
+    "tier": "Tier 1 Core",
+    "descriptionEs": "Formato VR-AID para reportes de valor con semaforo basado en evidencia.",
+    "descriptionEn": "VR-AID format for value reports with evidence-based traffic light."
+  },
+  {
+    "id": "P5",
+    "slug": "lainfo-visibilidad",
+    "nameEs": "LaInfo — Infografias que Hablan por Ti",
+    "nameEn": "LaInfo — Infographics that Speak for You",
+    "layer": "front",
+    "gem": "LaInfo",
+    "tier": "Tier 2 Advanced",
+    "descriptionEs": "Visibilidad ejecutiva a traves de infografias y storytelling visual.",
+    "descriptionEn": "Executive visibility through infographics and visual storytelling."
+  },
+  {
+    "id": "P6",
+    "slug": "deep-research",
+    "nameEs": "Deep Research — De Opiniones a Evidencia",
+    "nameEn": "Deep Research — From Opinions to Evidence",
+    "layer": "middleware",
+    "gem": null,
+    "tier": "Tier 2 Advanced",
+    "descriptionEs": "Investigacion profunda fusionando fuentes externas e internas.",
+    "descriptionEn": "Deep research fusing external and internal sources."
+  },
+  {
+    "id": "P7",
+    "slug": "vitaminizar-presentaciones",
+    "nameEs": "Vitaminizar Presentaciones con Datos Reales",
+    "nameEn": "Vitaminize Presentations with Real Data",
+    "layer": "front",
+    "gem": null,
+    "tier": "Tier 2 Advanced",
+    "descriptionEs": "Enriquecimiento de presentaciones con datos verificables y narrativa visual.",
+    "descriptionEn": "Presentation enrichment with verifiable data and visual narrative."
+  },
+  {
+    "id": "P8",
+    "slug": "notebooklm-poblar",
+    "nameEs": "NotebookLM — Tu Segundo Cerebro Operativo",
+    "nameEn": "NotebookLM — Your Operational Second Brain",
+    "layer": "middleware",
+    "gem": null,
+    "tier": "Tier 3 Infrastructure",
+    "descriptionEs": "Poblar cuadernos NLM con fuentes gobernadas para anti-alucinacion.",
+    "descriptionEn": "Populate NLM notebooks with governed sources for anti-hallucination."
+  },
+  {
+    "id": "P9",
+    "slug": "notebooklm-system-prompt",
+    "nameEs": "NotebookLM — El Prompt que Define al Experto",
+    "nameEn": "NotebookLM — The Prompt that Defines the Expert",
+    "layer": "middleware",
+    "gem": null,
+    "tier": "Tier 3 Infrastructure",
+    "descriptionEs": "System prompts para cuadernos NLM que codifican expertise del equipo.",
+    "descriptionEn": "System prompts for NLM notebooks that codify team expertise."
+  },
+  {
+    "id": "P10",
+    "slug": "drive-gobernado",
+    "nameEs": "Drive Gobernado — La Capa Cero del Sistema",
+    "nameEn": "Governed Drive — The Zero Layer of the System",
+    "layer": "data",
+    "gem": null,
+    "tier": "Tier 3 Infrastructure",
+    "descriptionEs": "Estructura de Drive con convenciones de nombrado y permisos gobernados.",
+    "descriptionEn": "Drive structure with naming conventions and governed permissions."
+  },
+  {
+    "id": "P11",
+    "slug": "notebooklm-middleware",
+    "nameEs": "NotebookLM — El Enrutador Inteligente",
+    "nameEn": "NotebookLM — The Intelligent Router",
+    "layer": "middleware",
+    "gem": null,
+    "tier": "Tier 3 Infrastructure",
+    "descriptionEs": "NLM como middleware anti-alucinacion que enruta consultas a fuentes verificadas.",
+    "descriptionEn": "NLM as anti-hallucination middleware routing queries to verified sources."
+  },
+  {
+    "id": "P12",
+    "slug": "gemini-explorador",
+    "nameEs": "Gemini — Tu Espacio de Pensamiento Libre",
+    "nameEn": "Gemini — Your Free Thinking Space",
+    "layer": "front",
+    "gem": null,
+    "tier": "Tier 4 Mastery",
+    "descriptionEs": "Gemini como explorador libre conectado al stack gobernado.",
+    "descriptionEn": "Gemini as free explorer connected to the governed stack."
+  },
+  {
+    "id": "P13",
+    "slug": "gems-centro-mando",
+    "nameEs": "Gems — Centro de Mando Personalizado",
+    "nameEn": "Gems — Personalized Command Center",
+    "layer": "front",
+    "gem": null,
+    "tier": "Tier 4 Mastery",
+    "descriptionEs": "Gems como centro de mando que integra todos los flujos del ecosistema.",
+    "descriptionEn": "Gems as command center integrating all ecosystem flows."
+  }
+]

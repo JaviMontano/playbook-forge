@@ -143,7 +143,7 @@ function fixBilingualCSS(h) {
   if (/h\.lang=h\.lang===/.test(h) || /document\.documentElement[\s\S]*?\.lang/.test(h)) {
     h = h.replace(
       /function toggleLang\(\)\{[^}]*\}/,
-      `function toggleLang(){var b=document.body;if(b.classList.contains('lang-es')){b.classList.remove('lang-es');b.classList.add('lang-en');localStorage.setItem('wr-lang','en');}else{b.classList.remove('lang-en');b.classList.add('lang-es');localStorage.setItem('wr-lang','es');}}`
+      `function toggleLang(){var b=document.body;if(b.classList.contains('lang-es')){b.classList.remove('lang-es');b.classList.add('lang-en');localStorage.setItem('pb-lang','en');}else{b.classList.remove('lang-en');b.classList.add('lang-es');localStorage.setItem('pb-lang','es');}}`
     );
     changed = true;
   }
@@ -852,14 +852,14 @@ function fixOpenModalJS(h) {
         }
       }
       h = h.slice(0, tlStart) +
-        `function toggleLang(){var b=document.body;if(b.classList.contains('lang-es')){b.classList.remove('lang-es');b.classList.add('lang-en');localStorage.setItem('wr-lang','en');}else{b.classList.remove('lang-en');b.classList.add('lang-es');localStorage.setItem('wr-lang','es');}}` +
+        `function toggleLang(){var b=document.body;if(b.classList.contains('lang-es')){b.classList.remove('lang-es');b.classList.add('lang-en');localStorage.setItem('pb-lang','en');}else{b.classList.remove('lang-en');b.classList.add('lang-es');localStorage.setItem('pb-lang','es');}}` +
         h.slice(tlEnd);
     }
   }
 
   // Add language restore from localStorage + keyboard/click event handlers if not present
-  if (!/wr-lang/.test(h)) {
-    const initCode = `(function(){var l=localStorage.getItem('wr-lang');if(l==='en'){document.body.classList.remove('lang-es');document.body.classList.add('lang-en');}})();`;
+  if (!/pb-lang/.test(h)) {
+    const initCode = `(function(){var l=localStorage.getItem('pb-lang');if(l==='en'){document.body.classList.remove('lang-es');document.body.classList.add('lang-en');}})();`;
     h = h.replace(/<\/script>/, initCode + '\n</script>');
   }
 
@@ -1005,6 +1005,104 @@ html = addGemLinks(html);
 
 // T7: Check problem-card density
 html = addProblemCardDensity(html);
+
+// ═══ T9: Fix modal IDs (modal-ap-N → modal-fapN) ═══
+(function() {
+  var apFixes = 0;
+  html = html.replace(/id=["']modal-ap-(\d+)["']/gi, function(m, n) { apFixes++; return 'id="modal-fap' + n + '"'; });
+  if (apFixes > 0) console.log('  T9: Fixed ' + apFixes + ' modal-ap-N → modal-fapN');
+})();
+
+// ═══ T10: Remove broken bilingual CSS ═══
+(function() {
+  if (/\.es\s*,\s*\.en\s*\{[^}]*display\s*:\s*none/i.test(html) && /body\.lang-es/i.test(html)) {
+    html = html.replace(/\.es\s*,\s*\.en\s*\{[^}]*display\s*:\s*none[^}]*\}/gi, '/* removed broken bilingual */');
+    console.log('  T10: Removed broken .es,.en{display:none}');
+  }
+})();
+
+// ═══ T11: Ensure window exports ═══
+['toggleLang','openModal','closeModal','copyPrompt'].forEach(function(fn) {
+  if (new RegExp('function\\s+' + fn, 'i').test(html) && !new RegExp('window\\.' + fn).test(html)) {
+    // Insert window export before closing </script>
+    html = html.replace(/<\/script>/i, 'window.' + fn + '=' + fn + ';\n</script>');
+    console.log('  T11: Added window.' + fn);
+  }
+});
+
+// ═══ T12: Rebuild nav to match sections exactly ═══
+(function() {
+  var secIds = [];
+  var secRe2 = /<section[^>]*id=["']([^"']+)["']/gi;
+  var sm2;
+  while ((sm2 = secRe2.exec(html)) !== null) secIds.push(sm2[1]);
+  if (secIds.length === 0) return;
+
+  // Find the entire <nav>...</nav> block
+  var navFull = html.match(/<nav[^>]*>([\s\S]*?)<\/nav>/i);
+  if (!navFull) return;
+
+  var navContent = navFull[1];
+  var oldLinks = (navContent.match(/<a\s+href="#/gi) || []).length;
+
+  // Extract logo and lang button to preserve them
+  var logo = (navContent.match(/<div\s+class=["']toc-logo["'][^>]*>[\s\S]*?<\/div>/i) || ['<div class="toc-logo">Sofka</div>'])[0];
+  var btn = (navContent.match(/<button[^>]*lang-btn[\s\S]*?<\/button>/i) || ['<button class="lang-btn" onclick="toggleLang()" aria-label="Toggle language">EN / ES</button>'])[0];
+
+  // Build fresh links from section IDs
+  var freshLinks = secIds.map(function(id) {
+    var label = id.replace(/-/g, ' ').replace(/^\w/, function(c){return c.toUpperCase();});
+    return '    <a href="#' + id + '">' + label + '</a>';
+  }).join('\n');
+
+  // Replace entire nav
+  var newNav = '<nav class="toc" aria-label="Navigation">\n  <div class="toc-inner">\n    ' + logo + '\n' + freshLinks + '\n    ' + btn + '\n  </div>\n</nav>';
+  html = html.replace(/<nav[^>]*>[\s\S]*?<\/nav>/i, newNav);
+  console.log('  T12: Rebuilt nav (' + oldLinks + ' → ' + secIds.length + ' links)');
+})();
+
+// ═══ T13: Ensure body has class="lang-es" ═══
+(function() {
+  if (/<body(?![^>]*class=)/i.test(html)) {
+    html = html.replace(/<body/i, '<body class="lang-es"');
+    console.log('  T13: Added class="lang-es" to body');
+  } else if (/<body[^>]*class=["'][^"']*["']/i.test(html) && !/<body[^>]*class=["'][^"']*lang-es/i.test(html)) {
+    html = html.replace(/<body([^>]*class=["'])/, '<body$1lang-es ');
+    console.log('  T13: Added lang-es to body class');
+  }
+})();
+
+// ═══ T14: Ensure EXITO criteria exists ═══
+(function() {
+  var hasExito = /EXITO\s*:/i.test(html);
+  var hasPromptCopyable = /class=["']prompt-copyable["']/i.test(html);
+
+  if (!hasPromptCopyable) {
+    // No prompt-copyable at all — inject one with EXITO
+    var promptBlock = '\n<h4 class="es">Prompt listo para copiar</h4><h4 class="en">Ready-to-copy prompt</h4>\n' +
+      '<div class="prompt-copyable">\n' +
+      '  <button class="copy-btn" onclick="copyPrompt(this)">Copiar</button>\n' +
+      '  <div class="prompt-text">Describe tu objetivo en 1 frase: <span class="param">{OBJETIVO}</span>\n' +
+      'Contexto: <span class="param">{CONTEXTO}</span>\n' +
+      'Produce: 1) Plan de accion 2) Criterios de exito 3) Siguiente paso concreto\n\n' +
+      'EXITO: output accionable con owner + fecha + criterio verificable.</div>\n</div>\n';
+    if (/<\/main>/i.test(html)) {
+      html = html.replace(/<\/main>/i, promptBlock + '</main>');
+    } else {
+      html = html.replace(/(<\/section>\s*<footer)/i, promptBlock + '$1');
+    }
+    console.log('  T14: Injected prompt-copyable + EXITO');
+  } else if (!hasExito) {
+    // Has prompt-copyable but no EXITO — inject EXITO into FIRST prompt-text
+    html = html.replace(/(<div\s+class=["']prompt-text["'][^>]*>)([\s\S]*?)(<\/div>)/i, function(m, open, content, close) {
+      if (!/EXITO/i.test(content)) {
+        return open + content + '\n\nEXITO: output verificable con criterio de aceptacion cumplido.' + close;
+      }
+      return m;
+    });
+    console.log('  T14: Injected EXITO into existing prompt-text');
+  }
+})();
 
 // T8: Write output
 writeOutput(html);

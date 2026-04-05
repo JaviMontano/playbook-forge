@@ -79,6 +79,16 @@ function escapeHtml(str) {
 }
 
 /**
+ * Render logo HTML: if logoUrl is present, renders an <img>; otherwise falls back to <span> text.
+ */
+function renderLogoHtml(logoUrl, altText, fallbackText) {
+  if (logoUrl) {
+    return '<img src="' + escapeHtml(logoUrl) + '" alt="' + escapeHtml(altText || fallbackText || '') + '" loading="lazy">';
+  }
+  return '<span>' + escapeHtml(fallbackText || '') + '</span>';
+}
+
+/**
  * Generic placeholder replacer: replaces {{KEY}} with data[KEY].
  * Supports nested lookups via dot notation: {{a.b}} → data.a.b
  */
@@ -645,6 +655,34 @@ function renderGemBar(gems) {
   return html;
 }
 
+// ═══ V5 RENDER FUNCTIONS ═══
+
+function renderPromptCopyable(prompt) {
+  if (!prompt) return '';
+  var text = (prompt.text || '').replace(/\{([A-Z_]+)\}/g, '<span class="param">{$1}</span>');
+  var exito = prompt.exito ? '\n\nEXITO: ' + prompt.exito : '';
+  return '<h4 class="es">Prompt listo para copiar</h4><h4 class="en">Ready-to-copy prompt</h4>\n' +
+    '<div class="prompt-copyable">\n' +
+    '  <button class="copy-btn" onclick="copyPrompt(this)">Copiar</button>\n' +
+    '  <div class="prompt-text">' + text + exito + '</div>\n</div>\n';
+}
+
+function renderCalendarLink(link) {
+  if (!link) return '';
+  var url = 'https://calendar.google.com/calendar/u/0/r/eventedit?text=' +
+    encodeURIComponent(link.title || '') + '&details=' + encodeURIComponent(link.details || '') +
+    '&recur=RRULE:FREQ=WEEKLY;COUNT=' + (link.weeks || 8);
+  return '<a class="gem-link" style="text-align:center;padding:.75rem 1rem;font-size:.82rem;line-height:1.4;" href="' +
+    url + '" target="_blank" role="button" tabindex="0">' + (link.emoji || '') + ' ' +
+    renderBilingual(link.labelEs || '', link.labelEn || '') + '</a>';
+}
+
+function renderCalendarGrid(links) {
+  if (!links || !links.length) return '';
+  return '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin-top:1.5rem;">\n' +
+    links.map(renderCalendarLink).join('\n') + '\n</div>';
+}
+
 function renderCta(ctas) {
   // Backward-compat alias for renderCtaBlock
   return renderCtaBlock(ctas);
@@ -936,6 +974,13 @@ function renderComponent(comp) {
     case 'metadata-table': {
       return renderMetadataTable(data);
     }
+    // ── v5 component types ────────────────────────────────────────────────
+    case 'prompt-copyable': {
+      return renderPromptCopyable(data);
+    }
+    case 'calendar-grid': {
+      return renderCalendarGrid(data.links || data);
+    }
     default:
       process.stderr.write(`WARN: Unknown component type "${comp.type}", skipping.\n`);
       return `<!-- unknown component: ${escapeHtml(comp.type)} -->`;
@@ -998,17 +1043,22 @@ function assemble() {
   // ── 2. Nav ───────────────────────────────────────────────────────────────
   process.stderr.write('[assemble] Building <nav>...\n');
   let nav = readSnippet('nav.html');
-  const navLogo = (manifest.nav && manifest.nav.logoText) || manifest.meta.company || '';
+  const navLogoUrl = (manifest.nav && manifest.nav.logoUrl) || (manifest.meta && manifest.meta.logoUrl) || '';
+  const navLogoText = (manifest.nav && manifest.nav.logoText) || manifest.meta.company || '';
+  const navLogoAlt = (manifest.meta && manifest.meta.logoAlt) || navLogoText;
   nav = nav
-    .replace('{{META_COMPANY}}', escapeHtml(navLogo))
+    .replace('{{NAV_LOGO_HTML}}', renderLogoHtml(navLogoUrl, navLogoAlt, navLogoText))
     .replace('{{NAV_ITEMS}}', renderNavItems(manifest));
   parts.push(nav);
 
   // ── 3. Hero ──────────────────────────────────────────────────────────────
   process.stderr.write('[assemble] Building <header.hero>...\n');
   let hero = readSnippet('hero.html');
+  const heroLogoUrl = (manifest.hero && manifest.hero.logoUrl) || (manifest.meta && manifest.meta.logoUrl) || '';
+  const heroLogoText = (manifest.hero && manifest.hero.logoText) || manifest.meta.company || '';
+  const heroLogoAlt = (manifest.meta && manifest.meta.logoAlt) || heroLogoText;
   hero = hero
-    .replace('{{META_COMPANY}}', escapeHtml(manifest.hero.logoText || manifest.meta.company || ''))
+    .replace('{{HERO_LOGO_HTML}}', renderLogoHtml(heroLogoUrl, heroLogoAlt, heroLogoText))
     .replace('{{HERO_BADGES}}', renderBadges(manifest.meta.badges, 'hero-badge'))
     .replace('{{HERO_H1_PLAIN}}', escapeHtml(manifest.hero.h1Plain || ''))
     .replace('{{HERO_H1_HIGHLIGHT}}', escapeHtml(manifest.hero.h1Highlight || ''))
@@ -1131,8 +1181,11 @@ function assemble() {
   process.stderr.write('[assemble] Building <footer>...\n');
   let footer = readSnippet('footer.html');
   const footerBadges = manifest.footer.badges || manifest.meta.badges || [];
+  const footerLogoUrl = (manifest.footer && manifest.footer.logoUrl) || (manifest.meta && manifest.meta.logoUrl) || '';
+  const footerLogoText = (manifest.footer && manifest.footer.logoText) || manifest.meta.company || '';
+  const footerLogoAlt = (manifest.meta && manifest.meta.logoAlt) || footerLogoText;
   footer = footer
-    .replace('{{FOOTER_LOGO}}', escapeHtml(manifest.footer.logoText || manifest.meta.company || ''))
+    .replace('{{FOOTER_LOGO_HTML}}', renderLogoHtml(footerLogoUrl, footerLogoAlt, footerLogoText))
     .replace('{{FOOTER_BADGES}}', renderBadges(footerBadges, 'footer-badge'))
     .replace('{{FOOTER_COPYRIGHT}}', manifest.footer.copyright || '');
   parts.push(footer);

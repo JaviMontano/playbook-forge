@@ -1,18 +1,23 @@
-# Playbook Forge v4.0.0 — Plugin Hub
+# Playbook Forge v6.0.0 — Plugin Hub
 
-> Genera playbooks HTML branded v2 con metodologia vivida: 13 flujos AI-native, 5 katas (Shu-Ha-Ri), 65 modals interactivos, contenido bilingue ES/EN, 13 anti-patrones, glosario, perfiles de manager, adopcion progresiva, VR-AID, semaforo de valor. Sofka DS v5.1.
+> Dual-mode playbook engine: generates **Jarvis ecosystem playbooks** (P0-P13 gems, 3-layer architecture, katas, crosslinks) AND **forensic analysis playbooks** (discovery findings, dimensions, risk maps). Sofka DS v5.1. 32 quality checks. 10 certification gates.
 
 ## Quick Start
 
 ```
-/playbook:forge "Workflows agénticos para equipos de QA en BU3"
+/playbook:forge "P4 ElRepo — Reportar Valor" --mode=ecosystem
+/playbook:forge "Assessment cloud-native retail" --mode=forensic
+/playbook:suite outputs/golden-jarvis-bu2_v2.html
+/playbook:certify outputs/playbook_bu2_pb4.html
 ```
 
 ## Commands
 
 | Command | What it does |
 |---------|-------------|
-| `/playbook:forge "<topic>"` | Genera playbook completo (11 secciones + 5 katas + 13 flujos + 65 modals) |
+| `/playbook:forge "<topic>" [--mode=ecosystem\|forensic]` | Genera playbook completo (auto-detect mode if flag omitted) |
+| `/playbook:suite <golden>` | Batch-generate 14 secondary playbooks from golden reference |
+| `/playbook:certify <path.html>` | Run 10 v6 certification checks |
 | `/playbook:ingest [path]` | Ingesta fuentes de contexto |
 | `/playbook:preview` | Abre ultimo playbook en browser |
 | `/playbook:section "<tipo>"` | Genera una seccion individual |
@@ -22,16 +27,19 @@
 ## Pipeline
 
 ```
-INTAKE → INGEST → CLARIFY → GENERATE → ASSEMBLE → VALIDATE → DELIVER
+INTAKE → MODE DETECT → INGEST → CLARIFY → COMPOSE → ENRICH → ASSEMBLE → ROBUSTIFY → VERIFY → DELIVER
 ```
 
 1. **INTAKE**: Parsea topic, detecta fuentes
-2. **INGEST**: `context-ingester` extrae roles, herramientas, problemas
-3. **CLARIFY**: 3-5 preguntas al usuario (roles, tools, problemas, stack, idioma)
-4. **GENERATE**: `content-strategist` produce JSON manifest con 11 secciones + 5 katas + 13 flujos + 65 modals (bilingue)
-5. **ASSEMBLE**: `html-assembler` ensambla HTML desde snippets + manifest (84% deterministico)
-6. **VALIDATE**: `playbook-reviewer` verifica 19 checkpoints de calidad (v2)
-7. **DELIVER**: HTML self-contained en `outputs/`, se ofrece preview
+2. **MODE DETECT**: ecosystem (P0-P13/Jarvis/gems) o forensic (assessment/discovery)
+3. **INGEST**: `context-ingester` extrae contexto de artifacts
+4. **CLARIFY**: Preguntas mode-specific (8 ecosystem / 6 forensic)
+5. **COMPOSE**: `compose-manifest.js` genera manifest deterministico (90% template)
+6. **ENRICH**: `content-strategist` llena campos `_generate` (10% LLM)
+7. **ASSEMBLE**: `html-assembler` + `assemble.js` (snippets + manifest → HTML)
+8. **ROBUSTIFY**: `robustify.js` aplica spec compliance automatica
+9. **VERIFY**: `verify-spec.js` (35 gates) + `playbook-reviewer` (32 checks)
+10. **DELIVER**: HTML self-contained en `outputs/`, se ofrece preview + certify
 
 ## Entrusted Standard (3-Layer Determinism)
 
@@ -150,3 +158,10 @@ Cada playbook promueve centralizar la informacion:
 | Verify content script | `skills/playbook-generation/scripts/verify-content.js` |
 | Verify spec script | `skills/playbook-generation/scripts/verify-spec.js` |
 | Robustify script | `skills/playbook-generation/scripts/robustify.js` |
+| Ecosystem registry (14 PBs) | `references/ecosystem-playbooks.json` |
+| Intake (ecosystem mode) | `skills/playbook-generation/prompts/intake-questions-ecosystem.md` |
+| Intake (forensic mode) | `skills/playbook-generation/prompts/intake-questions-forensic.md` |
+| Content gen (ecosystem) | `skills/playbook-generation/prompts/content-generation-ecosystem.md` |
+| Content gen (forensic) | `skills/playbook-generation/prompts/content-generation-forensic.md` |
+| Ruta section snippet | `skills/playbook-generation/snippets/ruta-section.html` |
+| Ecosystem gem-bar snippet | `skills/playbook-generation/snippets/gem-bar-ecosystem.html` |

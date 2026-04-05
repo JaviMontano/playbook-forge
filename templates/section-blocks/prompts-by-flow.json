@@ -1,0 +1,122 @@
+{
+  "description": "13 ready-to-copy prompts, one per AI-native flow",
+  "prompts": [
+    {
+      "flowNum": 1,
+      "nameEs": "Preparar sesión efectiva",
+      "nameEn": "Prepare effective session",
+      "tool": "LaForja + LaReu",
+      "text": "Necesito preparar una reunión sobre {TEMA} con {PARTICIPANTES} que dura {DURACION} y debe terminar con {DECISION_ESPERADA}.\nContexto del proyecto: {CONTEXTO_PROYECTO}\nProduce: 1) Agenda con tiempos por punto (max 6 puntos) 2) 3 preguntas de cierre que garanticen decisiones 3) Guía de moderación con roles 4) Formato: tabla Punto | Tiempo | Owner | Objetivo",
+      "exito": "agenda con objetivo, tiempos, y 3 preguntas de cierre. Publicable sin editar.",
+      "params": ["TEMA", "PARTICIPANTES", "DURACION", "DECISION_ESPERADA", "CONTEXTO_PROYECTO"]
+    },
+    {
+      "flowNum": 2,
+      "nameEs": "Capitalizar decisiones",
+      "nameEn": "Capitalize decisions",
+      "tool": "LaVuelta",
+      "text": "Procesa estas notas de reunión en un Quad-Doc:\n{NOTAS_REUNION}\nProyecto: {PROYECTO} | Fecha: {FECHA} | Participantes: {PARTICIPANTES}\nProduce: 1) Decisiones (quién + qué + cuándo + contexto) 2) Tareas para Jira (acción + owner + fecha + etiqueta impacto) 3) Ruta crítica (qué bloquea qué) 4) Indexación (5 palabras clave para búsqueda futura)",
+      "exito": "cada decisión tiene owner + fecha. Tareas listas para Jira. Ruta crítica visible.",
+      "params": ["NOTAS_REUNION", "PROYECTO", "FECHA", "PARTICIPANTES"]
+    },
+    {
+      "flowNum": 3,
+      "nameEs": "Reportar avances y valor",
+      "nameEn": "Report progress and value",
+      "tool": "ElRepo",
+      "text": "Genera un reporte VR-AID semanal:\nQuad-Docs de la semana: {QUADDOCS_SEMANA}\nProyecto: {PROYECTO} | Periodo: {PERIODO}\nProduce: V (Valor con evidencia) R (Riesgos: probabilidad + impacto + mitigación) A (Acciones pendientes: owner + fecha) I (Issues activos: escalation path) D (Dependencias: blocking status). Semáforo justificado por evidencia, no por opinión.",
+      "exito": "cada sección V-R-A-I-D tiene evidencia. Semáforo justificado, no opinado.",
+      "params": ["QUADDOCS_SEMANA", "PROYECTO", "PERIODO"]
+    },
+    {
+      "flowNum": 4,
+      "nameEs": "Visibilizar impacto",
+      "nameEn": "Make impact visible",
+      "tool": "LaInfo",
+      "text": "Convierte este VR-AID en una infografía ejecutiva HTML:\n{VRAID_CONTENIDO}\nAudiencia: {AUDIENCIA_TARGET}\nMensaje clave que debe entenderse en 10 segundos: {MENSAJE_CLAVE}\nFormato: visual con semáforo, métricas grandes, decisiones pendientes destacadas.",
+      "exito": "stakeholder entiende el mensaje clave en 10 segundos sin contexto previo.",
+      "params": ["VRAID_CONTENIDO", "AUDIENCIA_TARGET", "MENSAJE_CLAVE"]
+    },
+    {
+      "flowNum": 5,
+      "nameEs": "Investigar con Deep Research",
+      "nameEn": "Research with Deep Research",
+      "tool": "LaForja + Gemini Deep Research",
+      "text": "Necesito un prompt de Deep Research para investigar {TEMA_INVESTIGACION}.\nContexto: {CONTEXTO_PROYECTO}\nObjetivo: {OBJETIVO_INVESTIGACION}\nProduce un prompt que genere: 1) Informe con 10+ fuentes citadas 2) Conclusión accionable en 1 párrafo 3) Datos verificables 4) Comparación con 3 alternativas",
+      "exito": "informe con 10+ fuentes citadas y conclusión accionable en 1 párrafo.",
+      "params": ["TEMA_INVESTIGACION", "CONTEXTO_PROYECTO", "OBJETIVO_INVESTIGACION"]
+    },
+    {
+      "flowNum": 6,
+      "nameEs": "Vitaminizar presentación",
+      "nameEn": "Vitaminize presentation",
+      "tool": "Deep Research + NotebookLM + LaInfo",
+      "text": "Enriquece esta presentación con datos de mercado:\nContenido actual: {CONTENIDO_PRESENTACION}\nAudiencia: {AUDIENCIA}\nObjetivo: {OBJETIVO}\nFuentes Deep Research: {FUENTES_DR}\nGenera: briefing ejecutivo conectando hallazgos de mercado con objetivos del proyecto.",
+      "exito": "presentación con datos de mercado reales citados + conexión con proyecto.",
+      "params": ["CONTENIDO_PRESENTACION", "AUDIENCIA", "OBJETIVO", "FUENTES_DR"]
+    },
+    {
+      "flowNum": 7,
+      "nameEs": "Poblar NotebookLM",
+      "nameEn": "Populate NotebookLM",
+      "tool": "NotebookLM + Drive",
+      "text": "Crea un cuaderno NotebookLM para el proyecto {PROYECTO}.\nFuentes a cargar: {LISTA_FUENTES}\nNaming: YYYY-MM-DD_Tipo_Descripcion\nConfigura system prompt: {ROL_ASISTENTE}\nVerifica: pregunta de prueba → respuesta con citación.",
+      "exito": "notebook con 3+ fuentes. Query de prueba responde con citación correcta.",
+      "params": ["PROYECTO", "LISTA_FUENTES", "ROL_ASISTENTE"]
+    },
+    {
+      "flowNum": 8,
+      "nameEs": "System prompt NotebookLM",
+      "nameEn": "NotebookLM system prompt",
+      "tool": "NotebookLM Settings",
+      "text": "Configura el system prompt del cuaderno {CUADERNO}:\nRol: {ROL}\nTono: {TONO}\nFormato de respuesta: {FORMATO}\nFrameworks: {FRAMEWORKS}\nIdioma: {IDIOMA}\nRegla: si no encuentras la información en las fuentes, di 'No encontré esto en las fuentes cargadas'.",
+      "exito": "notebook responde en tono y alcance definido. 3 preguntas → 3 respuestas coherentes.",
+      "params": ["CUADERNO", "ROL", "TONO", "FORMATO", "FRAMEWORKS", "IDIOMA"]
+    },
+    {
+      "flowNum": 9,
+      "nameEs": "Gobernar Drive",
+      "nameEn": "Govern Drive",
+      "tool": "Google Drive",
+      "text": "Estructura Google Drive para {PROYECTO}:\nConvención: [{NUM}] {TIPO}/\nTipos: Minutas, Reportes, Decisiones, OKRs, Contratos\nNaming archivos: YYYYMMDD_{Proyecto}_{Tipo}_{Descripcion}\nMigra: {ARCHIVOS_A_MIGRAR}",
+      "exito": "estructura creada. 1 proyecto migrado. Equipo notificado.",
+      "params": ["PROYECTO", "ARCHIVOS_A_MIGRAR"]
+    },
+    {
+      "flowNum": 10,
+      "nameEs": "NLM como middleware",
+      "nameEn": "NLM as middleware",
+      "tool": "NotebookLM",
+      "text": "Cruza estas fuentes en NotebookLM:\nFuente 1: {FUENTE_1}\nFuente 2: {FUENTE_2}\nPregunta de cruce: {PREGUNTA}\nVerifica: respuesta cita ambas fuentes. Zero alucinaciones.",
+      "exito": "respuesta cruzando 2+ fuentes con citación de ambas. Zero alucinaciones.",
+      "params": ["FUENTE_1", "FUENTE_2", "PREGUNTA"]
+    },
+    {
+      "flowNum": 11,
+      "nameEs": "Gemini como front",
+      "nameEn": "Gemini as front-end",
+      "tool": "Gemini",
+      "text": "Sesión exploratoria en Gemini:\nTema: {TEMA}\nContexto del proyecto: {CONTEXTO}\nObjetivo: {OBJETIVO}\nGenera: ideas, análisis, borradores. Documenta 1+ insight accionable.",
+      "exito": "1+ insight accionable documentado. Diferenciado de lo que NLM habría producido.",
+      "params": ["TEMA", "CONTEXTO", "OBJETIVO"]
+    },
+    {
+      "flowNum": 12,
+      "nameEs": "Gems como centro de mando",
+      "nameEn": "Gems as command center",
+      "tool": "Gemini Gems",
+      "text": "Diseña un Gem personalizado para {ROL}:\nFlujos que debe cubrir: {FLUJOS}\nSystem instructions: {INSTRUCCIONES}\nTono: {TONO}\nVerifica: Gem responde como se espera con 3 prompts de prueba.",
+      "exito": "Gem personalizado responde correctamente a 3 prompts de prueba distintos.",
+      "params": ["ROL", "FLUJOS", "INSTRUCCIONES", "TONO"]
+    },
+    {
+      "flowNum": 13,
+      "nameEs": "Crear tu propio flujo",
+      "nameEn": "Create your own flow",
+      "tool": "LaForja + NotebookLM + Gems",
+      "text": "Diseña un flujo AI-native nuevo:\nProceso repetitivo: {PROCESO}\nFrecuencia: {FRECUENCIA}\n4 artefactos: 1) Prompt (LaForja) 2) Plantilla (Confluence/Drive) 3) Cuaderno (NLM con system prompt) 4) Gema (Gem personalizada)\nVerifica: el flujo es ejecutable de punta a punta por otra persona.",
+      "exito": "flujo ejecutable de punta a punta. Si se repite 3+ veces, tiene Gem dedicada.",
+      "params": ["PROCESO", "FRECUENCIA"]
+    }
+  ]
+}
