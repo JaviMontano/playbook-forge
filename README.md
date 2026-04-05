@@ -1,95 +1,109 @@
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:1E3258,100:137DC5&height=220&section=header&text=Playbook%20Forge&fontSize=50&fontColor=FFD700&fontAlignY=35&desc=De%20la%20metodolog%C3%ADa%20vivida%20al%20playbook%20con%20marca&descSize=18&descColor=ffffff&descAlignY=55" alt="Playbook Forge Banner" />
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://capsule-render.vercel.app/api?type=waving&color=0:122562,100:137DC5&height=180&section=header&text=Playbook%20Forge&fontSize=36&fontColor=FFFFFF&fontAlignY=35&desc=De%20la%20metodolog%C3%ADa%20vivida%20al%20playbook%20con%20marca&descSize=14&descAlignY=55&descColor=BBA0CC">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:122562,100:137DC5&height=180&section=header&text=Playbook%20Forge&fontSize=36&fontColor=FFFFFF&fontAlignY=35&desc=De%20la%20metodolog%C3%ADa%20vivida%20al%20playbook%20con%20marca&descSize=14&descAlignY=55&descColor=BBA0CC" width="100%">
+</picture>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/versión-2.0.0-137DC5?style=for-the-badge" alt="Versión" />
-  <img src="https://img.shields.io/badge/licencia-GPL--3.0-122562?style=for-the-badge" alt="Licencia" />
-  <img src="https://img.shields.io/badge/workflows-13-FFD700?style=for-the-badge" alt="Workflows" />
-  <img src="https://img.shields.io/badge/katas-5-BBA0CC?style=for-the-badge" alt="Katas" />
-  <img src="https://img.shields.io/badge/modales-65-808080?style=for-the-badge" alt="Modales" />
+  <img src="https://img.shields.io/badge/v2.0.0-FFD700?style=flat-square" alt="v2.0.0">
+  <img src="https://img.shields.io/badge/GPL--3.0-22D3EE?style=flat-square" alt="GPL--3.0">
+  <img src="https://img.shields.io/badge/13_workflows-6366F1?style=flat-square" alt="13 workflows">
+  <img src="https://img.shields.io/badge/5_katas-8B5CF6?style=flat-square" alt="5 katas">
+  <img src="https://img.shields.io/badge/65_modales-10B981?style=flat-square" alt="65 modales">
 </p>
 
----
+# Playbook Forge
 
-## Acerca de Playbook Forge
+> De la metodología vivida al playbook con marca
 
-**Playbook Forge** es un plugin de Claude Code que genera playbooks HTML con marca. Incluye 13 workflows de adopción de IA, contenido bilingüe (ES/EN con toggle), 13 anti-patrones con remediación, glosario, perfiles de gerente y secciones interactivas.
-
-Cada playbook producido es un archivo HTML autocontenido con la identidad visual de tu organización, listo para distribuir sin dependencias externas.
+Plugin que genera playbooks HTML con marca. 13 workflows de adopción de IA, contenido bilingüe, anti-patrones y secciones interactivas.
 
 ---
 
-## Características principales
-
-- **13 flujos IA-nativos** — Workflows diseñados para adopción progresiva de inteligencia artificial
-- **5 katas Shu-Ha-Ri** — Ejercicios progresivos desde imitación hasta maestría
-- **Contenido bilingüe ES/EN** — Toggle integrado para cambiar entre español e inglés
-- **65 modales interactivos** — Componentes UI para explorar contenido en profundidad
-- **13 anti-patrones documentados** — Cada uno con diagnóstico y remediación
-- **HTML self-contained con marca** — Un solo archivo, cero dependencias externas
-- **Sofka Design System v5.1** — Consistencia visual profesional en cada entregable
-
----
-
-## Instalación
-
-Agrega Playbook Forge como plugin de Claude Code:
+## 🚀 Instalación Rápida
 
 ```bash
-# El plugin se auto-detecta desde ~/.claude/plugins/playbook-forge/
+git clone https://github.com/JaviMontano/playbook-forge.git ~/.claude/plugins/playbook-forge
 ```
 
----
+## 🔑 Qué Hace
 
-## Uso rápido
+- 13 flujos de trabajo IA-nativos
+- 5 katas progresivos Shu-Ha-Ri
+- Contenido bilingüe ES/EN con toggle
+- 65 modales interactivos
+- 13 anti-patrones con remediación
+- HTML self-contained con Design System
+
+## 📐 Arquitectura
 
 ```
-/playbook:forge "<tema>"   # Genera un playbook completo
-/playbook:preview          # Vista previa del playbook actual
-/playbook:section "<tipo>" # Genera una sección específica
-/playbook:ingest [ruta]    # Ingesta contenido fuente
-/playbook:export [ruta]    # Exporta el playbook final
-/playbook:status           # Estado del playbook en progreso
+forge-orchestrator → context-ingester → content-strategist → html-assembler → playbook-reviewer
 ```
 
----
+## 🔗 Parte del Ecosistema MetodologIA
 
-## Estructura del playbook generado
+| Repo | Descripción |
+|------|-------------|
+| [**mao-discovery-framework**](https://github.com/JaviMontano/mao-discovery-framework) | MAO Discovery |
+| [**mao-pm-apex**](https://github.com/JaviMontano/mao-pm-apex) | PM APEX |
+| [**mao-sdd**](https://github.com/JaviMontano/mao-sdd) | SDD |
 
-| Sección | Contenido |
-|---------|-----------|
-| Workflows IA | 13 flujos de adopción con pasos detallados |
-| Katas | 5 niveles progresivos (Shu-Ha-Ri) |
-| Anti-patrones | 13 patrones problemáticos con remediación |
-| Glosario | Términos clave con definiciones contextuales |
-| Perfiles de gerente | Arquetipos de liderazgo para adopción de IA |
-| Secciones interactivas | 65 modales con contenido expandible |
+## 👤 Autor
 
----
+<img src="https://github.com/ejemplo-deo-repo/mao-brand-assets/blob/main/team_javier-montano.webp?raw=true" width="80" align="left" style="margin-right:1rem;">
 
-## Parte del Ecosistema MetodologIA / JM Labs
+**Javier Montaño** — Founder MetodologIA<br>
+40.000 horas convirtiendo retos en casos de éxito.<br>
+[GitHub](https://github.com/JaviMontano) · [MetodologIA](https://metodologia.info) · [LinkedIn](https://co.linkedin.com/in/javier-andr%C3%A9s-monta%C3%B1o-guzm%C3%A1n-35b02756/en)
 
-Playbook Forge funciona junto con otros repositorios del ecosistema:
+<br clear="both">
 
-| Repositorio | Descripción |
-|-------------|-------------|
-| [mao-discovery-framework](https://github.com/JaviMontano/mao-discovery-framework) | Framework de discovery y análisis organizacional |
-| [mao-pm-apex](https://github.com/JaviMontano/mao-pm-apex) | Gestión de proyectos con agentes especializados |
-| [mao-sdd](https://github.com/JaviMontano/mao-sdd) | Specification-Driven Development para software |
+## 📄 Licencia
+
+GPL-3.0 — © 2026 MetodologIA. Copyleft — Para uso y aprovechamiento de profesionales en la era de la IA.
 
 ---
 
-## Licencia
+<details>
+<summary><b>🇬🇧 English</b></summary>
+<br>
 
-Este proyecto está licenciado bajo **GPL-3.0**. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+# Playbook Forge
+
+> From lived methodology to branded playbook
+
+Plugin that generates branded HTML playbooks. 13 AI adoption workflows, bilingual content, anti-patterns, and interactive sections.
+
+### What It Does
+
+- 13 AI-native workflows
+- 5 progressive Shu-Ha-Ri katas
+- Bilingual ES/EN content with toggle
+- 65 interactive modals
+- 13 anti-patterns with remediation
+- Self-contained HTML with Design System
+
+### Architecture
+
+```
+forge-orchestrator → context-ingester → content-strategist → html-assembler → playbook-reviewer
+```
+
+### Part of the MetodologIA Ecosystem
+
+| Repo | Description |
+|------|-------------|
+| [**mao-discovery-framework**](https://github.com/JaviMontano/mao-discovery-framework) | MAO Discovery |
+| [**mao-pm-apex**](https://github.com/JaviMontano/mao-pm-apex) | PM APEX |
+| [**mao-sdd**](https://github.com/JaviMontano/mao-sdd) | SDD |
 
 ---
 
-<p align="center">
-  Creado por <a href="https://github.com/JaviMontano">Javier Montaño</a> · MetodologIA · GPL-3.0
-</p>
+<sub>Created by <a href="https://github.com/JaviMontano">Javier Montaño</a> · MetodologIA · GPL-3.0</sub>
 
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:1E3258,100:137DC5&height=120&section=footer" alt="Footer" />
-</p>
+</details>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://capsule-render.vercel.app/api?type=waving&color=0:122562,100:137DC5&height=100&section=footer">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:122562,100:137DC5&height=100&section=footer" width="100%">
+</picture>
