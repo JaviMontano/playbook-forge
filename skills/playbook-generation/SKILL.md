@@ -147,11 +147,22 @@ Generates Jarvis ElRepo reporting artifacts from operational evidence. Dark pale
 
 ### WOW First Delivery
 Every ElRepo HTML includes from the first render:
+- **Bilingual ES/EN toggle** in sticky dark nav (golden ref pattern: `body.lang-es .en{display:none}`)
 - **Dashboard KPI strip**: CSS gauges (confidence), progress bars (coverage), traffic lights (value semaphore)
 - **Full VR-AID block**: 5 dimensions with letter badges (V=green, R=red, A=blue, I=amber, D=gold)
 - **Evidence lanes**: Tagged facts, opinions, conjectures, gaps
+- **Ecosystem CTAs after every prompt**: 4 links — recommended Jarvis Gem + Gemini + NotebookLM + recommended tool
 - **Prompt Library** (collapsed): 8 copyable prompts for infographic, format export, NLM/Gem priming
 - **Ghost Menu v2** (collapsed): 16 options including Infografia, Formatos, Prompt Library
+
+### Ecosystem CTA (default behavior)
+Every `.jer-prompt-block` is followed by a `.jer-next-step` bar with 4 links:
+1. **Recommended Jarvis Gem** (LaForja for prompts, ElRepo for reports, LaReu for meetings, LaVuelta for decisions, LaInfo for infographics)
+2. **Gemini** general — `https://gemini.google.com`
+3. **NotebookLM** — `https://notebooklm.google.com`
+4. **Recommended tool** (Nano Banana for images, Google Drive for storage, etc.)
+
+Gem URLs are resolved from `brand-tokens-elrepo.json > ecosystem.gems`.
 
 ### Ghost Menu v2 (options 0-15)
 - 0-12: Standard ElRepo menu (unchanged)

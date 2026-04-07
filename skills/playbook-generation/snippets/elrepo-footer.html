@@ -13,7 +13,54 @@
 
 <script>
 (function(){
-  /* ═══ NO EXTERNAL DEPENDENCIES — system fonts, no CDN ═══ */
+  /* ═══ LANGUAGE TOGGLE + PERSISTENCE ═══ */
+  try { var saved = localStorage.getItem('pb-lang');
+    if (saved === 'en') { document.body.classList.remove('lang-es'); document.body.classList.add('lang-en'); document.documentElement.lang = 'en'; }
+  } catch(e){}
+
+  window.toggleLang = function(){
+    document.body.classList.toggle('lang-es');
+    document.body.classList.toggle('lang-en');
+    var isEn = document.body.classList.contains('lang-en');
+    document.documentElement.lang = isEn ? 'en' : 'es';
+    try { localStorage.setItem('pb-lang', isEn ? 'en' : 'es'); } catch(e){}
+  };
+
+  /* ═══ COPY TO CLIPBOARD ═══ */
+  window.copyPrompt = function(btn){
+    var b = btn.closest('.jer-prompt-block') || btn.closest('.prompt-copyable');
+    var t = b.querySelector('.prompt-text').textContent;
+    navigator.clipboard.writeText(t).then(function(){
+      btn.textContent = 'Copiado \u2713'; btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    }).catch(function(){
+      var ta = document.createElement('textarea'); ta.value = t;
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      btn.textContent = 'Copiado \u2713'; btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    });
+  };
+
+  /* ═══ NAV ACTIVE SECTION TRACKING ═══ */
+  var navLinks = document.querySelectorAll('nav.toc a[href^="#"]');
+  if (navLinks.length > 0 && 'IntersectionObserver' in window) {
+    var sections = [];
+    navLinks.forEach(function(link) {
+      var target = document.querySelector(link.getAttribute('href'));
+      if (target) sections.push({el: target, link: link});
+    });
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          navLinks.forEach(function(l){ l.classList.remove('active'); });
+          sections.forEach(function(s){
+            if (s.el === entry.target) s.link.classList.add('active');
+          });
+        }
+      });
+    }, {rootMargin: '-20% 0px -70% 0px'});
+    sections.forEach(function(s){ observer.observe(s.el); });
+  }
 })();
 </script>
 </body>

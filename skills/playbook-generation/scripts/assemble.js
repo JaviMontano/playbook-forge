@@ -1128,7 +1128,56 @@ function assemble() {
     }
     body = body.replace(/\{\{PREAMBLE_CHIPS\}\}/g, chips);
 
-    // Replace all section placeholders with manifest content or empty string
+    // ElRepo nav (dark sticky nav with lang toggle)
+    var elrepoNav = '';
+    try { elrepoNav = readSnippet('elrepo-nav.html'); } catch(e) { elrepoNav = ''; }
+    var navLogoText = manifest.meta.logoText || manifest.meta.title || 'Jarvis ElRepo';
+    var navItems = '';
+    if (manifest.nav && Array.isArray(manifest.nav.items)) {
+      navItems = manifest.nav.items.map(function(item) {
+        return '<a href="#' + (item.id || '') + '">' +
+          '<span class="es">' + escapeHtml(item.labelEs || item.label || '') + '</span>' +
+          '<span class="en">' + escapeHtml(item.labelEn || item.label || '') + '</span></a>';
+      }).join('');
+    }
+    elrepoNav = elrepoNav
+      .replace(/\{\{NAV_LOGO_TEXT\}\}/g, escapeHtml(navLogoText))
+      .replace(/\{\{NAV_ITEMS\}\}/g, navItems);
+    body = body.replace(/\{\{ELREPO_NAV\}\}/g, elrepoNav);
+
+    // Ecosystem CTA links from brand tokens
+    var eco = tokens.ecosystem || {};
+    var gems = eco.gems || {};
+    body = body
+      .replace(/\{\{CTA_LAFORJA_URL\}\}/g, (gems.laforja && gems.laforja.url) || eco.gemini || 'https://gemini.google.com')
+      .replace(/\{\{CTA_LAREU_URL\}\}/g, (gems.lareu && gems.lareu.url) || eco.gemini || 'https://gemini.google.com')
+      .replace(/\{\{CTA_LAVUELTA_URL\}\}/g, (gems.lavuelta && gems.lavuelta.url) || eco.gemini || 'https://gemini.google.com')
+      .replace(/\{\{CTA_ELREPO_URL\}\}/g, (gems.elrepo && gems.elrepo.url) || eco.gemini || 'https://gemini.google.com')
+      .replace(/\{\{CTA_LAINFO_URL\}\}/g, (gems.lainfo && gems.lainfo.url) || eco.gemini || 'https://gemini.google.com')
+      .replace(/\{\{CTA_NANO_URL\}\}/g, (tokens.infographic && tokens.infographic.nanoBananaUrl) || 'https://imagen.sofka.com.co');
+
+    // Dashboard, Prompt Library, Ghost Menu snippets
+    var dashSnippet = ''; try { dashSnippet = readSnippet('elrepo-dashboard.html'); } catch(e) {}
+    var promptLibSnippet = ''; try { promptLibSnippet = readSnippet('elrepo-prompt-library.html'); } catch(e) {}
+    var ghostSnippet = ''; try { ghostSnippet = readSnippet('elrepo-ghost-menu-trailer.html'); } catch(e) {}
+    ghostSnippet = ghostSnippet
+      .replace(/\{\{GHOST_MENU_VERSION\}\}/g, (tokens.ghostMenu && tokens.ghostMenu.version) || 'v1.0.1')
+      .replace(/\{\{GHOST_MENU_SURFACE\}\}/g, 'auto');
+    body = body
+      .replace(/\{\{DASHBOARD_SECTION\}\}/g, dashSnippet)
+      .replace(/\{\{PROMPT_LIBRARY_SECTION\}\}/g, promptLibSnippet)
+      .replace(/\{\{GHOST_MENU_TRAILER\}\}/g, ghostSnippet);
+
+    // Replace ecosystem CTA placeholders in prompt library snippets
+    body = body
+      .replace(/\{\{CTA_LAFORJA_URL\}\}/g, (gems.laforja && gems.laforja.url) || '')
+      .replace(/\{\{CTA_LAREU_URL\}\}/g, (gems.lareu && gems.lareu.url) || '')
+      .replace(/\{\{CTA_LAVUELTA_URL\}\}/g, (gems.lavuelta && gems.lavuelta.url) || '')
+      .replace(/\{\{CTA_ELREPO_URL\}\}/g, (gems.elrepo && gems.elrepo.url) || '')
+      .replace(/\{\{CTA_LAINFO_URL\}\}/g, (gems.lainfo && gems.lainfo.url) || '')
+      .replace(/\{\{CTA_NANO_URL\}\}/g, (tokens.infographic && tokens.infographic.nanoBananaUrl) || '');
+
+    // Replace all remaining section placeholders with manifest content or empty string
     body = body.replace(/\{\{([A-Z_]+)\}\}/g, function(match, key) {
       // Try to find content in manifest.sections or manifest directly
       var lowerKey = key.toLowerCase();

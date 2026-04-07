@@ -80,5 +80,17 @@
     "options": 16,
     "surfaceAware": true,
     "surfaces": ["gemini", "claude", "generic"]
+  },
+  "ecosystem": {
+    "gems": {
+      "laforja": { "url": "https://gemini.google.com/gem/1n0GlVXpCmItHWLBM2e17ChV7ceFW6Teq?usp=sharing", "nameEs": "LaForja — Prompts", "nameEn": "LaForja — Prompts" },
+      "lareu": { "url": "https://gemini.google.com/gem/1dxbSKPGyDZR1iPtjDReRThZS86gEPmqB?usp=sharing", "nameEs": "LaReu — Reuniones", "nameEn": "LaReu — Meetings" },
+      "lavuelta": { "url": "https://gemini.google.com/gem/1uXB-whRTHB1OcaLo7yLA0rVeKVyY3kbp?usp=sharing", "nameEs": "LaVuelta — Decisiones", "nameEn": "LaVuelta — Decisions" },
+      "elrepo": { "url": "https://gemini.google.com/gem/1ZK3CMeM7Yw-cNgzJeRsV2BRDyXNV_81S?usp=sharing", "nameEs": "ElRepo — VR-AID", "nameEn": "ElRepo — VR-AID" },
+      "lainfo": { "url": "https://gemini.google.com/gem/1YwjJ7X72zAaVHfSrycpEbW2u3xr1z39a?usp=sharing", "nameEs": "LaInfo — Infografias", "nameEn": "LaInfo — Infographics" }
+    },
+    "gemini": "https://gemini.google.com",
+    "notebooklm": "https://notebooklm.google.com",
+    "drive": "https://drive.google.com"
   }
 }

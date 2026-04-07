@@ -124,6 +124,36 @@ code { font-family: var(--font-mono); font-size: .88em; background: var(--bg3); 
 .jer-ghost-menu { max-width: var(--max-w); margin: 2rem auto; padding: 1.5rem 2rem; background: var(--bg1); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: .78rem; color: var(--t3); white-space: pre-line; }
 .jer-ghost-menu .menu-title { font-weight: 700; color: var(--brand); margin-bottom: .5rem; display: block; }
 
+/* ═══ BILINGUAL TOGGLE ═══ */
+body.lang-es .en { display: none !important; }
+body.lang-en .es { display: none !important; }
+
+/* ═══ DARK NAV ═══ */
+nav.toc { background: var(--bg1); position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+nav.toc .toc-inner { max-width: var(--max-w); margin: 0 auto; display: flex; overflow-x: auto; scrollbar-width: none; padding: 0 2rem; align-items: center; }
+nav.toc .toc-inner::-webkit-scrollbar { display: none; }
+nav.toc .toc-logo { font-family: var(--font-body); font-size: 1rem; font-weight: 700; color: var(--brand); padding: .75rem 1rem .75rem 0; white-space: nowrap; border-right: 1px solid var(--border); margin-right: .5rem; }
+nav.toc a { display: block; padding: .75rem .8rem; font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--t3); white-space: nowrap; text-decoration: none; border-bottom: 2px solid transparent; transition: all .2s; }
+nav.toc a:hover { color: var(--brand); border-bottom-color: var(--brand); text-decoration: none; }
+nav.toc a.active { color: var(--brand); border-bottom-color: var(--brand); }
+.lang-btn { background: transparent; border: 1px solid var(--border); color: var(--t3); padding: .35rem .75rem; border-radius: var(--radius-sm); font-size: .72rem; font-weight: 700; cursor: pointer; letter-spacing: .5px; transition: all .2s; white-space: nowrap; margin-left: auto; flex-shrink: 0; font-family: var(--font-body); }
+.lang-btn:hover { background: var(--brand); color: var(--bg0); border-color: var(--brand); }
+
+/* ═══ NEXT-STEP CTA (4 ecosystem links after every prompt) ═══ */
+.jer-next-step { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem; padding-top: .75rem; border-top: 1px solid var(--border); }
+.jer-gem-link { display: inline-flex; align-items: center; gap: .3rem; background: var(--brand); color: var(--bg0); padding: .35rem .75rem; border-radius: var(--radius-sm); font-size: .72rem; font-weight: 700; text-decoration: none; transition: background .2s, transform .15s; letter-spacing: .3px; }
+.jer-gem-link:hover { background: var(--gold); transform: translateY(-1px); text-decoration: none; color: var(--bg0); }
+.jer-gem-link::before { content: "\2B50"; font-size: .75rem; }
+.jer-gem-link.jer-nlm { background: var(--green); }
+.jer-gem-link.jer-nlm:hover { background: #16a34a; }
+.jer-gem-link.jer-nlm::before { content: "\1F4D3"; }
+.jer-gem-link.jer-tool { background: var(--blue); }
+.jer-gem-link.jer-tool:hover { background: #3b82f6; }
+.jer-gem-link.jer-tool::before { content: "\1F517"; }
+.jer-gem-link.jer-gemini { background: var(--amber); color: var(--bg0); }
+.jer-gem-link.jer-gemini:hover { background: #d97706; }
+.jer-gem-link.jer-gemini::before { content: "\2728"; }
+
 /* ═══ WOW COMPONENTS — CSS-Only Data Visualizations ═══ */
 
 /* GAUGE (conic-gradient circular) */
