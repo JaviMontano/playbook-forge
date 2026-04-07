@@ -4,11 +4,12 @@ This file routes to the mode-specific intake questions based on the mode detecte
 
 ## Mode Routing
 
+- **ElRepo mode** (repo-doc / vr-aid / analyst report / radar): Read `intake-questions-elrepo.md`
 - **Ecosystem mode** (P0-P13 / Jarvis / gems): Read `intake-questions-ecosystem.md`
 - **Forensic mode** (assessment / discovery): Read `intake-questions-forensic.md`
 
 The mode is determined by the forge-orchestrator during INTAKE based on:
-1. Explicit `--mode=ecosystem|forensic` flag in the user command
+1. Explicit `--mode=ecosystem|forensic|elrepo` flag in the user command
 2. Auto-detection from topic keywords (see SKILL.md for heuristic)
 3. Default: ecosystem
 
@@ -16,5 +17,6 @@ The mode is determined by the forge-orchestrator during INTAKE based on:
 
 | Mode | File | Questions |
 |------|------|-----------|
+| ElRepo | `intake-questions-elrepo.md` | 5 questions: evidence type, sources, target artifact, audience, language |
 | Ecosystem | `intake-questions-ecosystem.md` | 8 questions: playbook identity, tools, flows, katas, anti-patterns, crosslinks, constraints, language |
 | Forensic | `intake-questions-forensic.md` | 6 questions: engagement context, stakeholders, dimensions, findings, constraints, language |

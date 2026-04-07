@@ -2,17 +2,20 @@
 name: playbook-generation
 version: "6.0.0"
 description: >
-  Dual-mode playbook engine. Generates BOTH:
+  Tri-mode playbook engine. Generates:
   (1) Jarvis ecosystem playbooks (P0-P13 gems, 3-layer architecture, 13 flujos,
   5 katas Shu-Ha-Ri, 13 anti-patrones, crosslinks, VR-AID, semaforo) AND
   (2) Forensic analysis playbooks (discovery/assessment findings, 13 dimensiones,
-  hallazgos priorizados, risk maps, recomendaciones, roadmap).
+  hallazgos priorizados, risk maps, recomendaciones, roadmap) AND
+  (3) ElRepo reporting artifacts (Repo-Doc, VR-AID, Analyst Report, Radar
+  Ejecutivo — dark palette, system fonts, evidence-grounded, auto-contenido).
   Triggers: "crear playbook", "generar playbook", "playbook jarvis",
   "playbook ecosistema", "playbook P0"-"playbook P13", "playbook de adopcion",
   "playbook de flujos", "playbook de rituales", "playbook de analisis",
   "playbook de hallazgos", "playbook de discovery", "forensic analysis playbook",
-  "assessment playbook", "cartilla de adopcion".
-argument-hint: "<topic> [--mode=ecosystem|forensic]"
+  "assessment playbook", "cartilla de adopcion", "repo-doc", "generar repo-doc",
+  "vr-aid", "crear vr-aid", "analyst report", "radar ejecutivo", "elrepo".
+argument-hint: "<topic> [--mode=ecosystem|forensic|elrepo]"
 author: "Javier Montano · Sofka Technologies"
 model: opus
 allowed-tools:
@@ -43,6 +46,7 @@ When `--mode` flag is not explicit, the engine auto-detects:
 
 | Signal in topic | Detected mode |
 |----------------|---------------|
+| repo-doc, vr-aid, analyst report, radar ejecutivo, elrepo, weekly status, sprint close, evidence pack | **elrepo** |
 | P0-P13, Jarvis, gem, kata, flujo, workflow, rituales, adopcion | **ecosystem** |
 | assessment, discovery, forense, forensic, findings, hallazgos, dimensiones | **forensic** |
 | (none of the above) | **ecosystem** (default) |
@@ -114,6 +118,54 @@ Generates playbooks documenting Sofka's discovery/assessment methodology:
 ### Content Generation (Forensic)
 
 See `prompts/content-generation-forensic.md` for section-by-section guide.
+
+## ElRepo Mode
+
+Generates Jarvis ElRepo reporting artifacts from operational evidence. Dark palette, system fonts, zero CDN.
+
+### Artifact Family
+| Artifact | When | Skeleton |
+|----------|------|----------|
+| **Repo-Doc** | Always first (canonical intake) | `elrepo-radar.html` |
+| **Draft VR-AID** | Auto after Repo-Doc | Embedded in Repo-Doc |
+| **Analyst Report** | `[8]` or explicit request | `elrepo-analyst-report.html` |
+| **Radar / Diagrama Ejecutivo** | `[11]` exec/avance/riesgo | `elrepo-radar.html` |
+| **HTML brand-friendly** | `[12]` migrate text to HTML | `elrepo-head.html` + content |
+
+### VR-AID (V = Value / Valor generado)
+- **V**: Value / Valor generado (NEVER vision, velocity, volume)
+- **R**: Risks / Riesgos
+- **A**: Actions / Acciones
+- **I**: Issues / Impedimentos
+- **D**: Dependencies / Dependencias
+
+### Design System
+- Dark palette: `--brand: #F26322`, `--bg0: #080808`
+- System fonts only (no CDN, no Google Fonts)
+- Brand tokens: `references/brand-tokens-elrepo.json`
+- Logo: `sofka_logo.jpg` from `javiermontano-sofka` repo
+
+### WOW First Delivery
+Every ElRepo HTML includes from the first render:
+- **Dashboard KPI strip**: CSS gauges (confidence), progress bars (coverage), traffic lights (value semaphore)
+- **Full VR-AID block**: 5 dimensions with letter badges (V=green, R=red, A=blue, I=amber, D=gold)
+- **Evidence lanes**: Tagged facts, opinions, conjectures, gaps
+- **Prompt Library** (collapsed): 8 copyable prompts for infographic, format export, NLM/Gem priming
+- **Ghost Menu v2** (collapsed): 16 options including Infografia, Formatos, Prompt Library
+
+### Ghost Menu v2 (options 0-15)
+- 0-12: Standard ElRepo menu (unchanged)
+- 13: `Infografia[nano-banana|gemini|prompt-only]` — generate infographic prompt from analysis
+- 14: `Formatos[html|md|slides|json]` — multi-format export
+- 15: `Prompt Library` — direct to prompt library section in HTML
+
+Surface-aware: adapts to Gemini (Canvas), Claude (artifacts), or generic.
+
+### Intake (ElRepo)
+5 questions: evidence type, sources, target artifact, audience, language. See `prompts/intake-questions-elrepo.md`.
+
+### Content Generation (ElRepo)
+See `prompts/content-generation-elrepo.md` for section-by-section guide. Includes Dashboard KPI extraction, Prompt Library generation, and Multi-Format output rules.
 
 ## Shared Infrastructure
 

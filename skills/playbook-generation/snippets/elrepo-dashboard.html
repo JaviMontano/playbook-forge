@@ -1,0 +1,30 @@
+<section class="jer-section" data-jer="dashboard">
+  <h2>Dashboard Operativo</h2>
+  <div class="jer-dashboard">
+    <div class="jer-dashboard-card">
+      <div class="jer-gauge" style="--pct:{{DASHBOARD_CONFIDENCE_PCT}}" data-label="{{DASHBOARD_CONFIDENCE_PCT}}%"></div>
+      <div class="jer-kpi-label">Confianza</div>
+    </div>
+    <div class="jer-dashboard-card">
+      <div class="jer-kpi-number">{{DASHBOARD_COVERAGE_RATIO}}</div>
+      <div class="jer-kpi-label">Cobertura de fuentes</div>
+      <div class="jer-progress"><div class="jer-progress-fill" style="width:{{DASHBOARD_COVERAGE_PCT}}%"></div></div>
+    </div>
+    <div class="jer-dashboard-card">
+      <div class="jer-kpi-number">{{DASHBOARD_SOURCE_COUNT}}</div>
+      <div class="jer-kpi-label">Fuentes analizadas</div>
+    </div>
+    <div class="jer-dashboard-card">
+      <div class="jer-traffic-light">
+        <div class="light {{DASHBOARD_VALUE_VERDE}}"></div>
+        <div class="light {{DASHBOARD_VALUE_AMARILLO}}"></div>
+        <div class="light {{DASHBOARD_VALUE_ROJO}}"></div>
+      </div>
+      <div class="jer-kpi-label">Semaforo de valor</div>
+    </div>
+    <div class="jer-dashboard-card">
+      <div class="jer-kpi-number" style="color:var(--red);">{{DASHBOARD_RISK_COUNT}}</div>
+      <div class="jer-kpi-label">Riesgos activos</div>
+    </div>
+  </div>
+</section>

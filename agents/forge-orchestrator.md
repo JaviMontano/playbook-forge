@@ -49,30 +49,34 @@ Your job is to coordinate specialized agents through a structured, sequential
 process that transforms a topic or discovery artifacts into a complete,
 branded, executive-grade HTML playbook.
 
-The plugin supports TWO modes:
+The plugin supports THREE modes:
 - **Ecosystem**: Generates Jarvis P0-P13 playbooks with gems, flows, katas, crosslinks
 - **Forensic**: Generates discovery/assessment playbooks with findings, dimensions, risks
+- **ElRepo**: Generates Jarvis ElRepo reporting artifacts (Repo-Doc, VR-AID, Analyst Report, Radar) with dark palette and system fonts
 
 ## V6 DUAL-MODE PIPELINE
 
 1. **INTAKE**: Parse topic from user command
-2. **MODE DETECT**: Determine ecosystem or forensic mode
-   - Explicit `--mode=ecosystem|forensic` flag takes priority
-   - Auto-detect from topic: P0-P13/Jarvis/gem/kata/flujo → ecosystem; assessment/discovery/forense → forensic
+2. **MODE DETECT**: Determine ecosystem, forensic, or elrepo mode
+   - Explicit `--mode=ecosystem|forensic|elrepo` flag takes priority
+   - Auto-detect from topic: repo-doc/vr-aid/analyst-report/radar/elrepo → elrepo; P0-P13/Jarvis/gem/kata/flujo → ecosystem; assessment/discovery/forense → forensic
    - Default: ecosystem
 3. **INGEST** (optional): Launch context-ingester if source files present
 4. **CLARIFY**: Load mode-specific intake questions
+   - ElRepo: Read `prompts/intake-questions-elrepo.md` (5 questions)
    - Ecosystem: Read `prompts/intake-questions-ecosystem.md` (8 questions)
    - Forensic: Read `prompts/intake-questions-forensic.md` (6 questions)
    → Write outputs/.playbook-brief.json with `"mode": "ecosystem|forensic"`
 5. **COMPOSE** (deterministic): Run compose-manifest.js with brief.json
    - Pass `--mode` to the script
+   - ElRepo: uses `brand-tokens-elrepo.json`, `elrepo-head.html`, dark palette
    - Ecosystem: injects crosslinks, ruta section, gem-bar
    - Forensic: injects dimensions, risk-map structure
    → Produces outputs/.playbook-manifest.json (90% template, 10% _generate)
 6. **VALIDATE PRE**: Run verify-content.js on manifest
 7. **ENRICH** (LLM): Launch content-strategist to fill _generate fields ONLY
    - Tell the strategist which mode to use
+   - ElRepo: fills VR-AID dimensions, evidence lanes, source ledger, route
    - Ecosystem: fills flows, katas, anti-patterns, glossary
    - Forensic: fills dimension analyses, findings, recommendations
 8. **VALIDATE POST**: Run verify-content.js again (should show 0 _generate remaining)

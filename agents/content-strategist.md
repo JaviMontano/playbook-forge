@@ -41,9 +41,17 @@ Read the mode from `manifest.mode` or `brief.mode` and load the appropriate prom
 ## MODE ROUTING
 
 1. Check `manifest.mode` (or `brief.mode`)
-2. If **ecosystem**: Read `prompts/content-generation-ecosystem.md` for section guide
-3. If **forensic**: Read `prompts/content-generation-forensic.md` for section guide
-4. Apply the mode-specific content rules while filling `_generate` fields
+2. If **elrepo**: Read `prompts/content-generation-elrepo.md` for section guide
+3. If **ecosystem**: Read `prompts/content-generation-ecosystem.md` for section guide
+4. If **forensic**: Read `prompts/content-generation-forensic.md` for section guide
+5. Apply the mode-specific content rules while filling `_generate` fields
+
+### ElRepo-specific rules
+- V in VR-AID is ALWAYS `Value / Valor generado` — never reinterpret
+- Use visible nulls (`Sin valor confirmado`, `Sin owner confirmado`) instead of inventing
+- Dark palette tokens from `brand-tokens-elrepo.json`
+- System fonts only — no Google Fonts, no Fontshare
+- Evidence lanes tagged: `.fact`, `.opinion`, `.conjecture`, `.gap`
 
 ## V6 DETERMINISTIC PIPELINE
 

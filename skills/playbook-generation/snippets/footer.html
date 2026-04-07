@@ -55,6 +55,12 @@
     document.body.style.overflow = '';
   };
 
+  /* ═══ PROMPT MODAL (LaForja prompt-card onclick) ═══ */
+  window.openPromptModal = function(n){
+    var m = document.getElementById('prompt-modal-'+n);
+    if(m){ m.classList.add('active'); document.body.style.overflow='hidden'; }
+  };
+
   /* ═══ COPY TO CLIPBOARD ═══ */
   window.copyPrompt = function(btn){
     var b = btn.closest('.prompt-copyable');

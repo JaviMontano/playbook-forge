@@ -1,0 +1,63 @@
+<header class="jer-header" data-jer-report="header">
+  <div class="jer-header-inner">
+    {{HEADER_LOGO_HTML}}
+    <div>
+      <div class="jer-title">{{HEADER_TITLE}}</div>
+      <div class="jer-subtitle">{{HEADER_SUBTITLE}}</div>
+    </div>
+  </div>
+</header>
+
+<div class="jer-preamble">
+  {{PREAMBLE_CHIPS}}
+</div>
+
+{{DASHBOARD_SECTION}}
+
+<main class="jer-main">
+  <section class="jer-section" data-jer-report="overview">
+    <h2>{{OVERVIEW_TITLE}}</h2>
+    {{OVERVIEW_BODY}}
+  </section>
+
+  <section class="jer-section" data-jer-report="source-ledger">
+    <h2>{{LEDGER_TITLE}}</h2>
+    {{LEDGER_TABLE}}
+  </section>
+
+  <section class="jer-section" data-jer-report="facts">
+    <h2>{{FACTS_TITLE}}</h2>
+    {{FACTS_BODY}}
+  </section>
+
+  <section class="jer-section" data-jer-report="readings">
+    <h2>{{READINGS_TITLE}}</h2>
+    {{READINGS_BODY}}
+  </section>
+
+  <section class="jer-section" data-jer-report="caveats">
+    <h2>{{CAVEATS_TITLE}}</h2>
+    {{CAVEATS_BODY}}
+  </section>
+
+  <section class="jer-section" data-jer-report="assumptions">
+    <h2>{{ASSUMPTIONS_TITLE}}</h2>
+    {{ASSUMPTIONS_BODY}}
+  </section>
+
+  <section class="jer-section" data-jer-report="questions">
+    <h2>{{QUESTIONS_TITLE}}</h2>
+    {{QUESTIONS_BODY}}
+  </section>
+
+  <section class="jer-section" data-jer-report="next-steps">
+    <h2>{{NEXTSTEPS_TITLE}}</h2>
+    <div class="jer-route">
+      {{NEXTSTEPS_BODY}}
+    </div>
+  </section>
+</main>
+
+{{PROMPT_LIBRARY_SECTION}}
+
+{{GHOST_MENU_TRAILER}}

@@ -1,12 +1,13 @@
 # Playbook Forge v6.0.0 — Plugin Hub
 
-> Dual-mode playbook engine: generates **Jarvis ecosystem playbooks** (P0-P13 gems, 3-layer architecture, katas, crosslinks) AND **forensic analysis playbooks** (discovery findings, dimensions, risk maps). Sofka DS v5.1. 32 quality checks. 10 certification gates.
+> Tri-mode playbook engine: **ecosystem** (P0-P13 Jarvis gems, 3-layer architecture, katas, crosslinks), **forensic** (discovery findings, dimensions, risk maps), and **elrepo** (Repo-Doc, VR-AID, Analyst Report, Radar Ejecutivo — dark palette, system fonts). Sofka DS v5.1 + ElRepo Dark DS. 32 quality checks. 10 certification gates.
 
 ## Quick Start
 
 ```
 /playbook:forge "P4 ElRepo — Reportar Valor" --mode=ecosystem
 /playbook:forge "Assessment cloud-native retail" --mode=forensic
+/playbook:forge "weekly status analysis" --mode=elrepo
 /playbook:suite outputs/golden-jarvis-bu2_v2.html
 /playbook:certify outputs/playbook_bu2_pb4.html
 ```
@@ -15,7 +16,7 @@
 
 | Command | What it does |
 |---------|-------------|
-| `/playbook:forge "<topic>" [--mode=ecosystem\|forensic]` | Genera playbook completo (auto-detect mode if flag omitted) |
+| `/playbook:forge "<topic>" [--mode=ecosystem\|forensic\|elrepo]` | Genera playbook completo (auto-detect mode if flag omitted) |
 | `/playbook:suite <golden>` | Batch-generate 14 secondary playbooks from golden reference |
 | `/playbook:certify <path.html>` | Run 10 v6 certification checks |
 | `/playbook:ingest [path]` | Ingesta fuentes de contexto |
@@ -31,9 +32,9 @@ INTAKE → MODE DETECT → INGEST → CLARIFY → COMPOSE → ENRICH → ASSEMBL
 ```
 
 1. **INTAKE**: Parsea topic, detecta fuentes
-2. **MODE DETECT**: ecosystem (P0-P13/Jarvis/gems) o forensic (assessment/discovery)
+2. **MODE DETECT**: elrepo (repo-doc/vr-aid/radar) o ecosystem (P0-P13/Jarvis/gems) o forensic (assessment/discovery)
 3. **INGEST**: `context-ingester` extrae contexto de artifacts
-4. **CLARIFY**: Preguntas mode-specific (8 ecosystem / 6 forensic)
+4. **CLARIFY**: Preguntas mode-specific (5 elrepo / 8 ecosystem / 6 forensic)
 5. **COMPOSE**: `compose-manifest.js` genera manifest deterministico (90% template)
 6. **ENRICH**: `content-strategist` llena campos `_generate` (10% LLM)
 7. **ASSEMBLE**: `html-assembler` + `assemble.js` (snippets + manifest → HTML)
@@ -79,12 +80,20 @@ INTAKE → MODE DETECT → INGEST → CLARIFY → COMPOSE → ENRICH → ASSEMBL
 | `html-assembler` | sonnet | Ensambla HTML deterministicamente |
 | `playbook-reviewer` | sonnet | Valida calidad antes de entregar |
 
-## Design System
+## Design Systems
 
-- **Brand**: Sofka DS v5.1 — 42 CSS tokens, 33 componentes
+### Sofka DS v5.1 (ecosystem + forensic modes)
+- **Brand**: 42 CSS tokens, 40+ componentes
 - **Fonts**: Clash Grotesk (display) + Inter (body)
 - **Primary**: `#FF7E08` (Sofka Orange)
 - **Tokens**: `references/brand-tokens-sofka.json`
+
+### ElRepo Dark DS (elrepo mode)
+- **Brand**: 20 CSS tokens, dark palette
+- **Fonts**: System fonts only (no CDN, no external fonts)
+- **Primary**: `#F26322` (ElRepo Brand)
+- **Tokens**: `references/brand-tokens-elrepo.json`
+- **Logo**: `sofka_logo.jpg` from `javiermontano-sofka` repo
 - **Snippets**: `skills/playbook-generation/snippets/*.html` (33 archivos)
 - **Modals**: 65 interactive modals (flows, anti-patterns, glossary, katas, profiles)
 - **Bilingual**: Native ES/EN with toggle
@@ -165,3 +174,41 @@ Cada playbook promueve centralizar la informacion:
 | Content gen (forensic) | `skills/playbook-generation/prompts/content-generation-forensic.md` |
 | Ruta section snippet | `skills/playbook-generation/snippets/ruta-section.html` |
 | Ecosystem gem-bar snippet | `skills/playbook-generation/snippets/gem-bar-ecosystem.html` |
+| ElRepo brand tokens | `references/brand-tokens-elrepo.json` |
+| ElRepo head (dark CSS) | `skills/playbook-generation/snippets/elrepo-head.html` |
+| ElRepo radar skeleton | `skills/playbook-generation/snippets/elrepo-radar.html` |
+| ElRepo analyst report | `skills/playbook-generation/snippets/elrepo-analyst-report.html` |
+| ElRepo footer | `skills/playbook-generation/snippets/elrepo-footer.html` |
+| Intake (elrepo mode) | `skills/playbook-generation/prompts/intake-questions-elrepo.md` |
+| Content gen (elrepo) | `skills/playbook-generation/prompts/content-generation-elrepo.md` |
+
+## Sofka Brand Skills Suite (v2.0.0)
+
+| Skill | Path | Purpose |
+|-------|------|---------|
+| `sofka-brand-knowhow` | `skills/sofka-brand-knowhow/SKILL.md` | Brand intelligence — identity, services, culture, visual (Manual 2024), metrics, Jarvis rules, digital presence |
+| `sofka-priming-forge` | `skills/sofka-priming-forge/SKILL.md` | Generate priming prompts for 10 surfaces. MCP-aware, multimodal-ready |
+| `sofka-assistant-vitaminer` | `skills/sofka-assistant-vitaminer/SKILL.md` | Diagnose + upgrade assistants against VR-S01-S10 + 7 priming blocks |
+
+### References
+
+| File | Content |
+|------|---------|
+| `skills/sofka-brand-knowhow/references/manual-de-marca-extract.md` | Manual de Marca 2024 extraction |
+| `skills/sofka-brand-knowhow/references/web-presence-registry.md` | URLs, social handles |
+| `skills/sofka-brand-knowhow/references/metrics-dashboard.md` | KPIs and certifications |
+
+### Priming Surface Templates (10)
+
+| # | Surface | File |
+|---|---------|------|
+| 1 | LLM Assistant | `skills/sofka-priming-forge/prompts/surface-llm-assistant.md` |
+| 2 | LinkedIn | `skills/sofka-priming-forge/prompts/surface-social-linkedin.md` |
+| 3 | Instagram | `skills/sofka-priming-forge/prompts/surface-social-instagram.md` |
+| 4 | Presentation | `skills/sofka-priming-forge/prompts/surface-presentation.md` |
+| 5 | Proposal | `skills/sofka-priming-forge/prompts/surface-proposal.md` |
+| 6 | NLM Notebook | `skills/sofka-priming-forge/prompts/surface-nlm-notebook.md` |
+| 7 | Multimodal | `skills/sofka-priming-forge/prompts/surface-multimodal.md` |
+| 8 | Playbook | `skills/sofka-priming-forge/prompts/surface-playbook.md` |
+| 9 | Gemini Gem | `skills/sofka-priming-forge/prompts/surface-gem.md` |
+| 10 | Email | `skills/sofka-priming-forge/prompts/surface-email-campaign.md` |

@@ -987,6 +987,62 @@ function renderComponent(comp) {
   }
 }
 
+// ── Ruta Section (14-playbook roadmap) ─────────────────────────────────────
+function renderRutaSection(manifest) {
+  if (!manifest.crosslinks || !manifest.crosslinks.currentId) return '';
+  var currentId = manifest.crosslinks.currentId;
+  var registryPath = path.join(REFS_DIR, 'ecosystem-playbooks.json');
+  var registry;
+  try { registry = JSON.parse(fs.readFileSync(registryPath, 'utf8')); } catch(e) { return ''; }
+  if (!Array.isArray(registry) || registry.length === 0) return '';
+
+  var snippet = '';
+  try { snippet = readSnippet('ruta-section.html'); } catch(e) {
+    snippet = '<section id="ruta"><div class="section-header"><h2>' +
+      renderBilingual('Mapa de <span>Ruta</span>', 'Route <span>Map</span>') +
+      '</h2></div><div class="ruta-grid">{{RUTA_PLAYBOOKS}}</div></section>';
+  }
+
+  var cards = registry.map(function(pb) {
+    var isCurrent = pb.id === currentId;
+    var cls = 'ruta-card' + (isCurrent ? ' current' : '');
+    var layerCls = 'ruta-layer ' + (pb.layer || 'foundation');
+    return '<div class="' + cls + '">' +
+      '<div class="ruta-id">' + escapeHtml(pb.id) + '</div>' +
+      '<div class="ruta-name">' + renderBilingual(pb.nameEs || '', pb.nameEn || '') + '</div>' +
+      '<span class="' + layerCls + '">' + escapeHtml(pb.layer || '') + '</span>' +
+      '</div>';
+  }).join('\n    ');
+
+  return snippet.replace('{{RUTA_PLAYBOOKS}}', cards);
+}
+
+function renderEcosystemGemBar(manifest) {
+  if (!manifest.crosslinks) return '';
+  var registryPath = path.join(REFS_DIR, 'ecosystem-playbooks.json');
+  var registry;
+  try { registry = JSON.parse(fs.readFileSync(registryPath, 'utf8')); } catch(e) { return ''; }
+  if (!Array.isArray(registry)) return '';
+
+  var siblings = (manifest.crosslinks.siblings || []);
+  var items = registry.filter(function(pb) {
+    return siblings.indexOf(pb.id) >= 0 || siblings.length === 0;
+  });
+  if (items.length === 0) items = registry.slice(0, 5);
+
+  var links = items.map(function(pb) {
+    return '<a class="gem-link" href="#ruta">' + escapeHtml(pb.id + ' ' + (pb.gem || pb.slug || '')) + '</a>';
+  }).join('\n  ');
+
+  var snippet = '';
+  try { snippet = readSnippet('gem-bar-ecosystem.html'); } catch(e) {
+    snippet = '<div class="gem-bar"><div class="gem-bar-title">' +
+      renderBilingual('Ecosistema Jarvis', 'Jarvis Ecosystem') +
+      '</div>{{GEM_BAR_LINKS}}</div>';
+  }
+  return snippet.replace('{{GEM_BAR_LINKS}}', links);
+}
+
 // ── Main assembly ────────────────────────────────────────────────────────────
 function assemble() {
   const { manifestPath, outputPath, brand } = parseArgs();
@@ -1002,8 +1058,9 @@ function assemble() {
   const parts = [];
 
   // ── 1. Head ──────────────────────────────────────────────────────────────
-  process.stderr.write('[assemble] Building <head>...\n');
-  let head = readSnippet('head.html');
+  const isElRepo = manifest.mode === 'elrepo';
+  process.stderr.write('[assemble] Building <head>... (mode: ' + (manifest.mode || 'ecosystem') + ')\n');
+  let head = readSnippet(isElRepo ? 'elrepo-head.html' : 'head.html');
   // Replace META placeholders
   head = head
     .replace(/\{\{META_LANG\}\}/g, manifest.meta.language || 'es')
@@ -1040,6 +1097,77 @@ function assemble() {
 
   parts.push(head);
 
+  // ── ELREPO MODE: alternative assembly path ───────────────────────────────
+  if (isElRepo) {
+    process.stderr.write('[assemble] ElRepo mode — assembling dark-palette artifact...\n');
+    var elrepoArtifact = (manifest.artifact && manifest.artifact.primary) || 'repo-doc';
+    var bodySnippetName = (elrepoArtifact === 'analyst-report') ? 'elrepo-analyst-report.html' : 'elrepo-radar.html';
+    var body = '';
+    try { body = readSnippet(bodySnippetName); } catch(e) {
+      process.stderr.write('[assemble] WARNING: ' + bodySnippetName + ' not found, using elrepo-radar.html\n');
+      body = readSnippet('elrepo-radar.html');
+    }
+    var logoUrl = (manifest.meta && manifest.meta.logoUrl) || '';
+    var logoAlt = (manifest.meta && manifest.meta.logoAlt) || 'Sofka Technologies';
+    var logoHtml = logoUrl ? '<img src="' + escapeHtml(logoUrl) + '" alt="' + escapeHtml(logoAlt) + '">' : '<span>' + escapeHtml(logoAlt) + '</span>';
+
+    // Replace all HEADER placeholders
+    body = body
+      .replace(/\{\{HEADER_LOGO_HTML\}\}/g, logoHtml)
+      .replace(/\{\{HEADER_TITLE\}\}/g, escapeHtml(manifest.meta.title || 'Jarvis ElRepo'))
+      .replace(/\{\{HEADER_SUBTITLE\}\}/g, escapeHtml(manifest.meta.subtitle || 'Sofka Technologies · Release 1.0.1'));
+
+    // Replace preamble chips
+    var chips = '';
+    if (manifest.preamble) {
+      var p = manifest.preamble;
+      if (p.type) chips += '<span class="jer-chip tipo">' + escapeHtml(p.type) + '</span>';
+      if (p.subtype) chips += '<span class="jer-chip subtipo">' + escapeHtml(p.subtype) + '</span>';
+      if (p.confidence) chips += '<span class="jer-chip confianza">Confianza: ' + escapeHtml(p.confidence) + '</span>';
+      if (p.coverage) chips += '<span class="jer-chip cobertura">' + escapeHtml(p.coverage) + '</span>';
+    }
+    body = body.replace(/\{\{PREAMBLE_CHIPS\}\}/g, chips);
+
+    // Replace all section placeholders with manifest content or empty string
+    body = body.replace(/\{\{([A-Z_]+)\}\}/g, function(match, key) {
+      // Try to find content in manifest.sections or manifest directly
+      var lowerKey = key.toLowerCase();
+      if (manifest.content && manifest.content[lowerKey]) return manifest.content[lowerKey];
+      if (manifest[lowerKey]) return typeof manifest[lowerKey] === 'string' ? manifest[lowerKey] : '';
+      return '';
+    });
+
+    parts.push(body);
+
+    // ElRepo footer
+    var elrepoFooter = '';
+    try { elrepoFooter = readSnippet('elrepo-footer.html'); } catch(e) { elrepoFooter = '</body></html>'; }
+    elrepoFooter = elrepoFooter
+      .replace(/\{\{FOOTER_COMPANY\}\}/g, escapeHtml(manifest.meta.company || 'Sofka Technologies'))
+      .replace(/\{\{FOOTER_COPYRIGHT\}\}/g, escapeHtml(manifest.footer && manifest.footer.copyright || 'Jarvis ElRepo de Sofka Technologies. Release 1.0.1'))
+      .replace(/\{\{FOOTER_COVERAGE\}\}/g, escapeHtml(manifest.footer && manifest.footer.coverage || ''))
+      .replace(/\{\{FOOTER_OPENNESS\}\}/g, escapeHtml(manifest.footer && manifest.footer.openness || ''));
+    parts.push(elrepoFooter);
+
+    // Write elrepo output
+    var elrepoHtml = parts.join('\n');
+    try {
+      fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+      fs.writeFileSync(outputPath, elrepoHtml, 'utf8');
+    } catch (err) {
+      process.stderr.write('ERROR: Cannot write output "' + outputPath + '": ' + err.message + '\n');
+      process.exit(1);
+    }
+    var elrepoStats = fs.statSync(outputPath);
+    var elrepoSizeKB = (elrepoStats.size / 1024).toFixed(1);
+    process.stderr.write('\n[assemble] ElRepo done.\n');
+    process.stderr.write('[assemble] File size : ' + elrepoSizeKB + ' KB\n');
+    process.stderr.write('[assemble] Artifact  : ' + elrepoArtifact + '\n');
+    var elrepoSummary = { output: outputPath, sizeKB: parseFloat(elrepoSizeKB), mode: 'elrepo', artifact: elrepoArtifact };
+    process.stdout.write(JSON.stringify(elrepoSummary, null, 2) + '\n');
+    return;
+  }
+
   // ── 2. Nav ───────────────────────────────────────────────────────────────
   process.stderr.write('[assemble] Building <nav>...\n');
   let nav = readSnippet('nav.html');
@@ -1063,6 +1191,13 @@ function assemble() {
     .replace('{{HERO_H1_PLAIN}}', escapeHtml(manifest.hero.h1Plain || ''))
     .replace('{{HERO_H1_HIGHLIGHT}}', escapeHtml(manifest.hero.h1Highlight || ''))
     .replace('{{HERO_SUBTITLE}}', escapeHtml(manifest.hero.subtitle || ''))
+    .replace('{{HERO_METHOD_BADGES}}', (function() {
+      var mb = manifest.hero.methodBadges || manifest.meta.methodBadges || [];
+      if (!Array.isArray(mb) || mb.length === 0) return '';
+      return mb.map(function(b) {
+        return '<span class="method-badge ' + (b.variant || '') + '">' + escapeHtml(b.label || '') + '</span>';
+      }).join(' ');
+    })())
     .replace('{{HERO_KPIS}}', renderKpis(manifest.hero.kpis));
   parts.push(hero);
 
@@ -1175,6 +1310,20 @@ function assemble() {
     }
 
     parts.push('</section>');
+  }
+
+  // ── 6b. Ruta Section (ecosystem crosslinks) ──────────────────────────────
+  const rutaHtml = renderRutaSection(manifest);
+  if (rutaHtml) {
+    process.stderr.write('[assemble] Injecting ruta section (ecosystem crosslinks)...\n');
+    parts.push(rutaHtml);
+  }
+
+  // ── 6c. Ecosystem Gem Bar ───────────────────────────────────────────────
+  const gemBarHtml = renderEcosystemGemBar(manifest);
+  if (gemBarHtml) {
+    process.stderr.write('[assemble] Injecting ecosystem gem-bar...\n');
+    parts.push(gemBarHtml);
   }
 
   // ── 7. Footer ────────────────────────────────────────────────────────────
