@@ -1220,11 +1220,11 @@ function assemble() {
   // ── 2. Nav ───────────────────────────────────────────────────────────────
   process.stderr.write('[assemble] Building <nav>...\n');
   let nav = readSnippet('nav.html');
-  const navLogoUrl = (manifest.nav && manifest.nav.logoUrl) || (manifest.meta && manifest.meta.logoUrl) || '';
-  const navLogoText = (manifest.nav && manifest.nav.logoText) || manifest.meta.company || '';
-  const navLogoAlt = (manifest.meta && manifest.meta.logoAlt) || navLogoText;
+  var navLogoUrl2 = (manifest.nav && manifest.nav.logoUrl) || (manifest.meta && manifest.meta.logoUrl) || '';
+  var navLogoText2 = (manifest.nav && manifest.nav.logoText) || manifest.meta.company || '';
+  var navLogoAlt2 = (manifest.meta && manifest.meta.logoAlt) || navLogoText2;
   nav = nav
-    .replace('{{NAV_LOGO_HTML}}', renderLogoHtml(navLogoUrl, navLogoAlt, navLogoText))
+    .replace('{{NAV_LOGO_HTML}}', renderLogoHtml(navLogoUrl2, navLogoAlt2, navLogoText2))
     .replace('{{NAV_ITEMS}}', renderNavItems(manifest));
   parts.push(nav);
 
