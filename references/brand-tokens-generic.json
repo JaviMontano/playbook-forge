@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "company": "{{COMPANY_NAME}}",
+    "logoText": "{{COMPANY_NAME}}",
+    "language": "es",
+    "designSystem": "Generic v1",
+    "copyright": "© 2026 {{COMPANY_NAME}}. All rights reserved.",
+    "primaryUrl": ""
+  },
+  "colors": {
+    "primary": "#2563EB",
+    "primaryName": "blue",
+    "accent": "#F59E0B",
+    "accentName": "amber",
+    "accentDark": "#D97706",
+    "secondary": "#0EA5E9",
+    "charcoal": "#1F2937",
+    "bgSoft": "#F9FAFB",
+    "bgCream": "#FAFAFA",
+    "border": "rgba(37,99,235,0.12)",
+    "positive": "#10B981",
+    "critical": "#DC2626",
+    "warning": "#F59E0B"
+  },
+  "typography": {
+    "fontDisplay": "system-ui, -apple-system, sans-serif",
+    "fontBody": "system-ui, -apple-system, sans-serif",
+    "fontCaption": "ui-monospace, monospace",
+    "googleFontsUrl": ""
+  },
+  "shadows": {
+    "lg": "0 16px 40px rgba(0, 0, 0, 0.14)",
+    "md": "0 4px 12px rgba(0, 0, 0, 0.10)",
+    "sm": "0 2px 6px rgba(0, 0, 0, 0.06)"
+  },
+  "radius": {
+    "sm": "4px",
+    "md": "8px",
+    "lg": "16px"
+  },
+  "page": {
+    "width": "210mm",
+    "height": "297mm",
+    "margin": "8mm auto",
+    "padding": "16mm 18mm 20mm"
+  },
+  "cssCustomPropertyMap": {
+    "--primary": "#2563EB",
+    "--accent": "#F59E0B",
+    "--accent-dark": "#D97706",
+    "--charcoal": "#1F2937",
+    "--bg-soft": "#F9FAFB",
+    "--bg-cream": "#FAFAFA",
+    "--border": "rgba(37,99,235,0.12)",
+    "--positive": "#10B981",
+    "--critical": "#DC2626",
+    "--warning": "#F59E0B",
+    "--font-display": "system-ui, -apple-system, sans-serif",
+    "--font-body": "system-ui, -apple-system, sans-serif",
+    "--shadow-lg": "0 16px 40px rgba(0, 0, 0, 0.14)",
+    "--shadow-md": "0 4px 12px rgba(0, 0, 0, 0.10)"
+  }
+}

@@ -341,6 +341,151 @@ function gateG6(html, fileSize) {
 }
 
 // ---------------------------------------------------------------------------
+// PAGINATED MODE GATES (P0-P4)
+// ---------------------------------------------------------------------------
+
+function gateP0_paginated(html, fileSize, expectedPages) {
+  const checks = [];
+
+  // P0.1: @page rule present
+  checks.push(check('P0.1', '@page rule', /@page\s*\{/.test(html),
+    /@page\s*\{/.test(html) ? 'present' : 'missing', 'present'));
+
+  // P0.2: .page class with width:210mm and page-break
+  const hasPageClass = /\.page\s*\{[^}]*width:\s*210mm/.test(html) || /\.page\s*\{[^}]*210mm/.test(html);
+  const hasPageBreak = /page-break-after:\s*always/.test(html) || /break-after:\s*page/.test(html);
+  checks.push(check('P0.2', '.page class A4 + page-break',
+    hasPageClass && hasPageBreak,
+    'A4=' + hasPageClass + ' page-break=' + hasPageBreak, 'both'));
+
+  // P0.3: Body contains .page sections only (no overflow wrapper)
+  const pageCount = (html.match(/<section[^>]*class="[^"]*\bpage\b[^"]*"/gi) || []).length;
+  checks.push(check('P0.3', 'Body has .page sections', pageCount > 0,
+    pageCount + ' .page sections', '>=1'));
+
+  // P0.4: 0 <script> tags
+  const scriptCount = (html.match(/<script\b/gi) || []).length;
+  checks.push(check('P0.4', '0 <script> tags', scriptCount === 0,
+    scriptCount, '0'));
+
+  // P0.5: 0 modal-overlay
+  const modalCount = (html.match(/class="[^"]*modal-overlay[^"]*"/gi) || []).length;
+  checks.push(check('P0.5', '0 modal-overlay', modalCount === 0,
+    modalCount, '0'));
+
+  // P0.6: Page count matches target
+  let pageCountOK = true;
+  let pageCountActual = pageCount + ' pages';
+  if (expectedPages) {
+    if (Array.isArray(expectedPages)) {
+      pageCountOK = pageCount >= expectedPages[0] && pageCount <= expectedPages[1];
+      pageCountActual = pageCount + ' (target ' + expectedPages[0] + '-' + expectedPages[1] + ')';
+    } else {
+      pageCountOK = Math.abs(pageCount - expectedPages) <= 1;
+      pageCountActual = pageCount + ' (target ' + expectedPages + ' ±1)';
+    }
+  }
+  checks.push(check('P0.6', 'Page count matches target', pageCountOK, pageCountActual,
+    expectedPages ? String(expectedPages) : 'any'));
+
+  // P0.7: DOCTYPE + html lang + head + body
+  const hasDoctype = /<!DOCTYPE\s+html/i.test(html);
+  const hasLang = /<html[^>]*lang=/i.test(html);
+  const hasHead = /<head>/i.test(html);
+  const hasBody = /<body[^>]*>/i.test(html);
+  checks.push(check('P0.7', 'Document shell complete',
+    hasDoctype && hasLang && hasHead && hasBody,
+    'doctype=' + hasDoctype + ' lang=' + hasLang + ' head=' + hasHead + ' body=' + hasBody, 'all'));
+
+  return { gate: 'P0', name: 'Paginated Structure', checks };
+}
+
+function gateP1_paginated(html) {
+  const checks = [];
+
+  // P1.1: Cover page
+  const hasCover = /id="page-cover"/i.test(html) || /class="[^"]*page[^"]*\bdark\b/i.test(html);
+  checks.push(check('P1.1', 'Cover page', hasCover,
+    hasCover ? 'present' : 'missing', 'present'));
+
+  // P1.2: ATOC if pages>10 (accepts atoc, toc, or table-of-contents class)
+  const pageCount = (html.match(/<section[^>]*class="[^"]*\bpage\b[^"]*"/gi) || []).length;
+  const hasATOC = /class="[^"]*\b(atoc|toc|table-of-contents)\b/i.test(html);
+  const atocOK = pageCount <= 10 || hasATOC;
+  checks.push(check('P1.2', 'ATOC if pages>10', atocOK,
+    'pages=' + pageCount + ' atoc=' + hasATOC, pageCount > 10 ? 'required' : 'optional'));
+
+  // P1.3: Footer in pages (at least 1)
+  const footerCount = (html.match(/class="page-footer"/gi) || []).length;
+  checks.push(check('P1.3', 'Page footers present', footerCount >= Math.max(1, pageCount - 1),
+    footerCount + '/' + pageCount + ' pages', '>=' + Math.max(1, pageCount - 1)));
+
+  // P1.4: Brand lockup in headers
+  const lockupCount = (html.match(/class="brand-lockup"/gi) || []).length;
+  checks.push(check('P1.4', 'Brand lockup in headers', lockupCount >= 1,
+    lockupCount + ' lockups', '>=1'));
+
+  return { gate: 'P1', name: 'Paginated Content', checks };
+}
+
+function gateP2_paginated(html) {
+  const checks = [];
+
+  // P2.1: page-break-after on .page
+  const hasPBA = /page-break-after:\s*always/.test(html) || /break-after:\s*page/.test(html);
+  checks.push(check('P2.1', 'page-break-after:always', hasPBA,
+    hasPBA ? 'present' : 'missing', 'present'));
+
+  // P2.2: page-break-inside:avoid on h1/h2/h3
+  const hasPBI = /page-break-inside:\s*avoid/.test(html) || /break-inside:\s*avoid/.test(html);
+  checks.push(check('P2.2', 'page-break-inside:avoid', hasPBI,
+    hasPBI ? 'present' : 'missing', 'present'));
+
+  // P2.3: print-color-adjust:exact
+  const hasPCA = /print-color-adjust:\s*exact/.test(html) || /-webkit-print-color-adjust:\s*exact/.test(html);
+  checks.push(check('P2.3', 'print-color-adjust:exact', hasPCA,
+    hasPCA ? 'present' : 'missing', 'present'));
+
+  // P2.4: @media print rule
+  const hasMediaPrint = /@media\s+print/.test(html);
+  checks.push(check('P2.4', '@media print rule', hasMediaPrint,
+    hasMediaPrint ? 'present' : 'missing', 'present'));
+
+  // P2.5: @page size A4
+  const hasPageA4 = /@page\s*\{[^}]*size:\s*A4/.test(html) || /size:\s*A4/.test(html);
+  checks.push(check('P2.5', '@page size A4', hasPageA4,
+    hasPageA4 ? 'present' : 'missing', 'present'));
+
+  return { gate: 'P2', name: 'Paginated Print CSS', checks };
+}
+
+function gateP3_paginated(html) {
+  const checks = [];
+
+  // P3.1: CSS custom properties present
+  const hasCustomProps = /:root\s*\{[^}]*--/.test(html);
+  checks.push(check('P3.1', 'CSS custom properties', hasCustomProps,
+    hasCustomProps ? 'present' : 'missing', 'present'));
+
+  // P3.2: Use of var(--token) in body (heuristic: at least 5 var() usages)
+  const varUsages = (html.match(/var\(--[a-z-]+\)/gi) || []).length;
+  checks.push(check('P3.2', 'var(--token) usage', varUsages >= 5,
+    varUsages + ' var() usages', '>=5'));
+
+  // P3.3: Logo (svg or img)
+  const hasLogo = /<svg[^>]*aria-hidden/i.test(html) || /<img[^>]*logo/i.test(html) || /class="brand-lockup"/i.test(html);
+  checks.push(check('P3.3', 'Logo / brand-lockup', hasLogo,
+    hasLogo ? 'present' : 'missing', 'present'));
+
+  // P3.4: Brand name in header/footer
+  const hasBrandName = /class="brand-lockup"/i.test(html) && /class="page-footer"/i.test(html);
+  checks.push(check('P3.4', 'Brand name in header+footer', hasBrandName,
+    hasBrandName ? 'present' : 'missing', 'present'));
+
+  return { gate: 'P3', name: 'Paginated Brand', checks };
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -348,12 +493,36 @@ function main() {
   const args = process.argv.slice(2);
 
   if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
-    console.error('Usage: node verify-spec.js <playbook.html>');
-    console.error('Output: JSON report with gates G0-G5 (38 blocking checks) + G6 (soft)');
+    console.error('Usage: node verify-spec.js <playbook.html> [--format=paginated] [--pages=N|N-M]');
+    console.error('SPA mode: G0-G5 (38 blocking) + G6 soft');
+    console.error('Paginated mode: P0-P3 (20 blocking)');
     process.exit(1);
   }
 
-  const filePath = path.resolve(args[0]);
+  // Parse args
+  let filePathArg = null;
+  let format = 'spa';
+  let expectedPages = null;
+  for (const a of args) {
+    if (a.startsWith('--format=')) format = a.split('=')[1];
+    else if (a.startsWith('--pages=')) {
+      const v = a.split('=')[1];
+      if (v.includes('-')) {
+        const [lo, hi] = v.split('-').map(Number);
+        expectedPages = [lo, hi];
+      } else {
+        expectedPages = Number(v);
+      }
+    }
+    else if (!a.startsWith('--')) filePathArg = a;
+  }
+
+  if (!filePathArg) {
+    console.error('Error: missing file path');
+    process.exit(1);
+  }
+
+  const filePath = path.resolve(filePathArg);
 
   if (!fs.existsSync(filePath)) {
     console.error('Error: File not found: ' + filePath);
@@ -364,17 +533,26 @@ function main() {
   const fileSize = stat.size;
   const html = fs.readFileSync(filePath, 'utf-8');
 
-  // Run all gates
-  const g0 = gateG0(html, fileSize);
-  const g1 = gateG1(html);
-  const g2 = gateG2(html);
-  const g3 = gateG3(html);
-  const g4 = gateG4(html);
-  const g5 = gateG5(html);
-  const g6 = gateG6(html, fileSize);
-
-  const blockingGates = [g0, g1, g2, g3, g4, g5];
-  const allGates = [...blockingGates, g6];
+  // Run all gates (mode-aware)
+  let blockingGates, allGates;
+  if (format === 'paginated') {
+    const p0 = gateP0_paginated(html, fileSize, expectedPages);
+    const p1 = gateP1_paginated(html);
+    const p2 = gateP2_paginated(html);
+    const p3 = gateP3_paginated(html);
+    blockingGates = [p0, p1, p2, p3];
+    allGates = [...blockingGates];
+  } else {
+    const g0 = gateG0(html, fileSize);
+    const g1 = gateG1(html);
+    const g2 = gateG2(html);
+    const g3 = gateG3(html);
+    const g4 = gateG4(html);
+    const g5 = gateG5(html);
+    const g6 = gateG6(html, fileSize);
+    blockingGates = [g0, g1, g2, g3, g4, g5];
+    allGates = [...blockingGates, g6];
+  }
 
   // Compute results
   let totalChecks = 0;
@@ -387,7 +565,7 @@ function main() {
       if (c.passed) {
         passedChecks++;
       } else {
-        failures.push(gate.gate + '.' + c.id.split('.')[1] + ' ' + c.name +
+        failures.push(c.id + ' ' + c.name +
           ' (actual: ' + c.actual + ', required: ' + c.required + ')' +
           (c.note ? ' [' + c.note + ']' : ''));
       }

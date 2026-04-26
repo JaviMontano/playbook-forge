@@ -1,0 +1,118 @@
+{
+  "format": "qa",
+  "version": "1.0.0",
+  "description": "Respuesta a preguntas del cliente. 10 paginas A4. Bridge pattern (Q-A) por bloque tematico.",
+  "pageTarget": 10,
+  "pageRange": [10, 10],
+  "primaryPatterns": ["minto", "bridge", "callout"],
+  "pages": [
+    {
+      "id": "page-cover",
+      "type": "cover",
+      "class": "page dark",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "subtitleEs": "Respuesta tecnica · {{N}} preguntas",
+        "subtitleEn": "Technical response · {{N}} questions"
+      }
+    },
+    {
+      "id": "page-tldr",
+      "type": "content",
+      "primaryPattern": "minto",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "h1Es": "TL;DR",
+        "h1En": "TL;DR",
+        "mintoConclusionEs": "...",
+        "mintoSupports": [
+          {"_generate": true},
+          {"_generate": true},
+          {"_generate": true}
+        ]
+      }
+    },
+    {
+      "id": "page-bloque-1",
+      "type": "content",
+      "primaryPattern": "bridge",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "h1Es": "Bloque 1: {{THEME_1}}",
+        "questions": [
+          {"_generate": true, "questionEs": "...", "answerEs": "...", "evidenceTags": []},
+          {"_generate": true},
+          {"_generate": true}
+        ]
+      }
+    },
+    {
+      "id": "page-bloque-2",
+      "type": "content",
+      "primaryPattern": "bridge",
+      "required": true,
+      "data": {"_generate": true, "h1Es": "Bloque 2: {{THEME_2}}"}
+    },
+    {
+      "id": "page-bloque-3",
+      "type": "content",
+      "primaryPattern": "bridge",
+      "required": true,
+      "data": {"_generate": true, "h1Es": "Bloque 3: {{THEME_3}}"}
+    },
+    {
+      "id": "page-bloque-4",
+      "type": "content",
+      "primaryPattern": "bridge",
+      "required": true,
+      "data": {"_generate": true, "h1Es": "Bloque 4: {{THEME_4}}"}
+    },
+    {
+      "id": "page-bloque-5",
+      "type": "content",
+      "primaryPattern": "bridge",
+      "required": true,
+      "data": {"_generate": true, "h1Es": "Bloque 5: {{THEME_5}}"}
+    },
+    {
+      "id": "page-disclaimer",
+      "type": "content",
+      "primaryPattern": "callout",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "h1Es": "Disclaimers y supuestos",
+        "h1En": "Disclaimers and assumptions",
+        "calloutKickerEs": "IMPORTANTE",
+        "calloutBodyEs": "Las respuestas asumen las condiciones detalladas en la propuesta."
+      }
+    },
+    {
+      "id": "page-contacto",
+      "type": "cta",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "h1Es": "Contacto y siguientes pasos",
+        "h1En": "Contact and next steps",
+        "contactName": "{{AUTHOR_NAME}}",
+        "contactEmail": "{{AUTHOR_EMAIL}}",
+        "contactPhone": "{{AUTHOR_PHONE}}"
+      }
+    },
+    {
+      "id": "page-anexo",
+      "type": "content",
+      "primaryPattern": "atoc",
+      "required": false,
+      "data": {
+        "_generate": true,
+        "h1Es": "Referencias cruzadas",
+        "h1En": "Cross-references"
+      }
+    }
+  ]
+}

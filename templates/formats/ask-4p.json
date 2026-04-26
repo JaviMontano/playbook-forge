@@ -1,0 +1,75 @@
+{
+  "format": "ask",
+  "version": "1.0.0",
+  "description": "Documento para enviar preguntas al cliente. 4 paginas A4.",
+  "pageTarget": 4,
+  "pageRange": [4, 4],
+  "primaryPatterns": ["funnel", "bridge", "callout"],
+  "pages": [
+    {
+      "id": "page-cover",
+      "type": "cover",
+      "class": "page dark",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "title": "{{TOPIC_ES}}",
+        "subtitleEs": "Preguntas para clarificar alcance",
+        "subtitleEn": "Questions to clarify scope",
+        "client": "{{CLIENT_NAME}}",
+        "version": "{{VERSION}}",
+        "date": "{{DATE}}"
+      }
+    },
+    {
+      "id": "page-contexto",
+      "type": "content",
+      "required": true,
+      "primaryPattern": "funnel",
+      "data": {
+        "_generate": true,
+        "h1Es": "Contexto y por que preguntamos",
+        "h1En": "Context and why we ask",
+        "funnelStages": [
+          {"tier": 1, "_generate": true},
+          {"tier": 2, "_generate": true},
+          {"tier": 3, "_generate": true},
+          {"tier": 4, "_generate": true}
+        ]
+      }
+    },
+    {
+      "id": "page-preguntas",
+      "type": "content",
+      "required": true,
+      "primaryPattern": "bridge",
+      "data": {
+        "_generate": true,
+        "h1Es": "Preguntas clave",
+        "h1En": "Key questions",
+        "questions": [
+          {"id": "q1", "_generate": true, "needEs": "...", "questionEs": "..."},
+          {"id": "q2", "_generate": true},
+          {"id": "q3", "_generate": true},
+          {"id": "q4", "_generate": true},
+          {"id": "q5", "_generate": true}
+        ]
+      }
+    },
+    {
+      "id": "page-cta",
+      "type": "cta",
+      "required": true,
+      "primaryPattern": "callout",
+      "data": {
+        "_generate": true,
+        "h1Es": "Siguiente paso",
+        "h1En": "Next step",
+        "calloutEs": "Responde antes de {{DATE_LIMIT}} para mantener el cronograma.",
+        "calloutEn": "Reply before {{DATE_LIMIT}} to keep the schedule.",
+        "contactName": "{{AUTHOR_NAME}}",
+        "contactEmail": "{{AUTHOR_EMAIL}}"
+      }
+    }
+  ]
+}

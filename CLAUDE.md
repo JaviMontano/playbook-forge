@@ -1,8 +1,12 @@
-# Playbook Forge v6.0.0 — Plugin Hub
+# Playbook Forge v7.0.0 — Plugin Hub
 
-> Tri-mode playbook engine: **ecosystem** (P0-P13 Jarvis gems, 3-layer architecture, katas, crosslinks), **forensic** (discovery findings, dimensions, risk maps), and **elrepo** (Repo-Doc, VR-AID, Analyst Report, Radar Ejecutivo — dark palette, system fonts). Sofka DS v5.1 + ElRepo Dark DS. 32 quality checks. 10 certification gates.
+> **Dual-engine HTML generator**:
+> - **SPA mode** (ecosystem/forensic/elrepo): single-page playbooks con modales JS, 38 gates
+> - **Paginated mode** (ask/preview/qa/proposal/annex): A4 print-first, 0 JS, 20 gates
+>
+> **Multi-brand parametrizable**: Sofka v5.1, MetodologIA Neo-Swiss, ElRepo Dark, Generic.
 
-## Quick Start
+## Quick Start — SPA mode
 
 ```
 /playbook:forge "P4 ElRepo — Reportar Valor" --mode=ecosystem
@@ -12,16 +16,39 @@
 /playbook:certify outputs/playbook_bu2_pb4.html
 ```
 
+## Quick Start — Paginated mode (A4 PDF-ready)
+
+```
+/playbook:ask "Migracion Drupal" --brand=metodologia --client=Acme              # 4 paginas
+/playbook:paginated preview "Propuesta editorial" --brand=metodologia            # 7 paginas
+/playbook:qa "Respuestas a 12 preguntas" --brand=metodologia --client=Prolipa   # 10 paginas
+/playbook:proposal "Migracion AI-native" --brand=metodologia --pages=36          # 30-42 paginas
+/playbook:annex "Anexos tecnicos" --brand=metodologia --client=Prolipa          # 101 paginas
+```
+
 ## Commands
 
+### SPA mode commands
 | Command | What it does |
 |---------|-------------|
-| `/playbook:forge "<topic>" [--mode=ecosystem\|forensic\|elrepo]` | Genera playbook completo (auto-detect mode if flag omitted) |
-| `/playbook:suite <golden>` | Batch-generate 14 secondary playbooks from golden reference |
-| `/playbook:certify <path.html>` | Run 10 v6 certification checks |
+| `/playbook:forge "<topic>" [--mode=eco\|forensic\|elrepo]` | Genera SPA playbook completo |
+| `/playbook:suite <golden>` | Batch 14 secondary playbooks |
+| `/playbook:certify <path.html>` | 38-gate SPA certification |
+
+### Paginated mode commands (NEW v7)
+| Command | Pages | Pattern primario |
+|---------|-------|------------------|
+| `/playbook:ask "<topic>"` | 4 | Funnel + Bridge |
+| `/playbook:paginated preview "<topic>"` | 7 | Funnel + Stairway + Stamp |
+| `/playbook:qa "<topic>"` | 10 | Minto + Bridge (5 bloques Q-A) |
+| `/playbook:proposal "<topic>" [--pages=30-42]` | 30-42 | Storytelling completo |
+| `/playbook:annex "<topic>"` | 101 | Reference-grade tecnico+legal |
+
+### Shared commands
+| Command | What it does |
+|---------|-------------|
 | `/playbook:ingest [path]` | Ingesta fuentes de contexto |
-| `/playbook:preview` | Abre ultimo playbook en browser |
-| `/playbook:section "<tipo>"` | Genera una seccion individual |
+| `/playbook:preview` | Abre ultimo HTML en browser |
 | `/playbook:status` | Estado del pipeline |
 | `/playbook:export [path]` | Exporta a ruta especifica |
 

@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "company": "MetodologIA",
+    "logoText": "MetodologIA",
+    "language": "es",
+    "designSystem": "Neo-Swiss v2",
+    "copyright": "© 2026 MetodologIA. Todos los derechos reservados.",
+    "primaryUrl": "https://metodologia.info"
+  },
+  "colors": {
+    "primary": "#122562",
+    "primaryName": "navy",
+    "accent": "#FFD700",
+    "accentName": "gold",
+    "accentDark": "#D4AF37",
+    "secondary": "#137DC5",
+    "secondaryName": "blue",
+    "charcoal": "#1F2833",
+    "bgSoft": "#F8FAFC",
+    "bgCream": "#FAFBFD",
+    "border": "rgba(18,37,98,0.12)",
+    "positive": "#0A7B4D",
+    "critical": "#C53030",
+    "warning": "#F59E0B"
+  },
+  "typography": {
+    "fontDisplay": "'Poppins', sans-serif",
+    "fontBody": "'Montserrat', sans-serif",
+    "fontCaption": "'Trebuchet MS', sans-serif",
+    "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap"
+  },
+  "shadows": {
+    "lg": "0 16px 40px rgba(18, 37, 98, 0.14)",
+    "md": "0 4px 12px rgba(18, 37, 98, 0.10)",
+    "sm": "0 2px 6px rgba(18, 37, 98, 0.06)"
+  },
+  "radius": {
+    "sm": "4px",
+    "md": "8px",
+    "lg": "16px"
+  },
+  "page": {
+    "width": "210mm",
+    "height": "297mm",
+    "margin": "8mm auto",
+    "padding": "16mm 18mm 20mm"
+  },
+  "cssCustomPropertyMap": {
+    "--navy": "#122562",
+    "--gold": "#FFD700",
+    "--gold-dark": "#D4AF37",
+    "--blue": "#137DC5",
+    "--charcoal": "#1F2833",
+    "--bg-soft": "#F8FAFC",
+    "--bg-cream": "#FAFBFD",
+    "--border": "rgba(18,37,98,0.12)",
+    "--positive": "#0A7B4D",
+    "--critical": "#C53030",
+    "--warning": "#F59E0B",
+    "--font-display": "'Poppins', sans-serif",
+    "--font-body": "'Montserrat', sans-serif",
+    "--font-caption": "'Trebuchet MS', sans-serif",
+    "--shadow-lg": "0 16px 40px rgba(18, 37, 98, 0.14)",
+    "--shadow-md": "0 4px 12px rgba(18, 37, 98, 0.10)",
+    "--shadow-sm": "0 2px 6px rgba(18, 37, 98, 0.06)"
+  }
+}

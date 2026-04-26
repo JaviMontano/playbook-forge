@@ -1,0 +1,62 @@
+{
+  "format": "proposal",
+  "version": "1.0.0",
+  "description": "Propuesta comercial completa. 30-42 paginas A4 segun storytelling.",
+  "pageTarget": 36,
+  "pageRange": [30, 42],
+  "primaryPatterns": ["atoc", "minto", "funnel", "stairway", "pricing-table", "stamp", "go-signal", "xref"],
+  "storyArc": [
+    "cover",
+    "atoc",
+    "executive_summary",
+    "context_problem",
+    "opportunity",
+    "options_overview",
+    "option_details_each",
+    "deliverables_per_option",
+    "timeline",
+    "pricing_model",
+    "roi_value",
+    "differentiators",
+    "next_steps",
+    "annexes_index"
+  ],
+  "pages": [
+    {"id": "page-cover", "type": "cover", "class": "page dark", "required": true, "data": {"_generate": true}},
+    {"id": "page-mapa", "type": "navigation", "primaryPattern": "atoc", "required": true, "data": {"_generate": true, "h1Es": "Mapa del documento"}},
+    {"id": "page-resumen", "type": "content", "primaryPattern": "minto", "required": true, "data": {"_generate": true, "h1Es": "Resumen ejecutivo"}},
+    {"id": "page-antecedentes", "type": "content", "primaryPattern": "callout", "required": true, "data": {"_generate": true, "h1Es": "Antecedentes"}},
+    {"id": "page-oportunidad", "type": "content", "primaryPattern": "funnel", "required": true, "data": {"_generate": true, "h1Es": "La oportunidad"}},
+    {"id": "page-cost-delay", "type": "content", "primaryPattern": "callout", "required": false, "data": {"_generate": true, "h1Es": "Costo del retraso"}},
+    {"id": "page-opciones-overview", "type": "content", "primaryPattern": "stairway", "required": true, "data": {"_generate": true, "h1Es": "Opciones disponibles"}},
+    {"id": "page-opcion-1", "type": "content", "required": true, "data": {"_generate": true, "h1Es": "Opcion 1: {{OPTION_1_NAME}}"}},
+    {"id": "page-opcion-2", "type": "content", "required": true, "data": {"_generate": true, "h1Es": "Opcion 2: {{OPTION_2_NAME}}"}},
+    {"id": "page-opcion-3", "type": "content", "required": false, "data": {"_generate": true, "h1Es": "Opcion 3: {{OPTION_3_NAME}}"}},
+    {"id": "page-opcion-4", "type": "content", "required": false, "data": {"_generate": true, "h1Es": "Opcion 4: {{OPTION_4_NAME}}"}},
+    {"id": "page-entregables", "type": "content", "required": true, "data": {"_generate": true, "h1Es": "Entregables"}},
+    {"id": "page-cronograma", "type": "content", "primaryPattern": "stairway", "required": true, "data": {"_generate": true, "h1Es": "Cronograma"}},
+    {"id": "page-pricing", "type": "content", "primaryPattern": "pricing-table", "required": true, "data": {"_generate": true, "h1Es": "Modelo de inversion"}},
+    {"id": "page-roi", "type": "content", "primaryPattern": "stamp", "required": true, "data": {"_generate": true, "h1Es": "ROI esperado"}},
+    {"id": "page-criterios", "type": "content", "primaryPattern": "go-signal", "required": false, "data": {"_generate": true, "h1Es": "Criterios go/no-go"}},
+    {"id": "page-diferenciadores", "type": "content", "primaryPattern": "minto", "required": true, "data": {"_generate": true, "h1Es": "Diferenciadores"}},
+    {"id": "page-faqs", "type": "content", "primaryPattern": "bridge", "required": false, "data": {"_generate": true, "h1Es": "FAQs"}},
+    {"id": "page-anexos-resumen", "type": "content", "primaryPattern": "atoc", "required": false, "data": {"_generate": true, "h1Es": "Anexos disponibles"}},
+    {"id": "page-cta", "type": "cta", "primaryPattern": "callout", "required": true, "data": {"_generate": true, "h1Es": "Siguientes pasos"}},
+    {"id": "page-xref", "type": "navigation", "primaryPattern": "xref", "required": true, "data": {"_generate": true}}
+  ],
+  "expandable": {
+    "description": "Pages adicionales segun complejidad. Total puede llegar a 42 paginas.",
+    "optional_pages": [
+      "page-audiencias",
+      "page-risk-matrix",
+      "page-stakeholder-map",
+      "page-benchmark",
+      "page-equipo",
+      "page-references",
+      "page-testimonios",
+      "page-glosario",
+      "page-condiciones",
+      "page-firma"
+    ]
+  }
+}

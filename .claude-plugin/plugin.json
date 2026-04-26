@@ -1,7 +1,7 @@
 {
   "name": "playbook-forge",
-  "version": "6.0.0",
-  "description": "Genera playbooks HTML branded v6 con pipeline 3-capas deterministico: specs + templates + engine. Dual-mode: ecosystem (P0-P13) + forensic (assessment). 13 flujos AI-native, 5 katas (Shu-Ha-Ri), 65+ modals interactivos, contenido bilingue ES/EN, 13 anti-patrones, glosario, perfiles de manager, adopcion progresiva, VR-AID, semaforo de valor. 38 gates automatizados, copyable prompts con EXITO criteria, Google Calendar auto-deploy links. Sofka DS v5.1.",
+  "version": "7.0.0",
+  "description": "Genera HTML documents v7 con dual-engine: SPA mode (ecosystem/forensic/elrepo, 38 gates, modales JS, bilingual) + Paginated mode (ask/preview/qa/proposal/annex, 20 gates, A4 print-first, 0 JS). Multi-brand parametrizable: Sofka v5.1, MetodologIA Neo-Swiss, ElRepo Dark, Generic. 5 paginated formats (4-101 paginas), 13 flujos AI-native, 5 katas Shu-Ha-Ri, 65+ modals interactivos, prompts copiables con EXITO, Google Calendar auto-deploy. 3-layer determinism: specs + templates + engine.",
   "author": {
     "name": "Javier Montano",
     "url": "https://metodologia.info"
@@ -11,11 +11,17 @@
     "playbook",
     "html",
     "sofka",
+    "metodologia",
+    "paginated",
+    "proposal",
     "katas",
     "adoption",
     "ai-native",
     "workflows",
     "brand",
-    "design-system"
+    "design-system",
+    "print-first",
+    "a4",
+    "rfp"
   ]
 }

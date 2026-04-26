@@ -1,0 +1,98 @@
+{
+  "format": "preview",
+  "version": "1.0.0",
+  "description": "Preview ejecutivo condensado. 7 paginas A4. Funnel pattern + cards.",
+  "pageTarget": 7,
+  "pageRange": [7, 7],
+  "primaryPatterns": ["funnel", "stairway", "stamp", "callout"],
+  "pages": [
+    {
+      "id": "page-cover",
+      "type": "cover",
+      "class": "page dark",
+      "required": true,
+      "data": {"_generate": true}
+    },
+    {
+      "id": "page-mapa",
+      "type": "navigation",
+      "primaryPattern": "atoc",
+      "required": false,
+      "data": {"_generate": true, "h1Es": "Como navegar", "h1En": "How to navigate"}
+    },
+    {
+      "id": "page-dolor",
+      "type": "content",
+      "primaryPattern": "callout",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "h1Es": "El dolor que resolvemos",
+        "h1En": "The pain we solve",
+        "painPoints": [
+          {"_generate": true},
+          {"_generate": true},
+          {"_generate": true}
+        ]
+      }
+    },
+    {
+      "id": "page-propuesta",
+      "type": "content",
+      "primaryPattern": "funnel",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "h1Es": "Nuestra propuesta",
+        "h1En": "Our proposal",
+        "funnelStages": [
+          {"tier": 1, "_generate": true},
+          {"tier": 2, "_generate": true},
+          {"tier": 3, "_generate": true},
+          {"tier": 4, "_generate": true}
+        ]
+      }
+    },
+    {
+      "id": "page-proceso",
+      "type": "content",
+      "primaryPattern": "stairway",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "h1Es": "El proceso",
+        "h1En": "The process",
+        "steps": [
+          {"step": 1, "_generate": true},
+          {"step": 2, "_generate": true},
+          {"step": 3, "_generate": true},
+          {"step": 4, "_generate": true}
+        ]
+      }
+    },
+    {
+      "id": "page-hero-pricing",
+      "type": "content",
+      "primaryPattern": "stamp",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "h1Es": "Inversion",
+        "h1En": "Investment",
+        "stampLabel": "USD {{PRICE}}",
+        "stampSubtitle": "{{DURATION}}",
+        "calloutEs": "Detalle completo en propuesta extendida."
+      }
+    },
+    {
+      "id": "page-cta",
+      "type": "cta",
+      "required": true,
+      "data": {
+        "_generate": true,
+        "h1Es": "Siguientes pasos",
+        "h1En": "Next steps"
+      }
+    }
+  ]
+}

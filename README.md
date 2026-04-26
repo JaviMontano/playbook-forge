@@ -1,16 +1,19 @@
-# playbook-forge v6.0.0
+# playbook-forge v7.0.0
 
-Claude Code plugin that generates branded HTML playbooks with a lived methodology. Uses a 3-layer deterministic architecture: specs define the standard, templates compose 90% of content, scripts assemble and verify. Only ~10% requires LLM generation.
+Claude Code plugin that generates branded HTML documents with a 3-layer deterministic architecture: specs define the standard, templates compose 90% of content, scripts assemble and verify. Only ~10% requires LLM generation.
 
-## V6 Highlights
+**v7 Dual-engine**: SPA mode (single-page interactive playbooks, 38 gates) + Paginated mode (A4 print-first documents, 20 gates).
 
-- **Dual-mode**: ecosystem (P0-P13) + forensic (assessment)
-- **38 verification gates** (was 28) via verify-spec.js
-- **Copyable prompts** with EXITO criteria in every prompt-copyable block
-- **Google Calendar auto-deploy links** for adoption workflows
-- **/playbook:suite** for batch generation of 14 secondary playbooks
-- **/playbook:certify** for 38-gate certification
-- **6 production bug fixes**: bilingual CSS, modal scroll, nav sync, window exports, AP IDs, prompt-copyable
+## V7 Highlights
+
+- **Dual-engine**: SPA (ecosystem/forensic/elrepo) + Paginated (ask/preview/qa/proposal/annex)
+- **5 paginated formats**: 4-101 pages each, brand-parametrizable
+- **Multi-brand**: Sofka v5.1, MetodologIA Neo-Swiss, ElRepo Dark, Generic — switch via `--brand=` flag
+- **MetodologIA Neo-Swiss DS**: navy #122562 + gold #FFD700, Poppins+Montserrat
+- **8/8 MTIA-PROLIPA HTMLs** validados como golden references (20/20 paginated gates each)
+- **20 paginated gates** P0-P3 (estructura, content, print CSS, brand)
+- **10 authority patterns**: Minto, Funnel, Bridge, Stairway, Stamp, GO-Signal, ATOC, XREF, Callout, Pricing Table
+- **Print-first**: @page rules, page-break, print-color-adjust, A4 dimensions
 
 ## Installation
 
@@ -20,10 +23,20 @@ Claude Code plugin that generates branded HTML playbooks with a lived methodolog
 
 ## Usage
 
+### SPA mode
 ```
 /playbook:forge "Workflows agénticos para equipos de QA en BU3"
 /playbook:suite outputs/golden-ref.html
 /playbook:certify outputs/playbook_bu2_pb4-elrepo_v1.html
+```
+
+### Paginated mode (NEW v7)
+```
+/playbook:ask "Migracion Drupal" --brand=metodologia --client=Acme              # 4p
+/playbook:paginated preview "Propuesta editorial" --brand=metodologia            # 7p
+/playbook:qa "Respuestas tecnicas" --brand=metodologia --client=Prolipa         # 10p
+/playbook:proposal "Migracion AI" --brand=metodologia --pages=36                # 30-42p
+/playbook:annex "Anexos legales" --brand=metodologia --client=Prolipa           # 101p
 ```
 
 ## V6 Architecture: 3-Layer Determinism
